@@ -22,7 +22,6 @@ public class Trabalho1_POO_ADS {
         
         //SCANNER
         Scanner scanner = new Scanner(System.in);
-        
         //LOGIN - O USUÁRIO DEVE ESTAR LOGADO PARA USAR O SOFTWARE 
         System.out.println("Faça seu login:");   
     }
