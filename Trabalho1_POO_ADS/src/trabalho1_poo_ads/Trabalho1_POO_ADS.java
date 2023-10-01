@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package trabalho1_poo_ads;
-
+import java.util.Scanner;
 /**
  *
  * @author diogo
@@ -15,6 +15,7 @@ public class Trabalho1_POO_ADS {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
     }
     
 }
