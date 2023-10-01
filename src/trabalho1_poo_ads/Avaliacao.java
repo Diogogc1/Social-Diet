@@ -43,7 +43,7 @@ public class Avaliacao {
     }
 
     public Pessoa getP() {
-        return p;
+        return pessoa;
     }
 /*
     public void setP(Pessoa p) {
@@ -228,11 +228,11 @@ public class Avaliacao {
         
         taxaAtvd = this.obterTaxaAtvd();
         
-        if(this.p.sexo == "M" || this.p.sexo == "m"){
+        if("M".equals(this.pessoa.getSexo()) || "m".equals(this.pessoa.getSexo())){
             
             this.tmb = taxaAtvd * (66.0 + (13.7 * this.peso) + (5.0 * this.altura) - (6.8 * this.idade));
             
-        }else if(this.p.sexo == "F" || this.p.sexo =="f") {
+        }else if("F".equals(this.pessoa.getSexo()) || "f".equals(this.pessoa.getSexo())) {
             
             this.tmb = taxaAtvd * (655 + (9.6 * this.peso) + (1.8 * this.altura) - (4.7 * this.idade));
             
@@ -249,12 +249,12 @@ public class Avaliacao {
     70.041 X LOG10 (ALTURA) + 36.76*/
     public double calcularBf(){
         
-        if(this.p.sexo == "M" || this.p.sexo =="m"){
+        if("M".equals(this.pessoa.getSexo()) || "m".equals(this.pessoa.getSexo())){
             
             this.bf = 86.010 * Math.log10(this.cintura - this.pescoco)
             - 70.41 * Math.log10(this.altura) + 36.76;
             
-        }else if(this.p.sexo == "F" || this.p.sexo =="f") {
+        }else if("F".equals(this.pessoa.getSexo()) || "f".equals(this.pessoa.getSexo())) {
             
             this.bf = 163.205 * Math.log10(this.cintura +
             this.quadril - this.pescoco) - 97.684 *
@@ -288,7 +288,7 @@ public class Avaliacao {
     public String interpretarBf(){
         String estadoBf = "";
         
-        if (p.sexo == "M" || p.sexo == "m"){
+        if ("M".equals(pessoa.getSexo()) || "m".equals(pessoa.getSexo())){
             if (this.idade >= 20 && this.idade <=29){
                 if(this.bf < 11){
                     estadoBf = "Atleta";
@@ -339,7 +339,7 @@ public class Avaliacao {
                 }
             }
             
-        }else if (p.sexo == "F" || p.sexo == "f"){
+        }else if ("F".equals(pessoa.getSexo()) || "f".equals(pessoa.getSexo())){
             if (this.idade >= 20 && this.idade <=29){
                 if(this.bf < 16){
                     estadoBf = "Atleta";

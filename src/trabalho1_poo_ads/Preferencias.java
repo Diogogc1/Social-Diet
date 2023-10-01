@@ -20,9 +20,9 @@ public class Preferencias {
     private LocalDate dataCriação;
     private LocalDate dataModificação;
     
-    private Alimento proteinas = new Alimento[3];
-    private Alimento carboidratos = new Alimento[3];
-    private Alimento gorduras = new Alimento[3];
+    private Alimento proteinas[] = new Alimento[3];
+    private Alimento carboidratos[] = new Alimento[3];
+    private Alimento gorduras[] = new Alimento[3];
     
     //GETTERS AND SETTERS
     /*
