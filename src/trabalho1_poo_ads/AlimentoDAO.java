@@ -34,4 +34,13 @@ public class AlimentoDAO {
     }
     
     //ALTERAR
+    public boolean alterar(Alimento alimento, Alimento novoAlimento){
+        for (int i = 0; i < alimentos.length; i++) {
+            if(alimento.equals(alimentos[i])){
+                alimentos[i] = novoAlimento;
+                return true;
+            }
+        }
+        return false;
+    }
 }
