@@ -25,7 +25,7 @@ public class Preferencias {
     private Alimento gorduras[] = new Alimento[3];
     
     //GETTERS AND SETTERS
-    /*
+    
     public Pessoa getPessoa() {
         return pessoa;
     }
@@ -42,31 +42,31 @@ public class Preferencias {
         this.alimento = alimento;
     }
     
-    public Alimento getProteinas() {
+    public Alimento[] getProteinas() {
         return proteinas;
     }
 
-    public void setProteinas(Alimento proteinas) {
+    public void setProteinas(Alimento[] proteinas) {
         this.proteinas = proteinas;
     }
 
-    public Alimento getCarboidratos() {
+    public Alimento[] getCarboidratos() {
         return carboidratos;
     }
 
-    public void setCarboidratos(Alimento carboidratos) {
+    public void setCarboidratos(Alimento[] carboidratos) {
         this.carboidratos = carboidratos;
     }
 
-    public Alimento getGorduras() {
+    public Alimento[] getGorduras() {
         return gorduras;
     }
 
-    public void setGorduras(Alimento gorduras) {
+    public void setGorduras(Alimento[] gorduras) {
         this.gorduras = gorduras;
     }
     
-    */
+    
     public LocalDate getDataCriação() {
         return dataCriação;
     }
@@ -90,9 +90,5 @@ public class Preferencias {
         this.alimento = alimento;
         this.dataCriação = dataCriação;
         this.dataModificação = dataModificação;
-    }
-    
-    //PREENCHIMENTO DE PREFERÊNCIAS
-    
-    
+    }    
 }
