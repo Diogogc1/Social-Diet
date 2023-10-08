@@ -5,6 +5,7 @@
 package trabalho1_poo_ads;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  *
@@ -17,26 +18,24 @@ public class RegistroDieta {
     private final int id;
     private static int serial;
     private Pessoa pessoa;
-    
-    //PRECISO DA PARTE MATHEUS
-    //avaliacao fisica
-    //tipo dieta
-    
+    Avaliacao avaliacaoFisica;
+    TipoDieta tipoDieta;
     private double caloria;
     private int numeroRefeicoes;
-    private LocalDate dataCriacao;
+    private final LocalDate dataCriacao;
     private LocalDate dataModificacao;
-    
 
-    public RegistroDieta(Pessoa pessoa, double caloria, int numeroDeRefeicoes, LocalDate dataDeCriacao, LocalDate dataDeModificacao) {
+    public RegistroDieta(Pessoa pessoa, Avaliacao avaliacaoFisica, TipoDieta tipoDieta, double caloria, int numeroRefeicoes, LocalDate dataCriacao, LocalDate dataModificacao) {
         id = ++serial;
         this.pessoa = pessoa;
+        this.avaliacaoFisica = avaliacaoFisica;
+        this.tipoDieta = tipoDieta;
         this.caloria = caloria;
-        this.numeroRefeicoes = numeroDeRefeicoes;
-        this.dataCriacao = LocalDate.now();
-        this.dataModificacao = LocalDate.now();
+        this.numeroRefeicoes = numeroRefeicoes;
+        this.dataCriacao = dataCriacao;
+        this.dataModificacao = dataModificacao;
     }
-
+    
     public int getId() {
         return id;
     }
@@ -49,6 +48,22 @@ public class RegistroDieta {
         return pessoa;
     }
 
+    public Avaliacao getAvaliacaoFisica() {
+        return avaliacaoFisica;
+    }
+
+    public void setAvaliacaoFisica(Avaliacao avaliacaoFisica) {
+        this.avaliacaoFisica = avaliacaoFisica;
+    }
+
+    public TipoDieta getTipoDieta() {
+        return tipoDieta;
+    }
+
+    public void setTipoDieta(TipoDieta tipoDieta) {
+        this.tipoDieta = tipoDieta;
+    }
+    
     public double getCaloria() {
         return caloria;
     }
@@ -74,6 +89,59 @@ public class RegistroDieta {
     }   
     
     //TO STRING - PRECISO DA DIETA (MATHEUS)
+     @Override
+    public String toString() {
+        return "RegistroDieta{" + "id=" + id + ", pessoa=" + pessoa + ", avaliacaoFisica=" + avaliacaoFisica + ", tipoDieta=" + tipoDieta + ", caloria=" + caloria + ", numeroRefeicoes=" + numeroRefeicoes + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+    }
     
     //EQUALS E HASH CODE - PRECISO DA DIETA (MATHEUS)
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + this.id;
+        hash = 67 * hash + Objects.hashCode(this.pessoa);
+        hash = 67 * hash + Objects.hashCode(this.avaliacaoFisica);
+        hash = 67 * hash + Objects.hashCode(this.tipoDieta);
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.caloria) ^ (Double.doubleToLongBits(this.caloria) >>> 32));
+        hash = 67 * hash + this.numeroRefeicoes;
+        hash = 67 * hash + Objects.hashCode(this.dataCriacao);
+        hash = 67 * hash + Objects.hashCode(this.dataModificacao);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final RegistroDieta other = (RegistroDieta) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.caloria) != Double.doubleToLongBits(other.caloria)) {
+            return false;
+        }
+        if (this.numeroRefeicoes != other.numeroRefeicoes) {
+            return false;
+        }
+        if (!Objects.equals(this.pessoa, other.pessoa)) {
+            return false;
+        }
+        if (!Objects.equals(this.avaliacaoFisica, other.avaliacaoFisica)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipoDieta, other.tipoDieta)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataCriacao, other.dataCriacao)) {
+            return false;
+        }
+        return Objects.equals(this.dataModificacao, other.dataModificacao);
+    } 
 }

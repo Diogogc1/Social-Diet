@@ -34,10 +34,10 @@ public class RefeicaoDAO {
     }
     
     //ALTERAR
-    public String alterar(Refeicao refeicao, Refeicao refeicaoNovo){
+    public String alterar(Refeicao refeicao, Refeicao refeicaoNova){
         for (int i = 0; i < refeicoes.length; i++) {
             if(refeicoes[i].equals(refeicao)){
-                refeicoes[i] = refeicaoNovo;
+                refeicoes[i] = refeicaoNova;
                 return "Refeição alterado com sucesso!";
             }
         }

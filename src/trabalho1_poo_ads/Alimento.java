@@ -23,7 +23,7 @@ public class Alimento {
     private double calorias;
     private int porcao;
     private boolean tipoUsuario;
-    private LocalDate dataDeCriacao;
+    private final LocalDate dataDeCriacao;
     private LocalDate dataDeModificacao;
     
     //CONSTRUTOR
