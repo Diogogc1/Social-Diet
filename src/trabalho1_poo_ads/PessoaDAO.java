@@ -33,8 +33,14 @@ public class PessoaDAO {
         return "Erro - Pessoa não removida!";
     }
     
-    //ALTERAR
-    /*public String alterar(Pessoa pessoa){
-        
-    }*/
+    
+    public boolean alterar(Pessoa pessoa, Pessoa novaPessoa){
+        for (int i = 0; i < pessoas.length; i++) {
+            if(pessoa.equals(pessoas[i])){
+                pessoas[i] = novaPessoa;
+                return true;
+            }
+        }
+        return false;
+    }
 }

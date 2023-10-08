@@ -12,8 +12,8 @@ import java.util.Objects;
  * @author diogo
  */
 public class Pessoa {
-    private final int id;
-    private int serial;
+    private final long id;
+    private static long serial;
     private String nome;
     private String sexo;
     private LocalDate dataDeNascimento;
@@ -37,7 +37,7 @@ public class Pessoa {
     }
 
     //GETTERS E SETTERS
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -111,18 +111,19 @@ public class Pessoa {
     }
 
     //EQUALS E HASH CODE
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + this.id;
-        hash = 89 * hash + Objects.hashCode(this.nome);
-        hash = 89 * hash + Objects.hashCode(this.sexo);
-        hash = 89 * hash + Objects.hashCode(this.dataDeNascimento);
-        hash = 89 * hash + Objects.hashCode(this.email);
-        hash = 89 * hash + Objects.hashCode(this.senha);
-        hash = 89 * hash + (this.tipoUsuario ? 1 : 0);
-        hash = 89 * hash + Objects.hashCode(this.dataCriacao);
-        hash = 89 * hash + Objects.hashCode(this.dataModificacao);
+        int hash = 7;
+        hash = 29 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 29 * hash + Objects.hashCode(this.nome);
+        hash = 29 * hash + Objects.hashCode(this.sexo);
+        hash = 29 * hash + Objects.hashCode(this.dataDeNascimento);
+        hash = 29 * hash + Objects.hashCode(this.email);
+        hash = 29 * hash + Objects.hashCode(this.senha);
+        hash = 29 * hash + (this.tipoUsuario ? 1 : 0);
+        hash = 29 * hash + Objects.hashCode(this.dataCriacao);
+        hash = 29 * hash + Objects.hashCode(this.dataModificacao);
         return hash;
     }
 
@@ -164,4 +165,5 @@ public class Pessoa {
         }
         return Objects.equals(this.dataModificacao, other.dataModificacao);
     }
+    
 }
