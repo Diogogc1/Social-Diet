@@ -15,9 +15,8 @@ INFORMAÇÕES IMPORTANTES: ID, PESSOA, PESO, ALTURA, IDADE, PESCOCO,
 CINTURA, QUADRIL, IMC, TMB, BF, MASSA GORDA KG, MASSA MAGRA KG,
 DATACRIACAO, DATAMODIFICACAO.*/
 public class Avaliacao {
-    private static int serial = 1;
-
-    private int id;
+    private static long serial;
+    private long id;
     private Pessoa pessoa;
     private double peso;
     private double altura;
@@ -34,12 +33,12 @@ public class Avaliacao {
     private LocalDate dataModificao;
     
     //GETTERS E SETTERS
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getSerial() {
+        return "Atualmente há " + serial + "avaliações físicas no sistema";
     }
 
     public Pessoa getP() {
@@ -155,7 +154,7 @@ public class Avaliacao {
     }
     
     //CONSTRUTOR
-    public Avaliacao(int id, Pessoa pessoa, double peso, double altura, int idade, double pescoco, double cintura, double quadril, double imc, double tmb, double bf, double massaGorda, double massaMagra, LocalDate dataCriacao) {
+    public Avaliacao(Pessoa pessoa, double peso, double altura, int idade, double pescoco, double cintura, double quadril, double imc, double tmb, double bf, double massaGorda, double massaMagra, LocalDate dataCriacao) {
         this.id = ++serial;
         this.pessoa = pessoa;
         this.peso = peso;

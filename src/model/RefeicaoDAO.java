@@ -12,35 +12,45 @@ public class RefeicaoDAO {
     Refeicao refeicoes[] = new Refeicao[10];
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public String adicionar(Refeicao refeicao){
+    public boolean adicionar(Refeicao refeicao){
         for (int i = 0; i < refeicoes.length; i++) {
             if(refeicoes[i] == null){
                 refeicoes[i] = refeicao;
-                return "Refeicao adicionada com sucesso!";
+                return true;
             } 
         }
-        return "Erro - Refeicao não adicionada!";
+        return false;
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA A REFEICAO PARA SER REMOVIDA
-    public String remover(Refeicao refeicao){
+    public boolean remover(Refeicao refeicao){
         for (int i = 0; i < refeicoes.length; i++) {
             if(refeicoes[i].equals(refeicao)){
                 refeicoes[i] = null;
-                return "Refeicao removida com sucesso!";
+                return true;
             }
         }
-        return "Erro - Refeicao não removida!";
+        return false;
     }
     
     //ALTERAR
-    public String alterar(Refeicao refeicao, Refeicao refeicaoNova){
+    public boolean alterar(Refeicao refeicao, Refeicao refeicaoNova){
         for (int i = 0; i < refeicoes.length; i++) {
             if(refeicoes[i].equals(refeicao)){
                 refeicoes[i] = refeicaoNova;
-                return "Refeição alterado com sucesso!";
+                return true;
             }
         }
-        return "Erro - Refeição não alterado!";
+        return false;
+    }
+    
+    //BUSCAR
+     public boolean buscar(Refeicao refeicao){
+        for (Refeicao r : refeicoes) {
+            if (refeicao.equals(r)) {
+                return true;
+            } 
+        }
+        return false;
     }
 }

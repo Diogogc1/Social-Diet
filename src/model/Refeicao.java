@@ -12,23 +12,22 @@ import java.util.Objects;
  * @author diogo
  */
 public class Refeicao {
-    
     private final long id;
     private static long serial;
-    private TipoDieta tipoDieta;
+    private Dieta Dieta;
     private double carboidrato;
     private double proteina;
     private double gordura;
     private double calorias;
     private String nomeRefeicao;
     private final LocalDate dataCriacao;
-    private LocalDate dataModificacao;
+    private final LocalDate dataModificacao;
 
     //CRUD
     //CRIAR
-    public Refeicao(TipoDieta tipoDieta, double carboidrato, double proteina, double gordura, double calorias, String nomeDaRefeicao, LocalDate dataDeCriacao, LocalDate dataDeModificacao) {
+    public Refeicao(Dieta Dieta, double carboidrato, double proteina, double gordura, double calorias, String nomeDaRefeicao) {
         id = ++serial;
-        this.tipoDieta = tipoDieta;
+        this.Dieta = Dieta;
         this.carboidrato = carboidrato;
         this.proteina = proteina;
         this.gordura = gordura;
@@ -43,15 +42,15 @@ public class Refeicao {
     }
     
     public String getSerial() {
-        return "Atualmente há " + serial + "pessoa no sistema";
+        return "Atualmente há " + serial + "refeições no sistema";
     }
     
-    public TipoDieta getTipoDieta() {
-        return tipoDieta;
+    public Dieta getTipoDieta() {
+        return Dieta;
     }
 
-    public void setTipoDieta(TipoDieta tipoDieta) {
-        this.tipoDieta = tipoDieta;
+    public void setTipoDieta(Dieta dieta) {
+        this.Dieta = dieta;
     }
 
     public double getCarboidrato() {
@@ -105,7 +104,7 @@ public class Refeicao {
     //TO STRING - PRECISO DA DIETA (MATHEUS)
     @Override
     public String toString() {
-        return "Refeicao{" + "id=" + id + ", tipoDieta=" + tipoDieta + ", carboidrato=" + carboidrato + ", proteina=" + proteina + ", gordura=" + gordura + ", calorias=" + calorias + ", nomeRefeicao=" + nomeRefeicao + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        return "Refeicao{" + "id=" + id + ", Dieta=" + Dieta + ", carboidrato=" + carboidrato + ", proteina=" + proteina + ", gordura=" + gordura + ", calorias=" + calorias + ", nomeRefeicao=" + nomeRefeicao + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
     }
     
     //EQUALS E HASH CODE - PRECISO DA DIETA (MATHEUS)
@@ -113,7 +112,7 @@ public class Refeicao {
     public int hashCode() {
         int hash = 7;
         hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 97 * hash + Objects.hashCode(this.tipoDieta);
+        hash = 97 * hash + Objects.hashCode(this.Dieta);
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.carboidrato) ^ (Double.doubleToLongBits(this.carboidrato) >>> 32));
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.proteina) ^ (Double.doubleToLongBits(this.proteina) >>> 32));
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.gordura) ^ (Double.doubleToLongBits(this.gordura) >>> 32));
@@ -154,7 +153,7 @@ public class Refeicao {
         if (!Objects.equals(this.nomeRefeicao, other.nomeRefeicao)) {
             return false;
         }
-        if (!Objects.equals(this.tipoDieta, other.tipoDieta)) {
+        if (!Objects.equals(this.Dieta, other.Dieta)) {
             return false;
         }
         if (!Objects.equals(this.dataCriacao, other.dataCriacao)) {
@@ -162,4 +161,5 @@ public class Refeicao {
         }
         return Objects.equals(this.dataModificacao, other.dataModificacao);
     }
+    
 }

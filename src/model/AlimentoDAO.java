@@ -12,25 +12,25 @@ public class AlimentoDAO {
     Alimento alimentos[] = new Alimento[10];
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public String adicionar(Alimento alimento){
+    public boolean adicionar(Alimento alimento){
         for (int i = 0; i < alimentos.length; i++) {
             if(alimentos[i] == null){
                 alimentos[i] = alimento;
-                return "Alimento adicionado com sucesso!";
+                return true;
             } 
         }
-        return "Erro - Alimento não adicionado!";
+        return false;
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA O ALIMENTO PARA SER REMOVIDO
-    public String remover(Alimento alimento){
+    public boolean remover(Alimento alimento){
         for (int i = 0; i < alimentos.length; i++) {
             if(alimentos[i].equals(alimento)){
                 alimentos[i] = null;
-                return "Alimento removido com sucesso!";
+                return true;
             }
         }
-        return "Erro - Alimento não removido!";
+        return false;
     }
     
     //ALTERAR
@@ -40,6 +40,16 @@ public class AlimentoDAO {
                 alimentos[i] = novoAlimento;
                 return true;
             }
+        }
+        return false;
+    }
+    
+    //BUSCAR
+     public boolean buscar(Alimento alimento){
+        for (Alimento a : alimentos) {
+            if (alimento.equals(a)) {
+                return true;
+            } 
         }
         return false;
     }

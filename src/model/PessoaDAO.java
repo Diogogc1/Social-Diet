@@ -12,25 +12,25 @@ public class PessoaDAO {
     Pessoa pessoas[] = new Pessoa[10];
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public String adicionar(Pessoa pessoa){
+    public boolean adicionar(Pessoa pessoa){
         for (int i = 0; i < pessoas.length; i++) {
             if(pessoas[i] == null){
                 pessoas[i] = pessoa;
-                return "Pessoa adicionada com sucesso!";
+                return true;
             } 
         }
-        return "Erro - Pessoa não adicionada!";
+        return false;
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA A PESSOA PARA SER REMOVIDA
-    public String remover(Pessoa pessoa){
+    public boolean remover(Pessoa pessoa){
         for (int i = 0; i < pessoas.length; i++) {
             if(pessoas[i].equals(pessoa)){
                 pessoas[i] = null;
-                return "Pessoa removida com sucesso!";
+                return true;
             }
         }
-        return "Erro - Pessoa não removida!";
+        return false;
     }
     
     
@@ -38,6 +38,24 @@ public class PessoaDAO {
         for (int i = 0; i < pessoas.length; i++) {
             if(pessoa.equals(pessoas[i])){
                 pessoas[i] = novaPessoa;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean buscar(Pessoa pessoa){
+        for (Pessoa p : pessoas) {
+            if (pessoa.equals(p)) {
+                return true;
+            } 
+        }
+        return false;
+    }
+    
+    public boolean validarLogin(String email, String senha){
+        for (Pessoa pessoa : pessoas) {
+            if(pessoa != null && pessoa.getEmail().equals(email) && pessoa.getSenha().equals(senha)){
                 return true;
             }
         }

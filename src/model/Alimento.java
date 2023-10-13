@@ -12,22 +12,20 @@ import java.util.Objects;
  * @author diogo
  */
 public class Alimento {
-    //id, nome, carboidratos, proteínas, gorduras, calorias, porcao, tipoUsuario, dataCriacao, dataModificacao. 
-    
-    private final int id;
-    private static int serial;
+    private final long id;
+    private static long serial;
     private String nome;
     private double carboidratos;
     private double proteinas;
     private double gorduras;
     private double calorias;
     private int porcao;
-    private boolean tipoUsuario;
+    private Pessoa pessoa;
     private final LocalDate dataDeCriacao;
     private LocalDate dataDeModificacao;
     
     //CONSTRUTOR
-    public Alimento(String nome, double carboidratos, double proteinas, double gorduras, int porcao, boolean tipoUsuario, LocalDate dataDeCriacao, LocalDate dataDeModificacao) {
+    public Alimento(String nome, double carboidratos, double proteinas, double gorduras, int porcao, Pessoa pessoa) {
         id = ++serial;
         this.nome = nome;
         this.carboidratos = carboidratos;
@@ -35,18 +33,18 @@ public class Alimento {
         this.gorduras = gorduras;
         this.calorias = (4 * carboidratos) + (4 * proteinas) + (4 * gorduras);
         this.porcao = porcao;
-        this.tipoUsuario = tipoUsuario;
-        this.dataDeCriacao = dataDeCriacao;
-        this.dataDeModificacao = dataDeModificacao;
+        this.pessoa = pessoa;
+        this.dataDeCriacao = LocalDate.now();
+        this.dataDeModificacao = LocalDate.now();
     }
     
     //GETTERS E SETTERS
-    public int getId() {
+    public long getId() {
         return id;
     }
     
     public String getSerial() {
-        return "Atualmente há " + serial + "pessoa no sistema";
+        return "Atualmente há " + serial + "alimentos no sistema";
     }
 
     public String getNome() {
@@ -96,13 +94,9 @@ public class Alimento {
     public void setPorcao(int porcao) {
         this.porcao = porcao;
     }
-
-    public boolean getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(boolean tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    
+    public Pessoa getPessoa() {
+        return pessoa;
     }
 
     public LocalDate getDataDeCriacao() {
@@ -114,30 +108,26 @@ public class Alimento {
     }
 
     //TO STRING
-
     @Override
     public String toString() {
-        return "Alimento{" + "id=" + id + ", Atualmente, há " + serial + "pessoas no sistema" + 
-               ", nome=" + nome + ", carboidratos=" + carboidratos + ", proteinas=" + proteinas + 
-               ", gorduras=" + gorduras + ", calorias=" + calorias + ", porcao=" + porcao + 
-               ", tipoUsuario=" + tipoUsuario + ", dataDeCriacao=" + dataDeCriacao + 
-               ", dataDeModificacao=" + dataDeModificacao + '}';
+        return "Alimento{" + "id=" + id + ", nome=" + nome + ", carboidratos=" + carboidratos + ", proteinas=" + proteinas + ", gorduras=" + gorduras + ", calorias=" + calorias + ", porcao=" + porcao + ", pessoa=" + pessoa + ", dataDeCriacao=" + dataDeCriacao + ", dataDeModificacao=" + dataDeModificacao + '}';
     }
     
     //EQUALS E HASH CODE
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + this.id;
-        hash = 59 * hash + Objects.hashCode(this.nome);
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.carboidratos) ^ (Double.doubleToLongBits(this.carboidratos) >>> 32));
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.proteinas) ^ (Double.doubleToLongBits(this.proteinas) >>> 32));
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.gorduras) ^ (Double.doubleToLongBits(this.gorduras) >>> 32));
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.calorias) ^ (Double.doubleToLongBits(this.calorias) >>> 32));
-        hash = 59 * hash + this.porcao;
-        hash = 59 * hash + (this.tipoUsuario ? 1 : 0);
-        hash = 59 * hash + Objects.hashCode(this.dataDeCriacao);
-        hash = 59 * hash + Objects.hashCode(this.dataDeModificacao);
+        int hash = 5;
+        hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 53 * hash + Objects.hashCode(this.nome);
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.carboidratos) ^ (Double.doubleToLongBits(this.carboidratos) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.proteinas) ^ (Double.doubleToLongBits(this.proteinas) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.gorduras) ^ (Double.doubleToLongBits(this.gorduras) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.calorias) ^ (Double.doubleToLongBits(this.calorias) >>> 32));
+        hash = 53 * hash + this.porcao;
+        hash = 53 * hash + Objects.hashCode(this.pessoa);
+        hash = 53 * hash + Objects.hashCode(this.dataDeCriacao);
+        hash = 53 * hash + Objects.hashCode(this.dataDeModificacao);
         return hash;
     }
 
@@ -171,10 +161,10 @@ public class Alimento {
         if (this.porcao != other.porcao) {
             return false;
         }
-        if (this.tipoUsuario != other.tipoUsuario) {
+        if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        if (!Objects.equals(this.nome, other.nome)) {
+        if (!Objects.equals(this.pessoa, other.pessoa)) {
             return false;
         }
         if (!Objects.equals(this.dataDeCriacao, other.dataDeCriacao)) {
