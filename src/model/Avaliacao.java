@@ -15,7 +15,8 @@ INFORMAÇÕES IMPORTANTES: ID, PESSOA, PESO, ALTURA, IDADE, PESCOCO,
 CINTURA, QUADRIL, IMC, TMB, BF, MASSA GORDA KG, MASSA MAGRA KG,
 DATACRIACAO, DATAMODIFICACAO.*/
 public class Avaliacao {
-    private static long serial;
+    private static long serial = 1;
+
     private long id;
     private Pessoa pessoa;
     private double peso;
@@ -37,8 +38,8 @@ public class Avaliacao {
         return id;
     }
 
-    public String getSerial() {
-        return "Atualmente há " + serial + "avaliações físicas no sistema";
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Pessoa getP() {

@@ -12,8 +12,8 @@ import java.time.LocalDate;
 /*CRUD DE PREFERÊNCIAS. INFORMAÇÕES IMPORTANTES: ID, PESSOA,
 ALIMENTO, DATACRIACAO, DATAMODIFICACAO.*/
 public class Preferencias {
-    private static long serial;
-    private final long id;
+    private static long serial = 1;
+    private long id;
     private Pessoa pessoa;
     private Alimento alimento;
     private LocalDate dataCriação;
@@ -24,14 +24,6 @@ public class Preferencias {
     private Alimento gorduras[] = new Alimento[3];
     
     //GETTERS AND SETTERS
-
-    public long getId() {
-        return id;
-    }
-    
-    public String getSerial() {
-        return "Atualmente há " + serial + "preferências no sistema";
-    }
     
     public Pessoa getPessoa() {
         return pessoa;
@@ -89,9 +81,17 @@ public class Preferencias {
     public void setDataModificação(LocalDate dataModificação) {
         this.dataModificação = dataModificação;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     
     //CONSTRUTOR
-    public Preferencias(Pessoa pessoa, Alimento alimento, LocalDate dataCriação, LocalDate dataModificação) {
+    public Preferencias(int id, Pessoa pessoa, Alimento alimento, LocalDate dataCriação, LocalDate dataModificação) {
         this.id = ++serial;
         this.pessoa = pessoa;
         this.alimento = alimento;

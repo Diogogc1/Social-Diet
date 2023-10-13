@@ -12,8 +12,8 @@ import java.time.LocalDate;
 REFEIÇÃO,ALIMENTO, PORCAO, PROTEÍNA, GORDURA, CALORIAS,
 DATACRIACAO, DATAMODIFICACAO.*/
 public class AlimentoRefeicoes {
-    private long id;
-    private static long serial;
+    private int id;
+    private static int serial;
     private Refeicao refeicao;
     private Alimento alimento;
     private double porcao;
@@ -24,7 +24,7 @@ public class AlimentoRefeicoes {
     private LocalDate dataModificacao;
     
     //GETTERS E SETTERS
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -32,8 +32,8 @@ public class AlimentoRefeicoes {
         this.id = id;
     }
 
-    public String getSerial() {
-        return "Atualmente há " + serial + "AlimentoRefeições no sistema";
+    public static int getSerial() {
+        return serial;
     }
 
     public static void setSerial(int serial) {
@@ -105,6 +105,7 @@ public class AlimentoRefeicoes {
     }
     
     //CONSTRUTOR
+
     public AlimentoRefeicoes(Refeicao refeicao, Alimento alimento, double porcao, double proteina, double gordura, double calorias, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = serial++;
         this.refeicao = refeicao;
@@ -116,4 +117,5 @@ public class AlimentoRefeicoes {
         this.dataCriacao = dataCriacao;
         this.dataModificacao = dataModificacao;
     }
+    
 }
