@@ -43,4 +43,12 @@ public class AvaliacaoDAO {
         }
         return "Erro - Avaliação não alterada!";
     }
+    
+    //LER
+    public void ler (Avaliacao avaliacao){
+        System.out.println("Registros: \n");
+        for (int i = 0; i < avaliacoes.length; i++){
+            System.out.println(avaliacoes[i] + " ");
+        }
+    }
 }

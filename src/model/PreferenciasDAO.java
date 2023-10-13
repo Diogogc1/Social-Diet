@@ -43,4 +43,12 @@ public class PreferenciasDAO {
         }
         return "Erro - Preferência não alterada!";
     }
+    
+    //LER
+    public void ler (Preferencias preferencia){
+        System.out.println("Registros: \n");
+        for (int i = 0; i < preferencias.length; i++){
+            System.out.println(preferencias[i] + " ");
+        }
+    }
 }

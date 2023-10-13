@@ -43,4 +43,12 @@ public class TipoDietaDAO {
         }
         return "Erro - Tipo de Dieta não alterado!";
     }
+    
+    //LER
+    public void ler (TipoDieta tipoDieta){
+        System.out.println("Registros: \n");
+        for (int i = 0; i < tiposDieta.length; i++){
+            System.out.println(tiposDieta[i] + " ");
+        }
+    }
 }

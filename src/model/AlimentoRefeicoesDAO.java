@@ -43,4 +43,12 @@ public class AlimentoRefeicoesDAO {
         }
         return "Erro - Alimento da Refeição não alterado!";
     }
+    
+    //LER
+    public void ler (AlimentoRefeicoes alimentoRefeicao){
+        System.out.println("Registros: \n");
+        for (int i = 0; i < alimentoRefeicoes.length; i++){
+            System.out.println(alimentoRefeicoes[i] + " ");
+        }
+    }
 }

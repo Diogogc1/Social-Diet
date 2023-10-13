@@ -14,15 +14,15 @@ INFORMAÇÕES (DIETA, FOTO DAS REFEIÇÕES, RESULTADOS OU QUAISQUER
 COISAS QUE A PESSOA QUISER). INFORMAÇÕES IMPORTANTES: ID, PESSOA,
 CONTEUDO DA MENSAGEM, DATACRIACAO, DATAMODIFICACAO.*/
 public class Post {
-    private int id;
-    private static int serial;
+    private long id;
+    private static long serial;
     private Pessoa pessoa;
-    private String mensagem;
+    private String conteudoMensagem;
     private LocalDate dataCriacao;
     private LocalDate dataModificao;
 
     //GETTERS E SETTERS 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -30,7 +30,7 @@ public class Post {
         this.id = id;
     }
 
-    public static int getSerial() {
+    public static long getSerial() {
         return serial;
     }
 
@@ -46,12 +46,12 @@ public class Post {
         this.pessoa = pessoa;
     }
 
-    public String getMensagem() {
-        return mensagem;
+    public String getConteudoMensagem() {
+        return conteudoMensagem;
     }
 
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
+    public void setConteudoMensagem(String conteudoMensagem) {
+        this.conteudoMensagem = conteudoMensagem;
     }
 
     public LocalDate getDataCriacao() {
@@ -71,13 +71,11 @@ public class Post {
     }
     
     //CONSTRUTOR
-    public Post(int id, Pessoa pessoa, String mensagem, LocalDate dataCriacao, LocalDate dataModificao) {
+    public Post(int id, Pessoa pessoa, String conteudoMensagem, LocalDate dataCriacao, LocalDate dataModificao) {
         this.id = serial++;
         this.pessoa = pessoa;
-        this.mensagem = mensagem;
+        this.conteudoMensagem = conteudoMensagem;
         this.dataCriacao = dataCriacao;
         this.dataModificao = dataModificao;
-    }
-    
-    
+    }   
 }
