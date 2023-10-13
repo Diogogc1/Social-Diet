@@ -43,4 +43,14 @@ public class AvaliacaoDAO {
         }
         return "Erro - Avaliação não alterada!";
     }
+    
+    //BUSCAR
+     public boolean buscar(Avaliacao avaliacao){
+        for (Avaliacao av : avaliacoes) {
+            if (avaliacao.equals(av)) {
+                return true;
+            } 
+        }
+        return false;
+    }
 }

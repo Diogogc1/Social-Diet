@@ -14,26 +14,22 @@ INFORMAÇÕES (DIETA, FOTO DAS REFEIÇÕES, RESULTADOS OU QUAISQUER
 COISAS QUE A PESSOA QUISER). INFORMAÇÕES IMPORTANTES: ID, PESSOA,
 CONTEUDO DA MENSAGEM, DATACRIACAO, DATAMODIFICACAO.*/
 public class Post {
-    private int id;
-    private static int serial;
+    private final long id;
+    private static long serial;
     private Pessoa pessoa;
     private String mensagem;
     private LocalDate dataCriacao;
     private LocalDate dataModificao;
 
     //GETTERS E SETTERS 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getSerial() {
+        return "Atualmente há " + serial + "pessoa no sistema";
     }
-
-    public static int getSerial() {
-        return serial;
-    }
-
+    
     public static void setSerial(int serial) {
         Post.serial = serial;
     }

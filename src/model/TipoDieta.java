@@ -14,9 +14,8 @@ import java.lang.Math;
 /*CRUD TIPO DE DIETA.  INFORMAÇÕES IMPORTANTES: ID, NOME, CARBOIDRATO,
 PROTEÍNA, GORDURA, DATACRIACAO, DATAMODIFICACAO.*/
 public class TipoDieta {
-    private static int serial = 1;
-    
-    private int id;
+    private static long serial;
+    private long id;
     private String nome;
     private int carboidrato;
     private int proteina;
@@ -26,12 +25,12 @@ public class TipoDieta {
     
     //GETTERS E SETTERS
 
-    public int getId() {
+    public long getId() {
         return id;
     }
-
-    public void setId(int id) {
-        this.id = id;
+    
+    public String getSerial() {
+        return "Atualmente há " + serial + "tipos de Dieta no sistema";
     }
 
     public String getNome() {
@@ -83,7 +82,7 @@ public class TipoDieta {
     }
 
     //CONSTRUTOR
-    public TipoDieta(int id, String nome, int carboidrato, int proteina, int gordura, LocalDate dataCriacao, LocalDate dataModificacao) {
+    public TipoDieta(String nome, int carboidrato, int proteina, int gordura, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = id;
         this.nome = nome;
         this.carboidrato = carboidrato;
@@ -93,5 +92,4 @@ public class TipoDieta {
         this.dataModificacao = dataModificacao;
     }
 
-      
 }

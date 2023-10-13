@@ -21,7 +21,7 @@ public class Pessoa {
     private String senha;
     //tipoUsuario -> FALSE = USUÁRIO COMUN || TRUE = ADMINISTRADOR
     private boolean tipoUsuario;
-    private LocalDate dataCriacao;
+    private final LocalDate dataCriacao;
     private LocalDate dataModificacao;
 
     //CONSTRUTOR
@@ -42,7 +42,7 @@ public class Pessoa {
     }
 
     public String getSerial() {
-        return "Atualmente há " + serial + "pessoa no sistema";
+        return "Atualmente há " + serial + "pessoas no sistema";
     }
 
     public String getNome() {
@@ -101,6 +101,10 @@ public class Pessoa {
         return dataModificacao;
     }
 
+    public void setDataModificacao(LocalDate dataModificacao) {
+        this.dataModificacao = dataModificacao;
+    }
+
     //TO STRING
     @Override
     public String toString() {
@@ -111,7 +115,6 @@ public class Pessoa {
     }
 
     //EQUALS E HASH CODE
-
     @Override
     public int hashCode() {
         int hash = 7;

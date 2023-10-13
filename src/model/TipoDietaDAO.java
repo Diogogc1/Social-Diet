@@ -43,4 +43,14 @@ public class TipoDietaDAO {
         }
         return "Erro - Tipo de Dieta não alterado!";
     }
+    
+    //BUSCAR
+     public boolean buscar(TipoDieta tipoDieta){
+        for (TipoDieta td : tiposDieta) {
+            if (tipoDieta.equals(td)) {
+                return true;
+            } 
+        }
+        return false;
+    }
 }

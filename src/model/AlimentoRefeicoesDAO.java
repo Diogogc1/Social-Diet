@@ -43,4 +43,14 @@ public class AlimentoRefeicoesDAO {
         }
         return "Erro - Alimento da Refeição não alterado!";
     }
+    
+    //BUSCAR
+     public boolean buscar(AlimentoRefeicoes alimentoRefeicao){
+        for (AlimentoRefeicoes ar : alimentoRefeicoes) {
+            if (alimentoRefeicao.equals(ar)) {
+                return true;
+            } 
+        }
+        return false;
+    }
 }

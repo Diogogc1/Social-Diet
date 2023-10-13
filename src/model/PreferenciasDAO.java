@@ -43,4 +43,14 @@ public class PreferenciasDAO {
         }
         return "Erro - Preferência não alterada!";
     }
+    
+    //BUSCAR
+     public boolean buscar(Preferencias preferencia){
+        for (Preferencias pr : preferencias) {
+            if (preferencia.equals(pr)) {
+                return true;
+            } 
+        }
+        return false;
+    }
 }

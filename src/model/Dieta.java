@@ -11,49 +11,51 @@ import java.util.Objects;
  *
  * @author diogo
  */
-public class RegistroDieta {
+public class Dieta {
     /*id, pessoa, avaliacao fisica,  tipo dieta, objetivo, 
     calorias, nro refeicoes, dataCriacao, dataModificacao.*/
     
-    private final int id;
-    private static int serial;
-    private Pessoa pessoa;
-    Avaliacao avaliacaoFisica;
-    TipoDieta tipoDieta;
-    private double caloria;
+    private final long id;
+    private static long serial;
+    private final Pessoa pessoa;
+    private Avaliacao avaliacao;
+    private TipoDieta tipoDieta;
+    private String objetivo;
+    private double calorias;
     private int numeroRefeicoes;
     private final LocalDate dataCriacao;
-    private LocalDate dataModificacao;
+    private final LocalDate dataModificacao;
 
-    public RegistroDieta(Pessoa pessoa, Avaliacao avaliacaoFisica, TipoDieta tipoDieta, double caloria, int numeroRefeicoes, LocalDate dataCriacao, LocalDate dataModificacao) {
+    public Dieta(Pessoa pessoa, Avaliacao avaliacao, TipoDieta tipoDieta, String objetivo, double calorias, int numeroRefeicoes) {
         id = ++serial;
         this.pessoa = pessoa;
-        this.avaliacaoFisica = avaliacaoFisica;
+        this.avaliacao = avaliacao;
         this.tipoDieta = tipoDieta;
-        this.caloria = caloria;
+        this.objetivo = objetivo;
+        this.calorias = calorias;
         this.numeroRefeicoes = numeroRefeicoes;
-        this.dataCriacao = dataCriacao;
-        this.dataModificacao = dataModificacao;
+        this.dataCriacao = LocalDate.now();
+        this.dataModificacao = LocalDate.now();
     }
     
-    public int getId() {
+    public long getId() {
         return id;
     }
     
     public String getSerial() {
-        return "Atualmente há " + serial + "pessoa no sistema";
+        return "Atualmente há " + serial + "dietas no sistema";
     }
 
     public Pessoa getPessoa() {
         return pessoa;
     }
 
-    public Avaliacao getAvaliacaoFisica() {
-        return avaliacaoFisica;
+    public Avaliacao getAvaliacao() {
+        return avaliacao;
     }
 
-    public void setAvaliacaoFisica(Avaliacao avaliacaoFisica) {
-        this.avaliacaoFisica = avaliacaoFisica;
+    public void setAvaliacao(Avaliacao avaliacao) {
+        this.avaliacao = avaliacao;
     }
 
     public TipoDieta getTipoDieta() {
@@ -64,12 +66,12 @@ public class RegistroDieta {
         this.tipoDieta = tipoDieta;
     }
     
-    public double getCaloria() {
-        return caloria;
+    public double getCalorias() {
+        return calorias;
     }
 
-    public void setCaloria(double caloria) {
-        this.caloria = caloria;
+    public void setCalorias(double calorias) {
+        this.calorias = calorias;
     }
 
     public int getNumeroRefeicoes() {
@@ -88,24 +90,26 @@ public class RegistroDieta {
         return dataModificacao;
     }   
     
-    //TO STRING - PRECISO DA DIETA (MATHEUS)
-     @Override
+    //TO STRING
+
+    @Override
     public String toString() {
-        return "RegistroDieta{" + "id=" + id + ", pessoa=" + pessoa + ", avaliacaoFisica=" + avaliacaoFisica + ", tipoDieta=" + tipoDieta + ", caloria=" + caloria + ", numeroRefeicoes=" + numeroRefeicoes + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        return "Dieta{" + "id=" + id + ", pessoa=" + pessoa + ", avaliacao=" + avaliacao + ", tipoDieta=" + tipoDieta + ", objetivo=" + objetivo + ", calorias=" + calorias + ", numeroRefeicoes=" + numeroRefeicoes + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
     }
     
-    //EQUALS E HASH CODE - PRECISO DA DIETA (MATHEUS)
+    //EQUALS E HASH CODE
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + this.id;
-        hash = 67 * hash + Objects.hashCode(this.pessoa);
-        hash = 67 * hash + Objects.hashCode(this.avaliacaoFisica);
-        hash = 67 * hash + Objects.hashCode(this.tipoDieta);
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.caloria) ^ (Double.doubleToLongBits(this.caloria) >>> 32));
-        hash = 67 * hash + this.numeroRefeicoes;
-        hash = 67 * hash + Objects.hashCode(this.dataCriacao);
-        hash = 67 * hash + Objects.hashCode(this.dataModificacao);
+        int hash = 3;
+        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.pessoa);
+        hash = 37 * hash + Objects.hashCode(this.avaliacao);
+        hash = 37 * hash + Objects.hashCode(this.tipoDieta);
+        hash = 37 * hash + Objects.hashCode(this.objetivo);
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.calorias) ^ (Double.doubleToLongBits(this.calorias) >>> 32));
+        hash = 37 * hash + this.numeroRefeicoes;
+        hash = 37 * hash + Objects.hashCode(this.dataCriacao);
+        hash = 37 * hash + Objects.hashCode(this.dataModificacao);
         return hash;
     }
 
@@ -120,20 +124,23 @@ public class RegistroDieta {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final RegistroDieta other = (RegistroDieta) obj;
+        final Dieta other = (Dieta) obj;
         if (this.id != other.id) {
             return false;
         }
-        if (Double.doubleToLongBits(this.caloria) != Double.doubleToLongBits(other.caloria)) {
+        if (Double.doubleToLongBits(this.calorias) != Double.doubleToLongBits(other.calorias)) {
             return false;
         }
         if (this.numeroRefeicoes != other.numeroRefeicoes) {
             return false;
         }
+        if (!Objects.equals(this.objetivo, other.objetivo)) {
+            return false;
+        }
         if (!Objects.equals(this.pessoa, other.pessoa)) {
             return false;
         }
-        if (!Objects.equals(this.avaliacaoFisica, other.avaliacaoFisica)) {
+        if (!Objects.equals(this.avaliacao, other.avaliacao)) {
             return false;
         }
         if (!Objects.equals(this.tipoDieta, other.tipoDieta)) {
@@ -143,5 +150,5 @@ public class RegistroDieta {
             return false;
         }
         return Objects.equals(this.dataModificacao, other.dataModificacao);
-    } 
+    }
 }
