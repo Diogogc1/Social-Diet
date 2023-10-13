@@ -61,4 +61,13 @@ public class PessoaDAO {
         }
         return false;
     }
+    
+    public Pessoa buscarLogin(String email, String senha){
+        for (Pessoa pessoa : pessoas) {
+            if(pessoa != null && pessoa.getEmail().equals(email) && pessoa.getSenha().equals(senha)){
+                return pessoa;
+            }
+        }
+        return null;
+    }
 }
