@@ -3,10 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/view/GUI.java</file>
-            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/model/PessoaDAO.java</file>
-            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/controller/Progama.java</file>
-            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/controller/Trabalho1_POO_ADS.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/TipoDieta.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/Mensagem.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/Avaliacao.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/Post.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/PreferenciasDAO.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/PessoaDAO.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/Refeicao.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/TipoDietaDAO.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/AlimentoRefeicoes.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/AvaliacaoDAO.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/Preferencias.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/AlimentoRefeicoesDAO.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/Pessoa.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/model/Dieta.java</file>
         </group>
     </open-files>
 </project-private>
