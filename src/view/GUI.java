@@ -37,6 +37,7 @@ public class GUI {
     double pescoco;
     double cintura;
     double quadril;
+    long idAvaliacao;
     
     //ALIMENTOS
     double carboidratos;
@@ -138,8 +139,11 @@ public class GUI {
                            //// AVALIACAO ////
                            
                            1. Fazer Avaliacao Física
-                           2. Ver avaliacoes
-                           4. Sair
+                           2. Buscar avaliacao
+                           3. Alterar avaliacao
+                           4. Deletar avaliacao
+                           5. Ver avaliacoes
+                           6. Sair
                            """);
         System.out.print("\n Escolha uma opção: ");
         
@@ -153,25 +157,43 @@ public class GUI {
         
         System.out.println("/// FAZER AVALIACAO ///");
         
-        System.out.println("Peso: ");
+        System.out.print("Peso: ");
         peso = Double.parseDouble(scanner.nextLine());
         
-        System.out.println("Altura: ");
+        System.out.print("Altura: ");
         altura = Double.parseDouble(scanner.nextLine());
         
-        System.out.println("Idade: ");
+        System.out.print("Idade: ");
         idade = Integer.parseInt(scanner.nextLine());
         
-        System.out.println("Pescoco: ");
+        System.out.print("Pescoco: ");
         pescoco = Double.parseDouble(scanner.nextLine());
         
-        System.out.println("Cintura: ");
+        System.out.print("Cintura: ");
         cintura = Double.parseDouble(scanner.nextLine());
         
-        System.out.println("Quadril: ");
+        System.out.print("Quadril: ");
         quadril = Double.parseDouble(scanner.nextLine());
         
         return new Avaliacao(pessoa, peso, altura, idade, pescoco, cintura, quadril);
+    }
+    
+    public long buscarAvaliacao(){
+        System.out.println("/// BUSCAR AVALIACAO ///");
+        
+        System.out.print("Informe o id para busca: ");
+        idAvaliacao = Long.parseLong(scanner.nextLine());
+        
+        return idAvaliacao;
+    }
+    
+    public long alterarAvaliacao(){
+        System.out.println("/// ALTERAR AVALIACAO ///");
+        
+        System.out.print("Informe o id que deseja: ");
+        idAvaliacao = Long.parseLong(scanner.nextLine());
+        
+        return idAvaliacao; 
     }
     
     public Alimento cadastrarAlimentos(Pessoa pessoa){

@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Arrays;
+
 /**
  *
  * @author User
@@ -34,9 +36,9 @@ public class AvaliacaoDAO {
     }
     
     //ALTERAR
-    public boolean alterar(Avaliacao avaliacao, Avaliacao avaliacaoNovo){
+    public boolean alterar(long idAvaliacao, Avaliacao avaliacaoNovo){
         for (int i = 0; i < avaliacoes.length; i++) {
-            if(avaliacoes[i].equals(avaliacao)){
+            if(avaliacoes[i].getId() == idAvaliacao){
                 avaliacoes[i] = avaliacaoNovo;
                 return true;
             }
@@ -45,9 +47,9 @@ public class AvaliacaoDAO {
     }
     
     //BUSCAR
-    public boolean buscar (Avaliacao avaliacao){
+    public boolean buscar (Long idAvaliacao){
         for (int i = 0; i < avaliacoes.length; i++){
-           if(avaliacoes[i].equals(avaliacao)){
+           if(avaliacoes[i].getId() == idAvaliacao){
                return true;
            }
         }
@@ -56,7 +58,7 @@ public class AvaliacaoDAO {
 
     @Override
     public String toString() {
-        return "AvaliacaoDAO{" + "avaliacoes=" + avaliacoes + '}';
+        return "AvaliacaoDAO{" + "avaliacoes=" + Arrays.toString(avaliacoes) + '}';
     }
     
     

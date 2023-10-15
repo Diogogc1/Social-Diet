@@ -4,6 +4,7 @@
  */
 package controller;
 
+import model.AvaliacaoDAO;
 import model.Pessoa;
 import model.PessoaDAO;
 import view.GUI;
@@ -15,6 +16,7 @@ import view.GUI;
 public class Programa {
     private GUI gui = new GUI(); 
     private PessoaDAO pessoaDAO = new PessoaDAO();
+    private AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
     private int menu;
     private Pessoa pessoaLogada;
     private Pessoa pessoaNova;
@@ -84,7 +86,28 @@ public class Programa {
         do{
             switch(gui.menuFitPerson()){
                 case 1 -> {
-                    //AVALIAÇÃO FÍSICA
+                    switch(gui.menuAvaliacao()){
+                        case 1 ->{
+                           avaliacaoDAO.adicionar(gui.fazerAvaliacao(pessoaLogada)); 
+                        }
+                        case 2 ->{
+                            avaliacaoDAO.buscar(gui.buscarAvaliacao());
+                        }
+                        case 3 -> {
+                            avaliacaoDAO.alterar(gui.alterarAvaliacao(), gui.fazerAvaliacao(pessoaLogada));
+                        }
+                        case 4 -> {
+                        }
+                        case 5 ->{
+                            System.out.print(avaliacaoDAO);
+                        }
+                    }
+                    
+                    if(gui.menuAvaliacao() == 1){
+                        avaliacaoDAO.adicionar(gui.fazerAvaliacao(pessoaLogada));
+                    }else{
+                        avaliacaoDAO.toString();
+                    }
                 }
                 
                 case 2 -> {
