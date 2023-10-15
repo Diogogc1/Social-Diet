@@ -97,7 +97,7 @@ public class Programa {
                            avaliacaoDAO.adicionar(gui.fazerAvaliacao(pessoaLogada)); 
                         }
                         case 2 ->{
-                            avaliacaoDAO.buscar(gui.buscarAvaliacao());
+                            System.out.print(avaliacaoDAO.buscar(gui.buscarAvaliacao()));
                         }
                         case 3 -> {
                             avaliacaoDAO.alterar(gui.alterarAvaliacao(), gui.fazerAvaliacao(pessoaLogada));
@@ -107,14 +107,10 @@ public class Programa {
                         case 5 ->{
                             System.out.print(avaliacaoDAO);
                         }
+                        case 6 ->{
+                            menu = -1;
+                        }
                     }
-                    
-                    if(gui.menuAvaliacao() == 1){
-                        avaliacaoDAO.adicionar(gui.fazerAvaliacao(pessoaLogada));
-                    }else{
-                        avaliacaoDAO.toString();
-                    }
-
                 }
                 //MENU ALIMENTOS
                 case 2 -> {
@@ -138,7 +134,7 @@ public class Programa {
                 }
                 //MENU REFEIÇÕES
                 case 6 -> {
-                    menuRefeicao();
+                    //menuRefeicao();
                     menu = 0;
                 }
 
