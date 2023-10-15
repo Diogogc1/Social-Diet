@@ -180,7 +180,7 @@ public class GUI {
     }
     
     public long buscarAvaliacao(){
-        System.out.println("/// BUSCAR AVALIACAO ///");
+        System.out.println("\n/// BUSCAR AVALIACAO ///");
         
         System.out.print("Informe o id para busca: ");
         idAvaliacao = Long.parseLong(scanner.nextLine());
@@ -189,7 +189,16 @@ public class GUI {
     }
     
     public long alterarAvaliacao(){
-        System.out.println("/// ALTERAR AVALIACAO ///");
+        System.out.println("\n/// ALTERAR AVALIACAO ///");
+        
+        System.out.print("Informe o id que deseja: ");
+        idAvaliacao = Long.parseLong(scanner.nextLine());
+        
+        return idAvaliacao; 
+    }
+    
+    public long removerAvaliacao(){
+        System.out.println("\n/// REMOVER AVALIACAO ///");
         
         System.out.print("Informe o id que deseja: ");
         idAvaliacao = Long.parseLong(scanner.nextLine());

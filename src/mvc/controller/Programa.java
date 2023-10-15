@@ -240,6 +240,7 @@ public class Programa {
                                 avaliacaoDAO.alterar(gui.alterarAvaliacao(), gui.fazerAvaliacao(pessoaLogada));
                             }
                             case 4 -> {
+                                avaliacaoDAO.remover(gui.removerAvaliacao());
                             }
                             case 5 ->{
                                 System.out.print(avaliacaoDAO);

@@ -19,7 +19,7 @@ public class Post {
     private Pessoa pessoa;
     private String conteudoMensagem;
     private LocalDate dataCriacao;
-    private LocalDate dataModificao;
+    private LocalDate dataModificacao;
 
     //GETTERS E SETTERS 
     public long getId() {
@@ -54,20 +54,20 @@ public class Post {
         this.dataCriacao = dataCriacao;
     }
 
-    public LocalDate getDataModificao() {
-        return dataModificao;
+    public LocalDate getDataModificacao() {
+        return dataModificacao;
     }
 
-    public void setDataModificao(LocalDate dataModificao) {
-        this.dataModificao = dataModificao;
+    public void setDataModificacao(LocalDate dataModificacao) {
+        this.dataModificacao = dataModificacao;
     }
     
     //CONSTRUTOR
-    public Post(Pessoa pessoa, String conteudoMensagem, LocalDate dataCriacao, LocalDate dataModificao) {
+    public Post(Pessoa pessoa, String conteudoMensagem, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = ++serial;
         this.pessoa = pessoa;
         this.conteudoMensagem = conteudoMensagem;
-        this.dataCriacao = dataCriacao;
-        this.dataModificao = dataModificao;
+        this.dataCriacao = LocalDate.now();
+        this.dataModificacao = LocalDate.now();
     }   
 }
