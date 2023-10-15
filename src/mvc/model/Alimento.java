@@ -99,11 +99,11 @@ public class Alimento {
         return pessoa;
     }
 
-    public LocalDate getDataDeCriacao() {
+    public LocalDate getDataCriacao() {
         return dataDeCriacao;
     }
 
-    public LocalDate getDataDeModificacao() {
+    public LocalDate getDataModificacao() {
         return dataDeModificacao;
     }
 

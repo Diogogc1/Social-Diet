@@ -65,6 +65,14 @@ public class Dieta {
     public void setTipoDieta(TipoDieta tipoDieta) {
         this.tipoDieta = tipoDieta;
     }
+
+    public String getObjetivo() {
+        return objetivo;
+    }
+
+    public void setObjetivo(String objetivo) {
+        this.objetivo = objetivo;
+    }
     
     public double getCalorias() {
         return calorias;

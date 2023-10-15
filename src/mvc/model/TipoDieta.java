@@ -16,9 +16,9 @@ public class TipoDieta {
     private static long serial; 
     private final long id;
     private String nome;
-    private int carboidrato;
-    private int proteina;
-    private int gordura;
+    private double carboidrato;
+    private double proteina;
+    private double gordura;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
     
@@ -39,7 +39,7 @@ public class TipoDieta {
         this.nome = nome;
     }
 
-    public int getCarboidrato() {
+    public double getCarboidrato() {
         return carboidrato;
     }
 
@@ -47,7 +47,7 @@ public class TipoDieta {
         this.carboidrato = carboidrato;
     }
 
-    public int getProteina() {
+    public double getProteina() {
         return proteina;
     }
 
@@ -55,7 +55,7 @@ public class TipoDieta {
         this.proteina = proteina;
     }
 
-    public int getGordura() {
+    public double getGordura() {
         return gordura;
     }
 
@@ -80,15 +80,13 @@ public class TipoDieta {
     }
 
     //CONSTRUTOR
-    public TipoDieta(String nome, int carboidrato, int proteina, int gordura, LocalDate dataCriacao, LocalDate dataModificacao) {
+    public TipoDieta(String nome, double carboidrato, double proteina, double gordura) {
         this.id = ++serial;
         this.nome = nome;
         this.carboidrato = carboidrato;
         this.proteina = proteina;
         this.gordura = gordura;
-        this.dataCriacao = dataCriacao;
-        this.dataModificacao = dataModificacao;
-    }
-
-      
+        this.dataCriacao = LocalDate.now();
+        this.dataModificacao = LocalDate.now();
+    }     
 }
