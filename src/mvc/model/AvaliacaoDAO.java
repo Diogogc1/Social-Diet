@@ -68,8 +68,25 @@ public class AvaliacaoDAO {
 
     @Override
     public String toString() {
-        return "AvaliacaoDAO{" + "avaliacoes=" + Arrays.toString(avaliacoes) + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("====== AVALIACAO ======");
+        for (Avaliacao avaliacao : avaliacoes) {
+            if(avaliacao != null){
+                sb.append("\n ID: ").append(avaliacao.getId()).
+                append("\n Nome: ").append(avaliacao.getPeso()).
+                append("\n Altura: ").append(avaliacao.getAltura()).
+                append("\n Idade: ").append(avaliacao.getIdade()).
+                append("\n Pescoco: ").append(avaliacao.getPescoco()).
+                append("\n Cintura ").append(avaliacao.getCintura()).
+                append("\n Quadril: ").append(avaliacao.getQuadril()).
+                append("\n Data de Criacao: ").append(avaliacao.getDataCriacao()).
+                append("\n Data de Modificacao: ").append(avaliacao.getDataModificacao()).
+                append("\n ========================================");
+            }
+        }
+        return sb.toString();
     }
+    
     
     
 }

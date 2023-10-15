@@ -162,6 +162,10 @@ public class Avaliacao {
         this.quadril = quadril;
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();
+        this.imc = calcularImc();
+        this.tmb = calcularTmb();
+        this.bf = calcularBf();
+        gerarRelatorio();
     }
     
     
@@ -220,11 +224,11 @@ public class Avaliacao {
         
         taxaAtvd = this.obterTaxaAtvd();
         
-        if("M".equals(this.pessoa.getSexo()) || "m".equals(this.pessoa.getSexo())){
+        if("1".equals(this.pessoa.getSexo())){
             
             this.tmb = taxaAtvd * (66.0 + (13.7 * this.peso) + (5.0 * this.altura) - (6.8 * this.idade));
             
-        }else if("F".equals(this.pessoa.getSexo()) || "f".equals(this.pessoa.getSexo())) {
+        }else if("2".equals(this.pessoa.getSexo())) {
             
             this.tmb = taxaAtvd * (655 + (9.6 * this.peso) + (1.8 * this.altura) - (4.7 * this.idade));
             
@@ -241,12 +245,12 @@ public class Avaliacao {
     70.041 X LOG10 (ALTURA) + 36.76*/
     public double calcularBf(){
         
-        if("M".equals(this.pessoa.getSexo()) || "m".equals(this.pessoa.getSexo())){
+        if("1".equals(this.pessoa.getSexo())){
             
             this.bf = 86.010 * Math.log10(this.cintura - this.pescoco)
             - 70.41 * Math.log10(this.altura) + 36.76;
             
-        }else if("F".equals(this.pessoa.getSexo()) || "f".equals(this.pessoa.getSexo())) {
+        }else if("2".equals(this.pessoa.getSexo())) {
             
             this.bf = 163.205 * Math.log10(this.cintura +
             this.quadril - this.pescoco) - 97.684 *
@@ -280,7 +284,7 @@ public class Avaliacao {
     public String interpretarBf(){
         String estadoBf = "";
         
-        if ("m".equals(pessoa.getSexo())){
+        if ("1".equals(pessoa.getSexo())){
             if (this.idade >= 20 && this.idade <=29){
                 if(this.bf < 11){
                     estadoBf = "Atleta";
@@ -331,7 +335,7 @@ public class Avaliacao {
                 }
             }
             
-        }else if ("f".equals(pessoa.getSexo())){
+        }else if ("2".equals(pessoa.getSexo())){
             if (this.idade >= 20 && this.idade <=29){
                 if(this.bf < 16){
                     estadoBf = "Atleta";
@@ -395,18 +399,30 @@ public class Avaliacao {
         String estadoBf = interpretarBf();
         
         //RELATÓRIO FINAL
-        System.out.println("""
-                           === Relatório Avaliação ===
-                           IMC:""" + this.imc +
-                           """
-                           TMB:""" + this.tmb +
-                           """
-                           BF:""" + this.bf + 
-                           """
-                           Gordura:""" + estadoBf +
-                           """
-                           Massa Magra:""" + massaMagra
-                           );
+        StringBuilder sb = new StringBuilder();
+                sb.append("====== RELATORIO ======").
+                append("\n ID: ").append(this.id).
+                append("\n Peso: ").append(this.peso).
+                append("\n Altura: ").append(this.altura).
+                append("\n Idade: ").append(this.idade).
+                append("\n Pescoco: ").append(this.pescoco).
+                append("\n Cintura: ").append(this.cintura).
+                append("\n Quadril: ").append(this.quadril).
+                append("\n IMC: ").append(this.imc).
+                append("\n TMB: ").append(this.tmb).
+                append("\n BF: ").append(this.bf).
+                append("\n TMB: ").append(estadoBf).
+                append("\n ========================================");
+        System.out.println(sb);
     }
-    
+    /*
+    this.id = ++serial;
+        this.pessoa = pessoa;
+        this.peso = peso;
+        this.altura = altura;
+        this.idade = idade;
+        this.pescoco = pescoco;
+        this.cintura = cintura;
+        this.quadril = quadril;
+    */
 }

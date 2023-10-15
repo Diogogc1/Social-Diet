@@ -40,7 +40,7 @@ public class Programa {
                         
                         //MENU PRINCIPAL
                         menuPrincipal();
-                        menu = -1;
+                        menu = 0;
                     }
                     else{
                         System.out.println("\n Email ou senha incorreto");
@@ -96,25 +96,8 @@ public class Programa {
             switch(gui.menuFitPerson()){
                 //MENU AVALIACAO FISICA
                 case 1 -> {
-                    switch(gui.menuAvaliacao()){
-                        case 1 ->{
-                           avaliacaoDAO.adicionar(gui.fazerAvaliacao(pessoaLogada)); 
-                        }
-                        case 2 ->{
-                            System.out.print(avaliacaoDAO.buscar(gui.buscarAvaliacao()));
-                        }
-                        case 3 -> {
-                            avaliacaoDAO.alterar(gui.alterarAvaliacao(), gui.fazerAvaliacao(pessoaLogada));
-                        }
-                        case 4 -> {
-                        }
-                        case 5 ->{
-                            System.out.print(avaliacaoDAO);
-                        }
-                        case 6 ->{
-                            menu = -1;
-                        }
-                    }
+                    menuAvaliacao();
+                    menu = 0;
                 }
                 //MENU ALIMENTOS
                 case 2 -> {
@@ -133,7 +116,7 @@ public class Programa {
                 }
                 //MENU REFEIÇÕES
                 case 5 -> {
-                    menuRefeicao();
+                    //menuRefeicao();
                     menu = 0;
                 }
                 
@@ -241,6 +224,30 @@ public class Programa {
                     System.out.println("\n Opcao Invalida!");
                 }
             }
+        }while(menu != -1);
+    }
+    
+    public void menuAvaliacao(){
+        do{
+            switch(gui.menuAvaliacao()){
+                            case 1 ->{
+                               avaliacaoDAO.adicionar(gui.fazerAvaliacao(pessoaLogada));
+                            }
+                            case 2 ->{
+                                System.out.print(avaliacaoDAO.buscar(gui.buscarAvaliacao()));
+                            }
+                            case 3 -> {
+                                avaliacaoDAO.alterar(gui.alterarAvaliacao(), gui.fazerAvaliacao(pessoaLogada));
+                            }
+                            case 4 -> {
+                            }
+                            case 5 ->{
+                                System.out.print(avaliacaoDAO);
+                            }
+                            case 6 ->{
+                                menu = -1;
+                            }
+                        }
         }while(menu != -1);
     }
     
