@@ -5,6 +5,7 @@
 package view;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import model.Alimento;
 import model.Avaliacao;
@@ -58,7 +59,7 @@ public class GUI {
                         3. SAIR
                         """);
         
-        System.out.print("\n Escolha uma opção: ");
+        System.out.print("\n Escolha uma opcao: ");
         return Integer.parseInt(scanner.nextLine());
     }
     
@@ -73,7 +74,7 @@ public class GUI {
     }
     
     public Pessoa cadastro(){
-        System.out.print("Nome");
+        System.out.print("Nome: 2");
         nome = scanner.nextLine();
         
         System.out.print("E-mail: ");
@@ -84,18 +85,18 @@ public class GUI {
         
         System.out.print("""
                         Qual o seu sexo?
-
+                         
                         1. Masculino
                         2. Femino
                         """);
         
-        System.out.print("\n Escolha uma opção: ");
+        System.out.print("\n Escolha uma opcao: ");
         
         //O VALOR DE SEXO É TRATADO NO CONTROLLER, NA CLASSE PROGRAMA
         sexo = scanner.nextLine();
         
         System.out.print("Data de nascimento: ");
-        dataNascimento = LocalDate.parse(scanner.nextLine());
+        dataNascimento = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
         return new Pessoa(nome, sexo, dataNascimento, email, senha);
     }
@@ -109,7 +110,7 @@ public class GUI {
                         3. SAIR
                         """);
         
-        System.out.print("\n Escolha uma opção: ");
+        System.out.print("\n Escolha uma opcao: ");
         
         return Integer.parseInt(scanner.nextLine());
     }
@@ -120,12 +121,14 @@ public class GUI {
                            
                            1. Avaliação Física
                            2. Alimentos
-                           3. Preferências
-                           4. Dietas
-                           5. Refeicoes
+                           3. Preferencias
+                           4. Tipo de Dieta
+                           5. Dietas
+                           6. Refeicoes
+                           7. SAIR
                            """);
         
-        System.out.print("\n Escolha uma opção: ");
+        System.out.print("\n Escolha uma opcao: ");
         
         return Integer.parseInt(scanner.nextLine());
     }

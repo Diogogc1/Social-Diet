@@ -25,7 +25,6 @@ public class TipoDieta {
     private LocalDate dataModificacao;
     
     //GETTERS E SETTERS
-
     public long getId() {
         return id;
     }

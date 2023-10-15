@@ -14,6 +14,6 @@ public class Trabalho1_POO_ADS{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new Progama();
+        new Programa();
     }
 }
