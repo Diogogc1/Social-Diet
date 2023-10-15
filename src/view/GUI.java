@@ -61,7 +61,7 @@ public class GUI {
     }
     
     public String senha(){
-        System.out.print("\n Senha: ");
+        System.out.print(" Senha: ");
         return scanner.nextLine();
     }
     
@@ -94,8 +94,9 @@ public class GUI {
     }
    
     public int menuPrincipal(){
+        System.out.println("\n");
         System.out.print("""
-                        /// MENU ///
+                        ======== MENU ========
 
                         1. FitPerson
                         2. PostFit
@@ -109,7 +110,7 @@ public class GUI {
     
     public int menuFitPerson(){
         System.out.println("""
-                           //// FitPeson ////
+                           ====== FitPeson ======
                            
                            1. Avaliação Física
                            2. Alimentos
@@ -152,6 +153,18 @@ public class GUI {
         porcao = Integer.parseInt(scanner.nextLine());
         
         return new Alimento(nome, carboidratos, proteinas, gorduras, porcao, pessoa);
+    }
+    
+    public int menuAlimentos(){
+        System.out.println("""
+                           /// ALIMENTOS ///
+                           
+                           1. Ver Alimentos
+                           2. Cadastar Alimento
+                           3. SAIR
+                           """);
+        System.out.println("\n Escolha uma opcao: ");
+        return Integer.parseInt(scanner.nextLine());
     }
     
     public Dieta cadastrarDieta(Pessoa pessoa, Avaliacao avaliacao, TipoDieta tipoDieta){

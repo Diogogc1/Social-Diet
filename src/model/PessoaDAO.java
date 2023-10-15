@@ -4,12 +4,18 @@
  */
 package model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author diogo
  */
 public class PessoaDAO {
     Pessoa pessoas[] = new Pessoa[10];
+
+    public PessoaDAO() {
+        adicionar(new Pessoa("diogo", "1", LocalDate.of(2003, 10, 10), "diogo", "diogo"));
+    }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(Pessoa pessoa){
