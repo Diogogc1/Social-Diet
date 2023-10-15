@@ -28,10 +28,6 @@ public class AlimentoRefeicoes {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public static int getSerial() {
         return serial;
     }
@@ -105,7 +101,6 @@ public class AlimentoRefeicoes {
     }
     
     //CONSTRUTOR
-
     public AlimentoRefeicoes(Refeicao refeicao, Alimento alimento, double porcao, double proteina, double gordura, double calorias, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = serial++;
         this.refeicao = refeicao;
@@ -116,6 +111,5 @@ public class AlimentoRefeicoes {
         this.calorias = calorias;
         this.dataCriacao = dataCriacao;
         this.dataModificacao = dataModificacao;
-    }
-    
+    }   
 }
