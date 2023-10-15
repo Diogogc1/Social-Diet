@@ -236,6 +236,17 @@ public class GUI {
         return new Alimento(nome, carboidratos, proteinas, gorduras, porcao, pessoa);
     }
     
+    public int cadastrarTipoDieta(){
+        System.out.println("""
+                           ========= TIPO DIETA =========
+                           1. Equilibrada 
+                           2. Low Carb
+                           3. Cetogenica                         
+                           """);
+        System.out.println("\n Escolha uma opcao: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
     public int menuDieta(){
         System.out.println("""
                            ======== DIETA ========

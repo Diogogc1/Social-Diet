@@ -4,8 +4,6 @@
  */
 package mvc.model;
 import java.time.LocalDate;
-import java.util.Scanner;
-import java.lang.Math;
 /**
  *
  * @author User

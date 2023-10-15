@@ -8,6 +8,7 @@ import mvc.model.AvaliacaoDAO;
 import mvc.model.AlimentoDAO;
 import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
+import mvc.model.TipoDietaDAO;
 import mvc.view.GUI;
 
 /**
@@ -25,6 +26,7 @@ public class Programa {
     private PessoaDAO pessoaDAO = new PessoaDAO();
     private AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
     private AlimentoDAO alimentoDAO = new AlimentoDAO(pessoaLogada);
+    private TipoDietaDAO tipoDietaDAO = new TipoDietaDAO();
     
     public Programa() {
         do{
@@ -70,10 +72,12 @@ public class Programa {
             switch(gui.menuPrincipal()){
                 case 1 -> {
                     menuFitPerson();
+                    menu = 0;
                 }
                 
                 case 2 -> {
                     menuPostFit();
+                    menu = 0;
                 }
                 
                 case 3 -> {
@@ -121,21 +125,20 @@ public class Programa {
                 case 3 -> {
  
                 }
-                //MENU TIPO DE DIETA
-                case 4 -> {
-                    
-                   
-                    
-                }
+
                 //MENU DIETA
-                case 5 -> {
+                case 4 -> {
                     menuDieta();
                     menu = 0;
                 }
                 //MENU REFEIÇÕES
-                case 6 -> {
-                    //menuRefeicao();
+                case 5 -> {
+                    menuRefeicao();
                     menu = 0;
+                }
+                
+                case 6 -> {
+                    menu = -1;
                 }
 
                 default -> {
@@ -177,6 +180,14 @@ public class Programa {
         }while(menu != -1);
     }
     
+    public void montarTipoDieta(){
+        switch(gui.cadastrarTipoDieta()){
+            case 1 -> {
+                
+            }
+        }
+    }
+    
     public void menuDieta(){
         do{
             switch(gui.menuDieta()){
@@ -187,7 +198,7 @@ public class Programa {
                 
                 //CADASTRAR DIETA
                 case 2 -> {
-                    //gui.cadastrarDieta(pessoaNova, avaliacao, tipoDieta);
+                    montarTipoDieta();
                 }
                 
                 case 3 -> {
