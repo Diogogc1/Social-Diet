@@ -13,43 +13,45 @@ public class PostDAO {
      Post posts[] = new Post[10];
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public String adicionar(Post post){
+    public boolean adicionar(Post post){
         for (int i = 0; i < posts.length; i++) {
             if(posts[i] == null){
                 posts[i] = post;
-                return "Post adicionado com sucesso!";
+                return true;
             } 
         }
-        return "Erro - Post não adicionado!";
+        return false;
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA A PESSOA PARA SER REMOVIDA
-    public String remover(Post post){
+    public boolean remover(Post post){
         for (int i = 0; i < posts.length; i++) {
             if(posts[i].equals(post)){
                 posts[i] = null;
-                return "Post removido com sucesso!";
+                return true;
             }
         }
-        return "Erro - Post não removido!";
+        return false;
     }
     
     //ALTERAR
-    public String alterar(Post post, Post postNovo){
+    public boolean alterar(Post post, Post postNovo){
         for (int i = 0; i < posts.length; i++) {
             if(posts[i].equals(post)){
                 posts[i] = postNovo;
-                return "Post alterado com sucesso!";
+                return true;
             }
         }
-        return "Erro - Post não alterado!";
+        return false;
     }
     
-    //LER
-    public void ler (Post post){
-        System.out.println("Registros: \n");
+    //BUSCAR
+    public boolean buscar (Post post){
         for (int i = 0; i < posts.length; i++){
-            System.out.println(posts[i] + " ");
+           if(posts[i].equals(post)){
+               return true;
+           }
         }
+        return false;
     }
 }

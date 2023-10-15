@@ -15,9 +15,9 @@ INFORMAÇÕES IMPORTANTES: ID, PESSOA, PESO, ALTURA, IDADE, PESCOCO,
 CINTURA, QUADRIL, IMC, TMB, BF, MASSA GORDA KG, MASSA MAGRA KG,
 DATACRIACAO, DATAMODIFICACAO.*/
 public class Avaliacao {
-    private static long serial = 1;
+    private static long serial;
 
-    private long id;
+    private final long id;
     private Pessoa pessoa;
     private double peso;
     private double altura;
@@ -31,25 +31,21 @@ public class Avaliacao {
     private double massaGorda;
     private double massaMagra;
     private LocalDate dataCriacao;
-    private LocalDate dataModificao;
+    private LocalDate dataModificacao;
     
     //GETTERS E SETTERS
     public long getId() {
         return id;
     }
-
-    public void setId(int id) {
-        this.id = id;
+    
+    public String getSerial() {
+        return "Atualmente há " + serial + "avaliacoes no sistema";
     }
 
-    public Pessoa getP() {
+    public Pessoa getPessoa() {
         return pessoa;
     }
-/*
-    public void setP(Pessoa p) {
-        this.p = p;
-    }
-*/
+    
     public double getPeso() {
         return peso;
     }
@@ -146,16 +142,16 @@ public class Avaliacao {
         this.dataCriacao = dataCriacao;
     }
 
-    public LocalDate getDataModificao() {
-        return dataModificao;
+    public LocalDate getDataModificacao() {
+        return dataModificacao;
     }
 
-    public void setDataModificao(LocalDate dataModificao) {
-        this.dataModificao = dataModificao;
+    public void setDataModificacao(LocalDate dataModificacao) {
+        this.dataModificacao = dataModificacao;
     }
     
     //CONSTRUTOR
-    public Avaliacao(Pessoa pessoa, double peso, double altura, int idade, double pescoco, double cintura, double quadril, double imc, double tmb, double bf, double massaGorda, double massaMagra, LocalDate dataCriacao) {
+    public Avaliacao(Pessoa pessoa, double peso, double altura, int idade, double pescoco, double cintura, double quadril) {
         this.id = ++serial;
         this.pessoa = pessoa;
         this.peso = peso;
@@ -164,12 +160,8 @@ public class Avaliacao {
         this.pescoco = pescoco;
         this.cintura = cintura;
         this.quadril = quadril;
-        this.imc = imc;
-        this.tmb = tmb;
-        this.bf = bf;
-        this.massaGorda = massaGorda;
-        this.massaMagra = massaMagra;
-        this.dataCriacao = dataCriacao;
+        this.dataCriacao = LocalDate.now();
+        this.dataModificacao = LocalDate.now();
     }
     
     
@@ -288,7 +280,7 @@ public class Avaliacao {
     public String interpretarBf(){
         String estadoBf = "";
         
-        if ("M".equals(pessoa.getSexo()) || "m".equals(pessoa.getSexo())){
+        if ("m".equals(pessoa.getSexo())){
             if (this.idade >= 20 && this.idade <=29){
                 if(this.bf < 11){
                     estadoBf = "Atleta";
@@ -339,7 +331,7 @@ public class Avaliacao {
                 }
             }
             
-        }else if ("F".equals(pessoa.getSexo()) || "f".equals(pessoa.getSexo())){
+        }else if ("f".equals(pessoa.getSexo())){
             if (this.idade >= 20 && this.idade <=29){
                 if(this.bf < 16){
                     estadoBf = "Atleta";
@@ -411,7 +403,9 @@ public class Avaliacao {
                            """
                            BF:""" + this.bf + 
                            """
-                           Gordura:""" + estadoBf
+                           Gordura:""" + estadoBf +
+                           """
+                           Massa Magra:""" + massaMagra
                            );
     }
     

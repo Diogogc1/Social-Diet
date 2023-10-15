@@ -12,12 +12,12 @@ import java.time.LocalDate;
 /*CRUD DE PREFERÊNCIAS. INFORMAÇÕES IMPORTANTES: ID, PESSOA,
 ALIMENTO, DATACRIACAO, DATAMODIFICACAO.*/
 public class Preferencias {
-    private static long serial = 1;
-    private long id;
+    private static long serial;
+    private final long id;
     private Pessoa pessoa;
     private Alimento alimento;
-    private LocalDate dataCriação;
-    private LocalDate dataModificação;
+    private LocalDate dataCriacao;
+    private LocalDate dataModificacao;
     
     private Alimento proteinas[] = new Alimento[3];
     private Alimento carboidratos[] = new Alimento[3];
@@ -28,17 +28,9 @@ public class Preferencias {
     public Pessoa getPessoa() {
         return pessoa;
     }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
     
     public Alimento getAlimento() {
         return alimento;
-    }
-
-    public void setAlimento(Alimento alimento) {
-        this.alimento = alimento;
     }
     
     public Alimento[] getProteinas() {
@@ -67,35 +59,35 @@ public class Preferencias {
     
     
     public LocalDate getDataCriação() {
-        return dataCriação;
+        return dataCriacao;
     }
 
-    public void setDataCriação(LocalDate dataCriação) {
-        this.dataCriação = dataCriação;
+    public void setDataCriação(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public LocalDate getDataModificação() {
-        return dataModificação;
+        return dataModificacao;
     }
 
-    public void setDataModificação(LocalDate dataModificação) {
-        this.dataModificação = dataModificação;
+    public void setDataModificação(LocalDate dataModificacao) {
+        this.dataModificacao = dataModificacao;
     }
 
     public long getId() {
         return id;
     }
-
-    public void setId(long id) {
-        this.id = id;
+    
+    public String getSerial() {
+        return "Atualmente ha " + serial + "preferencias no sistema";
     }
     
     //CONSTRUTOR
-    public Preferencias(int id, Pessoa pessoa, Alimento alimento, LocalDate dataCriação, LocalDate dataModificação) {
+    public Preferencias(Pessoa pessoa, Alimento alimento, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = ++serial;
         this.pessoa = pessoa;
         this.alimento = alimento;
-        this.dataCriação = dataCriação;
-        this.dataModificação = dataModificação;
+        this.dataCriacao = dataCriacao;
+        this.dataModificacao = dataModificacao;
     }    
 }

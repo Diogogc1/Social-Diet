@@ -12,8 +12,8 @@ import java.time.LocalDate;
 PESSOA ORIGEM, PESSOA DESTINO, MENSAGEM,
 DATACRIACAO, DATAMODIFICACAO.*/
 public class Mensagem {
-    private static long serial = 1;
-    private long id;
+    private static long serial;
+    private final long id;
     private Pessoa pessoaOrigem;
     private Pessoa pessoaDestino;
     private String mensagem;
@@ -24,16 +24,8 @@ public class Mensagem {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public static long getSerial() {
-        return serial;
-    }
-
-    public static void setSerial(long serial) {
-        Mensagem.serial = serial;
+    public String getSerial() {
+        return "Atualmente há " + serial + "mensagens no sistema";
     }
 
     public Pessoa getPessoaOrigem() {

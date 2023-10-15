@@ -12,43 +12,45 @@ public class PreferenciasDAO {
    Preferencias preferencias[] = new Preferencias[10];
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public String adicionar(Preferencias preferencia){
+    public boolean adicionar(Preferencias preferencia){
         for (int i = 0; i < preferencias.length; i++) {
             if(preferencias[i] == null){
                 preferencias[i] = preferencia;
-                return "Preferência adicionada com sucesso!";
+                return true;
             } 
         }
-        return "Erro - Preferência não adicionada!";
+        return false;
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA A PESSOA PARA SER REMOVIDA
-    public String remover(Preferencias preferencia){
+    public boolean remover(Preferencias preferencia){
         for (int i = 0; i < preferencias.length; i++) {
             if(preferencias[i].equals(preferencia)){
                 preferencias[i] = null;
-                return "Preferência removida com sucesso!";
+                return true;
             }
         }
-        return "Erro - Preferência não removida!";
+        return false;
     }
     
     //ALTERAR
-    public String alterar(Preferencias preferencia, Preferencias preferenciaNovo){
+    public boolean alterar(Preferencias preferencia, Preferencias preferenciaNovo){
         for (int i = 0; i < preferencias.length; i++) {
             if(preferencias[i].equals(preferencia)){
                 preferencias[i] = preferenciaNovo;
-                return "Preferência alterada com sucesso!";
+                return true;
             }
         }
-        return "Erro - Preferência não alterada!";
+        return false;
     }
     
-    //LER
-    public void ler (Preferencias preferencia){
-        System.out.println("Registros: \n");
+    //BUSCAR
+    public boolean buscar (Preferencias preferencia){
         for (int i = 0; i < preferencias.length; i++){
-            System.out.println(preferencias[i] + " ");
+           if(preferencias[i].equals(preferencia)){
+               return true;
+           }
         }
+        return false;
     }
 }

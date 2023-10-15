@@ -29,6 +29,14 @@ public class GUI {
     String sexo;
     LocalDate dataNascimento;
     
+    //AVALIACAO
+    double peso;
+    double altura;
+    int idade;
+    double pescoco;
+    double cintura;
+    double quadril;
+    
     //ALIMENTOS
     double carboidratos;
     double proteinas;
@@ -122,7 +130,46 @@ public class GUI {
         return Integer.parseInt(scanner.nextLine());
     }
     
-    //AVALIAÇÃO FÍSICA
+    public int menuAvaliacao(){
+        System.out.println("""
+                           //// AVALIACAO ////
+                           
+                           1. Fazer Avaliacao Física
+                           2. Ver avaliacoes
+                           4. Sair
+                           """);
+        System.out.print("\n Escolha uma opção: ");
+        
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public Avaliacao fazerAvaliacao(Pessoa pessoa){
+        /*PESSOA, PESO, ALTURA, IDADE, PESCOCO,
+        CINTURA, QUADRIL, IMC, TMB, BF, MASSA GORDA KG, MASSA MAGRA KG,
+        DATACRIACAO, DATAMODIFICACAO.*/
+        
+        System.out.println("/// FAZER AVALIACAO ///");
+        
+        System.out.println("Peso: ");
+        peso = Double.parseDouble(scanner.nextLine());
+        
+        System.out.println("Altura: ");
+        altura = Double.parseDouble(scanner.nextLine());
+        
+        System.out.println("Idade: ");
+        idade = Integer.parseInt(scanner.nextLine());
+        
+        System.out.println("Pescoco: ");
+        pescoco = Double.parseDouble(scanner.nextLine());
+        
+        System.out.println("Cintura: ");
+        cintura = Double.parseDouble(scanner.nextLine());
+        
+        System.out.println("Quadril: ");
+        quadril = Double.parseDouble(scanner.nextLine());
+        
+        return new Avaliacao(pessoa, peso, altura, idade, pescoco, cintura, quadril);
+    }
     
     public Alimento cadastrarAlimentos(Pessoa pessoa){
         /*nome, carboidratos, proteínas, gorduras, 

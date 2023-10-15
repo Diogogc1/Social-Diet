@@ -12,43 +12,52 @@ public class AvaliacaoDAO {
     Avaliacao avaliacoes[] = new Avaliacao[10];
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public String adicionar(Avaliacao avaliacao){
+    public boolean adicionar(Avaliacao avaliacao){
         for (int i = 0; i < avaliacoes.length; i++) {
             if(avaliacoes[i] == null){
                 avaliacoes[i] = avaliacao;
-                return "Avaliação adicionada com sucesso!";
+                return true;
             } 
         }
-        return "Erro - Avaliação não adicionada!";
+        return false;
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA A PESSOA PARA SER REMOVIDA
-    public String remover(Avaliacao avaliacao){
+    public boolean remover(Avaliacao avaliacao){
         for (int i = 0; i < avaliacoes.length; i++) {
             if(avaliacoes[i].equals(avaliacao)){
                 avaliacoes[i] = null;
-                return "Avaliação removida com sucesso!";
+                return true;
             }
         }
-        return "Erro - Avaliação não removida!";
+        return false;
     }
     
     //ALTERAR
-    public String alterar(Avaliacao avaliacao, Avaliacao avaliacaoNovo){
+    public boolean alterar(Avaliacao avaliacao, Avaliacao avaliacaoNovo){
         for (int i = 0; i < avaliacoes.length; i++) {
             if(avaliacoes[i].equals(avaliacao)){
                 avaliacoes[i] = avaliacaoNovo;
-                return "Avaliação alterada com sucesso!";
+                return true;
             }
         }
-        return "Erro - Avaliação não alterada!";
+        return false;
     }
     
-    //LER
-    public void ler (Avaliacao avaliacao){
-        System.out.println("Registros: \n");
+    //BUSCAR
+    public boolean buscar (Avaliacao avaliacao){
         for (int i = 0; i < avaliacoes.length; i++){
-            System.out.println(avaliacoes[i] + " ");
+           if(avaliacoes[i].equals(avaliacao)){
+               return true;
+           }
         }
+        return false;
     }
+
+    @Override
+    public String toString() {
+        return "AvaliacaoDAO{" + "avaliacoes=" + avaliacoes + '}';
+    }
+    
+    
 }

@@ -15,8 +15,8 @@ import java.lang.Math;
 PROTEÍNA, GORDURA, DATACRIACAO, DATAMODIFICACAO.*/
 public class TipoDieta {
     
-    private static long serial = 1; 
-    private long id;
+    private static long serial; 
+    private final long id;
     private String nome;
     private int carboidrato;
     private int proteina;
@@ -29,11 +29,11 @@ public class TipoDieta {
     public long getId() {
         return id;
     }
-
-    public void setId(int id) {
-        this.id = id;
+    
+    public String getSerial() {
+        return "Atualmente há " + serial + "tipos de dieta no sistema";
     }
-
+   
     public String getNome() {
         return nome;
     }
