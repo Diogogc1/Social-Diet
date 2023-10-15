@@ -16,8 +16,6 @@ import view.GUI;
  */
 public class Programa {
     private GUI gui = new GUI(); 
-    private PessoaDAO pessoaDAO = new PessoaDAO();
-    private AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
     
     private int menu;
     private Pessoa pessoaLogada;
@@ -25,6 +23,7 @@ public class Programa {
     
     //DAOs
     private PessoaDAO pessoaDAO = new PessoaDAO();
+    private AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
     private AlimentoDAO alimentoDAO = new AlimentoDAO(pessoaLogada);
     
     public Programa() {
