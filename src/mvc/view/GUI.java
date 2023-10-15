@@ -2,17 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package view;
+package mvc.view;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import model.Alimento;
-import model.Avaliacao;
-import model.Dieta;
-import model.Pessoa;
-import model.Refeicao;
-import model.TipoDieta;
+import mvc.model.Alimento;
+import mvc.model.Avaliacao;
+import mvc.model.Dieta;
+import mvc.model.Pessoa;
+import mvc.model.Refeicao;
+import mvc.model.TipoDieta;
 
 /**
  *
@@ -197,6 +197,18 @@ public class GUI {
         return idAvaliacao; 
     }
     
+    public int menuAlimentos(){
+        System.out.println("""
+                           /// ALIMENTOS ///
+
+                           1. Ver Alimentos
+                           2. Cadastar Alimento
+                           3. SAIR
+                           """);
+        System.out.println("\n Escolha uma opcao: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
     public Alimento cadastrarAlimentos(Pessoa pessoa){
         /*nome, carboidratos, proteínas, gorduras, 
         calorias, porcao, pessoa, dataCriacao, dataModificacao*/
@@ -224,12 +236,11 @@ public class GUI {
         return new Alimento(nome, carboidratos, proteinas, gorduras, porcao, pessoa);
     }
     
-    public int menuAlimentos(){
+    public int menuDieta(){
         System.out.println("""
-                           /// ALIMENTOS ///
-                           
-                           1. Ver Alimentos
-                           2. Cadastar Alimento
+                           ======== DIETA ========
+                           1. Gerar Dieta Automatica
+                           2. Montar sua propria Dieta
                            3. SAIR
                            """);
         System.out.println("\n Escolha uma opcao: ");
@@ -255,6 +266,18 @@ public class GUI {
         
         //CALORIAS DA DIETA SÃO DEFINIDAS NO CONTROLLER, NA CLASSE PROGRAMA
         return new Dieta(pessoa, avaliacao, tipoDieta, objetivo, calorias, nrRefeicoes);
+    }
+    
+    public int menuRefeicao(){
+        System.out.println("""
+                           ======= REFEICAO =======
+
+                           1. Ver Refeicoes
+                           2. Cadastar Refeicao
+                           3. SAIR
+                           """);
+        System.out.println("\n Escolha uma opcao: ");
+        return Integer.parseInt(scanner.nextLine());
     }
     
     public Refeicao cadastrarRefeicao(Dieta dieta){

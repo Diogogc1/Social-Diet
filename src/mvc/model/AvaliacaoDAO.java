@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package mvc.model;
 
 import java.util.Arrays;
 
@@ -47,13 +47,23 @@ public class AvaliacaoDAO {
     }
     
     //BUSCAR
-    public boolean buscar (Long idAvaliacao){
-        for (int i = 0; i < avaliacoes.length; i++){
+    public Avaliacao buscar (Long idAvaliacao){
+        for(int i = 0; i < avaliacoes.length; i++){
            if(avaliacoes[i].getId() == idAvaliacao){
-               return true;
+               return avaliacoes[i];
            }
         }
-        return false;
+        return null;
+    }
+    
+    //BUSCAR PESSOA AVALIACAO FISICA
+    public Avaliacao buscarPessoa (Pessoa pessoaLogada){
+        for(Avaliacao avaliacao : avaliacoes) {
+            if (avaliacao != null && avaliacao.getPessoa().equals(pessoaLogada)) {
+                return avaliacao;
+            }
+        }
+        return null;
     }
 
     @Override

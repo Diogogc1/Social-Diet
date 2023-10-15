@@ -1,4 +1,4 @@
-package model;
+package mvc.model;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

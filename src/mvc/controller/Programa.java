@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller;
+package mvc.controller;
 
-import model.AvaliacaoDAO;
-import model.AlimentoDAO;
-import model.Pessoa;
-import model.PessoaDAO;
-import view.GUI;
+import mvc.model.AvaliacaoDAO;
+import mvc.model.AlimentoDAO;
+import mvc.model.Pessoa;
+import mvc.model.PessoaDAO;
+import mvc.view.GUI;
 
 /**
  *
@@ -133,15 +133,15 @@ public class Programa {
                 }
                 //MENU DIETA
                 case 5 -> {
-                    
+                    menuDieta();
+                    menu = 0;
                 }
                 //MENU REFEIÇÕES
                 case 6 -> {
-                    
+                    menuRefeicao();
+                    menu = 0;
                 }
-                
-                
-                
+
                 default -> {
                     System.out.println("\n Opcao Invalida!");
                 }
@@ -155,13 +155,69 @@ public class Programa {
                 //VER ALIMENTOS
                 case 1 -> {
                     if(alimentoDAO.isVazio()){
-                        System.out.println("\n Nao ha alimentos cadastrados! Cadastre um alimento");
+                        System.out.println("\n Nao ha alimentos cadastrados! Cadastre alimentos");
                     }else{
                         System.out.println("\n");
                         System.out.println(alimentoDAO);
                     }
                 }
                 //CADASTAR ALIMENTOS
+                case 2 -> {
+                    if(alimentoDAO.adicionar(gui.cadastrarAlimentos(pessoaLogada))){
+                        System.out.println("\n Alimento cadastrado com sucesso!");
+                    }else{
+                        System.out.println("ERRO - Alimento nao cadastrado!");
+                    }
+                }
+                //SAIR
+                case 3 -> {
+                    menu = -1;
+                }
+                
+                default -> {
+                    System.out.println("\n Opcao Invalida!");
+                }
+            }
+        }while(menu != -1);
+    }
+    
+    public void menuDieta(){
+        do{
+            switch(gui.menuDieta()){
+                //DIETA AUTOMÁTICA
+                case 1 -> {
+                    
+                }
+                
+                //CADASTRAR DIETA
+                case 2 -> {
+                    //gui.cadastrarDieta(pessoaNova, avaliacao, tipoDieta);
+                }
+                
+                case 3 -> {
+                    menu = -1;
+                }
+                
+                default -> {
+                    System.out.println("\n Opcao Invalida!");
+                }
+            }
+        }while(menu != -1);
+    }
+    
+    public void menuReficao(){
+        do{
+            switch(gui.menuAlimentos()){
+                //VER REFEICOES
+                case 1 -> {
+                    if(alimentoDAO.isVazio()){
+                        System.out.println("\n Nao ha refeicoes cadastradas! Cadastre refeicoes");
+                    }else{
+                        System.out.println("\n");
+                        System.out.println(alimentoDAO);
+                    }
+                }
+                //CADASTAR REFEICOES
                 case 2 -> {
                     if(alimentoDAO.adicionar(gui.cadastrarAlimentos(pessoaLogada))){
                         System.out.println("\n Alimento cadastrado com sucesso!");
