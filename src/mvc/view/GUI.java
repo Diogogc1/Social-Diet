@@ -10,6 +10,7 @@ import java.util.Scanner;
 import mvc.model.Alimento;
 import mvc.model.Avaliacao;
 import mvc.model.Dieta;
+import mvc.model.DietaDAO;
 import mvc.model.Pessoa;
 import mvc.model.Refeicao;
 import mvc.model.TipoDieta;
@@ -22,33 +23,36 @@ public class GUI {
     Scanner scanner = new Scanner(System.in);
   
     //LOGIN
-    String email;
-    String senha;
+    private String email;
+    private String senha;
     
     //CADASTRO
-    String nome;
-    String sexo;
-    LocalDate dataNascimento;
+    private String nome;
+    private String sexo;
+    private LocalDate dataNascimento;
     
     //AVALIACAO
-    double peso;
-    double altura;
-    int idade;
-    double pescoco;
-    double cintura;
-    double quadril;
-    long idAvaliacao;
+    private double peso;
+    private double altura;
+    private int idade;
+    private double pescoco;
+    private double cintura;
+    private double quadril;
+    private long idAvaliacao;
     
     //ALIMENTOS
-    double carboidratos;
-    double proteinas;
-    double gorduras;
-    double calorias;
-    int porcao;
+    private double carboidratos;
+    private double proteinas;
+    private double gorduras;
+    private double calorias;
+    private int porcao;
     
     //DIETA
-    String objetivo;
-    int nrRefeicoes;
+    private String objetivo;
+    private int nrRefeicoes;
+    
+    //REFEIÇÃO
+    long idDieta;
     
     //METÓDOS
     public int menuInicial(){
@@ -144,7 +148,7 @@ public class GUI {
                            3. Alterar avaliacao
                            4. Deletar avaliacao
                            5. Ver avaliacoes
-                           6. Sair
+                           6. SAIR
                            """);
         System.out.print("\n Escolha uma opção: ");
         
@@ -300,11 +304,22 @@ public class GUI {
         return Integer.parseInt(scanner.nextLine());
     }
     
+    public Dieta getNumerodeRefeicoes(DietaDAO dietaDAO, Pessoa pessoaLogada){
+        System.out.println(dietaDAO.toString(pessoaLogada));
+        
+        System.out.println("\n Escolha uma opcao: ");
+        idDieta = Integer.parseInt(scanner.nextLine());
+        
+        return dietaDAO.buscar(idDieta);
+    }
+    
     public Refeicao cadastrarRefeicao(Dieta dieta){
         /*id, dieta, carboidrato, proteína, gordura, 
         calorias, nome da refeição, dataCriacao, dataModificacao.*/
+        System.out.println("======= Monte uma Refeição =======");
         
-        System.out.println("/// Monte uma Refeição ///");
+        System.out.println("Nome: ");
+        nome = scanner.nextLine();
         
         System.out.println("Proteínas: ");
         proteinas = Double.parseDouble(scanner.nextLine());
@@ -317,9 +332,6 @@ public class GUI {
         
         System.out.println("Calorias: ");
         calorias = Double.parseDouble(scanner.nextLine());
-        
-        System.out.println("Nome: ");
-        nome = scanner.nextLine();
         
         return new Refeicao(dieta, carboidratos, proteinas, gorduras, calorias, nome);
     }

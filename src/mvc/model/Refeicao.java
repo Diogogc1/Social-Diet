@@ -15,11 +15,11 @@ public class Refeicao {
     private final long id;
     private static long serial;
     private Dieta Dieta;
+    private String nomeRefeicao;
     private double carboidrato;
     private double proteina;
     private double gordura;
     private double calorias;
-    private String nomeRefeicao;
     private final LocalDate dataCriacao;
     private final LocalDate dataModificacao;
 
@@ -45,11 +45,11 @@ public class Refeicao {
         return "Atualmente há " + serial + "refeições no sistema";
     }
     
-    public Dieta getTipoDieta() {
+    public Dieta getDieta() {
         return Dieta;
     }
 
-    public void setTipoDieta(Dieta dieta) {
+    public void setDieta(Dieta dieta) {
         this.Dieta = dieta;
     }
 
@@ -93,11 +93,11 @@ public class Refeicao {
         this.nomeRefeicao = nomeDaRefeicao;
     }
 
-    public LocalDate getDataDeCriacao() {
+    public LocalDate getDataCriacao() {
         return dataCriacao;
     }
 
-    public LocalDate getDataDeModificacao() {
+    public LocalDate getDataModificacao() {
         return dataModificacao;
     }
 

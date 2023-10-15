@@ -44,13 +44,41 @@ public class DietaDAO {
         return false;
     }
     
-    //BUSCAR
-     public boolean buscar(Dieta dieta){
-        for (Dieta rd: dietas) {
-            if (dieta.equals(rd)) {
-                return true;
-            } 
+    //BUSCAR DIETA POR ID
+    public Dieta buscar(long id){
+        for(Dieta dieta : dietas){
+            if (dieta != null && dieta.getId() == id){
+                return dieta;
+            }
         }
-        return false;
+        return null;
+    }
+    
+    //BUSCAR PESSOA AVALIACAO FISICA
+    public Dieta buscarPessoa (Pessoa pessoaLogada){
+        for(Dieta dieta : dietas){
+            if (dieta != null && dieta.getPessoa().equals(pessoaLogada)){
+                return dieta;
+            }
+        }
+        return null;
+    }
+    
+    public String toString(Pessoa pessoa) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("====== Dietas ======");
+        for(Dieta dieta : dietas) {
+            if(dieta != null && dieta.getPessoa().equals(pessoa)){
+                sb.append("\n ID: ").append(dieta.getId()).
+                append("\n Tipo de Dieta: ").append(dieta.getTipoDieta()).
+                append("\n Objetivo: ").append(dieta.getObjetivo()).
+                append("\n Calorias: ").append(dieta.getCalorias()).
+                append("\n Numero de Refeicoes: ").append(dieta.getNumeroRefeicoes()).
+                append("\n Data de Criacao: ").append(dieta.getDataCriacao()).
+                append("\n Data de Modificacao: ").append(dieta.getDataModificacao()).
+                append("\n ========================================");
+            }
+        }
+        return sb.toString();
     }
 }

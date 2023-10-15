@@ -49,7 +49,7 @@ public class AlimentoDAO {
     }
     
     //BUSCAR
-     public boolean buscar(Alimento alimento){
+    public boolean buscar(Alimento alimento){
         for (Alimento a : alimentos) {
             if (alimento.equals(a)) {
                 return true;
@@ -58,14 +58,14 @@ public class AlimentoDAO {
         return false;
     }
      
-     public boolean isVazio(){
-         for (Alimento alimento : alimentos) {
-             if(alimento != null){
-                 return false;
-             }
-         }
-         return true;
-     }
+    public boolean isVazio(){
+        for (Alimento alimento : alimentos) {
+            if(alimento != null){
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public String toString() {
@@ -79,8 +79,8 @@ public class AlimentoDAO {
                 append("\n Proteinas: ").append(alimento.getProteinas()).
                 append("\n Gorduras: ").append(alimento.getGorduras()).
                 append("\n Calorias: ").append(alimento.getCalorias()).
-                append("\n Data de Criacao: ").append(alimento.getDataDeCriacao()).
-                append("\n Data de Modificacao: ").append(alimento.getDataDeModificacao()).
+                append("\n Data de Criacao: ").append(alimento.getDataCriacao()).
+                append("\n Data de Modificacao: ").append(alimento.getDataModificacao()).
                 append("\n ========================================");
             }
         }

@@ -10,6 +10,10 @@ package mvc.model;
  */
 public class RefeicaoDAO {
     Refeicao refeicoes[] = new Refeicao[10];
+
+    public RefeicaoDAO(DietaDAO dietaDAO, Pessoa pessoaLogada) {
+        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 0, 0, 0, 0, "Café da Manhã"));
+    }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(Refeicao refeicao){
@@ -52,5 +56,33 @@ public class RefeicaoDAO {
             } 
         }
         return false;
+    }
+     
+    public boolean isVazio(){
+        for(Refeicao refeicao : refeicoes){
+            if(refeicao != null){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public String toString(Pessoa pessoa) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("====== REFEICOES ======");
+        for(Refeicao refeicao : refeicoes) {
+            if(refeicao != null && refeicao.getDieta().getPessoa().equals(pessoa)){
+                sb.append("\n ID: ").append(refeicao.getId()).
+                append("\n Nome: ").append(refeicao.getNomeDaRefeicao()).
+                append("\n Carboidratos: ").append(refeicao.getCarboidrato()).
+                append("\n Proteinas: ").append(refeicao.getProteina()).
+                append("\n Gorduras: ").append(refeicao.getGordura()).
+                append("\n Calorias: ").append(refeicao.getCalorias()).
+                append("\n Data de Criacao: ").append(refeicao.getDataCriacao()).
+                append("\n Data de Modificacao: ").append(refeicao.getDataModificacao()).
+                append("\n ========================================");
+            }
+        }
+        return sb.toString();
     }
 }

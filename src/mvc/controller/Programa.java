@@ -6,8 +6,12 @@ package mvc.controller;
 
 import mvc.model.AvaliacaoDAO;
 import mvc.model.AlimentoDAO;
+import mvc.model.Dieta;
+import mvc.model.DietaDAO;
 import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
+import mvc.model.RefeicaoDAO;
+import mvc.model.TipoDieta;
 import mvc.model.TipoDietaDAO;
 import mvc.view.GUI;
 
@@ -18,15 +22,25 @@ import mvc.view.GUI;
 public class Programa {
     private GUI gui = new GUI(); 
     
+    //VARIÁVEL DO LOOP
     private int menu;
+    
+    //LOGIN
     private Pessoa pessoaLogada;
+    
+    //CADASTRO
     private Pessoa pessoaNova;
+    
+    //REFEIÇÃO
+    private Dieta dietaSelecionada;
     
     //DAOs
     private PessoaDAO pessoaDAO = new PessoaDAO();
     private AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
     private AlimentoDAO alimentoDAO = new AlimentoDAO(pessoaLogada);
     private TipoDietaDAO tipoDietaDAO = new TipoDietaDAO();
+    private DietaDAO dietaDAO = new DietaDAO();
+    private RefeicaoDAO refeicaoDAO = new RefeicaoDAO(dietaDAO, pessoaLogada);
     
     public Programa() {
         do{
@@ -163,12 +177,43 @@ public class Programa {
         }while(menu != -1);
     }
     
-    public void montarTipoDieta(){
+    public TipoDieta montarTipoDieta(){
         switch(gui.cadastrarTipoDieta()){
             case 1 -> {
-                
+                return tipoDietaDAO.buscar(1);
+            }
+            case 2 -> {
+                return tipoDietaDAO.buscar(2);
+            }
+            case 3 -> {
+                return tipoDietaDAO.buscar(3);
+            }
+            default -> {
+                 return null;
+            }
+        } 
+    }
+    
+    public Dieta tratarObjetivo(TipoDieta tipoDieta){
+        Dieta d = gui.cadastrarDieta(pessoaLogada, avaliacaoDAO.buscarPessoa(pessoaLogada), tipoDieta);
+        switch(d.getObjetivo()){
+            case "1" -> {
+                d.setObjetivo("Diminuir o peso");
+            }
+            
+            case "2" -> {
+                d.setObjetivo("Manter o peso");
+            }
+            
+            case "3" -> {
+                d.setObjetivo("Melhorar composicao corporal");
+            }
+            
+            case "4" -> {
+                d.setObjetivo("Aumentar o pesoAumentar o peso");
             }
         }
+        return d;
     }
     
     public void menuDieta(){
@@ -181,7 +226,16 @@ public class Programa {
                 
                 //CADASTRAR DIETA
                 case 2 -> {
-                    montarTipoDieta();
+                    TipoDieta tipoDieta = montarTipoDieta();
+                    if(tipoDieta == null){
+                        System.out.println("Opcao Invalida!");
+                    }else{
+                        if(dietaDAO.adicionar(tratarObjetivo(tipoDieta))){
+                            System.out.println("\n Dieta adicionada com sucesso!");
+                        }else{
+                            System.out.println("\n ERRO - Dieta nao adicionada!");
+                        }
+                    }
                 }
                 
                 case 3 -> {
@@ -195,25 +249,27 @@ public class Programa {
         }while(menu != -1);
     }
     
-    public void menuReficao(){
+    public void menuRefeicao(){
         do{
             switch(gui.menuAlimentos()){
                 //VER REFEICOES
                 case 1 -> {
-                    if(alimentoDAO.isVazio()){
+                    if(refeicaoDAO.isVazio()){
                         System.out.println("\n Nao ha refeicoes cadastradas! Cadastre refeicoes");
                     }else{
                         System.out.println("\n");
-                        System.out.println(alimentoDAO);
+                        System.out.println(refeicaoDAO.toString(pessoaLogada));
                     }
                 }
                 //CADASTAR REFEICOES
                 case 2 -> {
-                    if(alimentoDAO.adicionar(gui.cadastrarAlimentos(pessoaLogada))){
-                        System.out.println("\n Alimento cadastrado com sucesso!");
-                    }else{
-                        System.out.println("ERRO - Alimento nao cadastrado!");
+                    dietaSelecionada = gui.getNumerodeRefeicoes(dietaDAO, pessoaLogada);
+                    
+                    for (int i = 0; i < dietaSelecionada.getNumeroRefeicoes(); i++) {
+                        refeicaoDAO.adicionar(gui.cadastrarRefeicao(dietaSelecionada));
                     }
+                    
+                    
                 }
                 //SAIR
                 case 3 -> {
