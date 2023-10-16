@@ -128,10 +128,9 @@ public class GUI {
                            1. Avaliação Física
                            2. Alimentos
                            3. Preferencias
-                           4. Tipo de Dieta
-                           5. Dietas
-                           6. Refeicoes
-                           7. SAIR
+                           4. Dietas
+                           5. Refeicoes
+                           6. SAIR
                            """);
         
         System.out.print("\n Escolha uma opcao: ");

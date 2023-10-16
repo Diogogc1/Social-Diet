@@ -64,11 +64,11 @@ public class DietaDAO {
         return null;
     }
     
-    public String toString(Pessoa pessoa) {
+    public String toString(Pessoa pessoaLogada) {
         StringBuilder sb = new StringBuilder();
         sb.append("====== Dietas ======");
         for(Dieta dieta : dietas) {
-            if(dieta != null && dieta.getPessoa().equals(pessoa)){
+            if(dieta != null && dieta.getPessoa().equals(pessoaLogada)){
                 sb.append("\n ID: ").append(dieta.getId()).
                 append("\n Tipo de Dieta: ").append(dieta.getTipoDieta()).
                 append("\n Objetivo: ").append(dieta.getObjetivo()).

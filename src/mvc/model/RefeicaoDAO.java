@@ -10,6 +10,7 @@ package mvc.model;
  */
 public class RefeicaoDAO {
     Refeicao refeicoes[] = new Refeicao[10];
+    int cont;
 
     public RefeicaoDAO(DietaDAO dietaDAO, Pessoa pessoaLogada) {
         adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 0, 0, 0, 0, "Café da Manhã"));
@@ -49,10 +50,14 @@ public class RefeicaoDAO {
     }
     
     //BUSCAR
-     public boolean buscar(Refeicao refeicao){
+    public boolean buscarDieta(Dieta dieta){
+        cont = 0;
         for (Refeicao r : refeicoes) {
-            if (refeicao.equals(r)) {
-                return true;
+            if (r.getDieta().equals(dieta)) {
+                cont++;
+                if(cont >= dieta.getNumeroRefeicoes()){
+                    return true;
+                }
             } 
         }
         return false;
@@ -67,11 +72,13 @@ public class RefeicaoDAO {
         return true;
     }
     
-    public String toString(Pessoa pessoa) {
+    
+    
+    public String toString(Pessoa pessoaLogada) {
         StringBuilder sb = new StringBuilder();
         sb.append("====== REFEICOES ======");
         for(Refeicao refeicao : refeicoes) {
-            if(refeicao != null && refeicao.getDieta().getPessoa().equals(pessoa)){
+            if(refeicao != null && refeicao.getDieta().getPessoa().equals(pessoaLogada)){
                 sb.append("\n ID: ").append(refeicao.getId()).
                 append("\n Nome: ").append(refeicao.getNomeDaRefeicao()).
                 append("\n Carboidratos: ").append(refeicao.getCarboidrato()).

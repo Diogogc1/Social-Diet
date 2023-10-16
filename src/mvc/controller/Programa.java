@@ -6,6 +6,7 @@ package mvc.controller;
 
 import mvc.model.AvaliacaoDAO;
 import mvc.model.AlimentoDAO;
+import mvc.model.Avaliacao;
 import mvc.model.Dieta;
 import mvc.model.DietaDAO;
 import mvc.model.Pessoa;
@@ -266,10 +267,12 @@ public class Programa {
                     dietaSelecionada = gui.getNumerodeRefeicoes(dietaDAO, pessoaLogada);
                     
                     for (int i = 0; i < dietaSelecionada.getNumeroRefeicoes(); i++) {
-                        refeicaoDAO.adicionar(gui.cadastrarRefeicao(dietaSelecionada));
+                        if(refeicaoDAO.buscarDieta(dietaSelecionada)){
+                            refeicaoDAO.adicionar(gui.cadastrarRefeicao(dietaSelecionada));
+                        }else{
+                            System.out.println("\n O numero maximo de refeicoes da dieta foi atingido!");
+                        }
                     }
-                    
-                    
                 }
                 //SAIR
                 case 3 -> {
