@@ -53,4 +53,24 @@ public class PreferenciasDAO {
         }
         return false;
     }
+    
+    public String toString(Pessoa pessoaLogada) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("====== PREFERENCIAS ======");
+        for(Preferencias preferencia : preferencias) {
+            if(preferencia != null && preferencia.getPessoa().equals(pessoaLogada)){
+                sb.append("\n ID: ").append(preferencia.getId()).
+                append("\n Proteinas: ").append(preferencia.toStringProteinas()).
+                append("\n\n ///Carboidratos/// ").append(preferencia.toStringCarboidratos()).
+                append("\n\n ///Gorduras:/// ").append(preferencia.toStringGorduras()).
+                append("\n\n ///Data de Criacao:/// ").append(preferencia.getDataCriacao()).
+                append("\n\n ///Data de Modificacao:/// ").append(preferencia.getDataModificacao()).
+                append("\n ========================================");
+            }
+        }
+        return sb.toString();
+    }
+    
 }
+
+

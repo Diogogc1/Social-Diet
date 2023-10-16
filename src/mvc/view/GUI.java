@@ -8,10 +8,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import mvc.model.Alimento;
+import mvc.model.AlimentoDAO;
 import mvc.model.Avaliacao;
 import mvc.model.Dieta;
 import mvc.model.DietaDAO;
 import mvc.model.Pessoa;
+import mvc.model.Preferencias;
 import mvc.model.Refeicao;
 import mvc.model.TipoDieta;
 
@@ -53,6 +55,12 @@ public class GUI {
     
     //REFEIÇÃO
     long idDieta;
+    
+    //PREFERENCIAS
+    Alimento prefProteinas[] = new Alimento[3];
+    Alimento prefCarboidratos[] = new Alimento[3];
+    Alimento prefGorduras[] = new Alimento[3];
+    long idAlimento;
     
     //METÓDOS
     public int menuInicial(){
@@ -183,7 +191,7 @@ public class GUI {
     }
     
     public long buscarAvaliacao(){
-        System.out.println("/// BUSCAR AVALIACAO ///");
+        System.out.println("\n/// BUSCAR AVALIACAO ///");
         
         System.out.print("Informe o id para busca: ");
         idAvaliacao = Long.parseLong(scanner.nextLine());
@@ -192,7 +200,16 @@ public class GUI {
     }
     
     public long alterarAvaliacao(){
-        System.out.println("/// ALTERAR AVALIACAO ///");
+        System.out.println("\n/// ALTERAR AVALIACAO ///");
+        
+        System.out.print("Informe o id que deseja: ");
+        idAvaliacao = Long.parseLong(scanner.nextLine());
+        
+        return idAvaliacao; 
+    }
+    
+    public long removerAvaliacao(){
+        System.out.println("\n/// REMOVER AVALIACAO ///");
         
         System.out.print("Informe o id que deseja: ");
         idAvaliacao = Long.parseLong(scanner.nextLine());
@@ -324,5 +341,37 @@ public class GUI {
         calorias = Double.parseDouble(scanner.nextLine());
         
         return new Refeicao(dieta, carboidratos, proteinas, gorduras, calorias, nome);
+    }
+    
+    public int menuPreferencias(){
+        System.out.println("\n======= PREFERENCIAS =======");
+        System.out.println("1. Ver preferencias");
+        System.out.println("2. Cadastrar");
+        System.out.println("3. Sair");
+        
+        System.out.print("\n Escolha uma opcao: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public Preferencias cadastrarPreferencias(Pessoa pessoaLogada, AlimentoDAO alimentoDAO){
+        
+        System.out.println("\n======= Cadastrar Preferencias =======");
+        for(int i=0; i<prefProteinas.length; i++){
+            System.out.print("Informe o id do "+ (i+1) +"° alimento de proteina: ");
+            idAlimento = Long.parseLong(scanner.nextLine());
+            prefProteinas[i] = alimentoDAO.buscar(idAlimento);
+        }
+        for(int i=0; i<prefCarboidratos.length; i++){
+            System.out.print("Informe o id do "+ (i+1) +"° alimento de carboidratos: ");
+            idAlimento = Long.parseLong(scanner.nextLine());
+            prefCarboidratos[i] = alimentoDAO.buscar(idAlimento);
+        }
+        for(int i=0; i<prefGorduras.length; i++){
+            System.out.print("Informe o id do "+ (i+1) +"° alimento de gorduras: ");
+            idAlimento = Long.parseLong(scanner.nextLine());
+            prefGorduras[i] = alimentoDAO.buscar(idAlimento);
+        }
+        
+        return new Preferencias(pessoaLogada, prefProteinas, prefCarboidratos, prefGorduras);
     }
 }

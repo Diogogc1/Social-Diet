@@ -4,7 +4,6 @@
  */
 package mvc.model;
 
-import java.util.Arrays;
 
 /**
  *
@@ -25,9 +24,9 @@ public class AvaliacaoDAO {
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA A PESSOA PARA SER REMOVIDA
-    public boolean remover(Avaliacao avaliacao){
+    public boolean remover(long idAvaliacao){
         for (int i = 0; i < avaliacoes.length; i++) {
-            if(avaliacoes[i].equals(avaliacao)){
+            if(avaliacoes[i].getId() == idAvaliacao){
                 avaliacoes[i] = null;
                 return true;
             }
@@ -66,12 +65,11 @@ public class AvaliacaoDAO {
         return null;
     }
 
-    @Override
-    public String toString() {
+    public String toString(Pessoa pessoaLogada) {
         StringBuilder sb = new StringBuilder();
-        sb.append("====== AVALIACAO ======");
+        sb.append("====== AVALIACOES ======");
         for (Avaliacao avaliacao : avaliacoes) {
-            if(avaliacao != null){
+           if(avaliacao != null && avaliacao.getPessoa().equals(pessoaLogada)){
                 sb.append("\n ID: ").append(avaliacao.getId()).
                 append("\n Nome: ").append(avaliacao.getPeso()).
                 append("\n Altura: ").append(avaliacao.getAltura()).

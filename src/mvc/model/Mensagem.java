@@ -18,7 +18,7 @@ public class Mensagem {
     private Pessoa pessoaDestino;
     private String mensagem;
     private LocalDate dataCriacao;
-    private LocalDate dataModificao;
+    private LocalDate dataModificacao;
 
     public long getId() {
         return id;
@@ -60,21 +60,21 @@ public class Mensagem {
         this.dataCriacao = dataCriacao;
     }
 
-    public LocalDate getDataModificao() {
-        return dataModificao;
+    public LocalDate getDataModificacao() {
+        return dataModificacao;
     }
 
-    public void setDataModificao(LocalDate dataModificao) {
-        this.dataModificao = dataModificao;
+    public void setDataModificacao(LocalDate dataModificacao) {
+        this.dataModificacao = dataModificacao;
     }
 
-    public Mensagem(Pessoa pessoaOrigem, Pessoa pessoaDestino, String mensagem, LocalDate dataCriacao, LocalDate dataModificao) {
+    public Mensagem(Pessoa pessoaOrigem, Pessoa pessoaDestino, String mensagem) {
         this.id = ++serial;
         this.pessoaOrigem = pessoaOrigem;
         this.pessoaDestino = pessoaDestino;
         this.mensagem = mensagem;
-        this.dataCriacao = dataCriacao;
-        this.dataModificao = dataModificao;
+        this.dataCriacao = LocalDate.now();
+        this.dataModificacao = LocalDate.now();
     }
     
     

@@ -5,12 +5,13 @@
         <group>
             <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/PreferenciasDAO.java</file>
             <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/view/GUI.java</file>
-            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/AvaliacaoDAO.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/controller/Trabalho1_POO_ADS.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/Preferencias.java</file>
             <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/controller/Programa.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/RefeicaoDAO.java</file>
             <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/Alimento.java</file>
             <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/TipoDieta.java</file>
             <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/AlimentoDAO.java</file>
-            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/Avaliacao.java</file>
         </group>
     </open-files>
 </project-private>

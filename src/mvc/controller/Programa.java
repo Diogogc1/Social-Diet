@@ -11,6 +11,7 @@ import mvc.model.Dieta;
 import mvc.model.DietaDAO;
 import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
+import mvc.model.PreferenciasDAO;
 import mvc.model.RefeicaoDAO;
 import mvc.model.TipoDieta;
 import mvc.model.TipoDietaDAO;
@@ -42,6 +43,7 @@ public class Programa {
     private TipoDietaDAO tipoDietaDAO = new TipoDietaDAO();
     private DietaDAO dietaDAO = new DietaDAO();
     private RefeicaoDAO refeicaoDAO = new RefeicaoDAO(dietaDAO, pessoaLogada);
+    private PreferenciasDAO preferenciasDAO = new PreferenciasDAO();
     
     public Programa() {
         do{
@@ -121,7 +123,8 @@ public class Programa {
                 }
                 //MENU PREFÊRENCIAS
                 case 3 -> {
- 
+                    menuPreferencias();
+                    menu = 0;
                 }
 
                 //MENU DIETA
@@ -299,11 +302,36 @@ public class Programa {
                                 avaliacaoDAO.alterar(gui.alterarAvaliacao(), gui.fazerAvaliacao(pessoaLogada));
                             }
                             case 4 -> {
+                                avaliacaoDAO.remover(gui.removerAvaliacao());
                             }
                             case 5 ->{
                                 System.out.print(avaliacaoDAO);
                             }
                             case 6 ->{
+                                menu = -1;
+                            }
+                        }
+        }while(menu != -1);
+    }
+    
+    public void menuPreferencias(){
+        do{
+            switch(gui.menuPreferencias()){
+                            case 1 ->{
+                            System.out.println(preferenciasDAO.toString(pessoaLogada));
+                            
+                            }
+                            //CADASTRAR
+                            case 2 ->{
+                                System.out.println(alimentoDAO);
+                                if(preferenciasDAO.adicionar(gui.cadastrarPreferencias(pessoaLogada, alimentoDAO))){
+                                    System.out.println("\n Preferencia cadastrada");
+                                }else{
+                                    System.out.println("\n Preferencia nao cadastrada");
+                                }
+                                
+                            }
+                            case 3 ->{
                                 menu = -1;
                             }
                         }
