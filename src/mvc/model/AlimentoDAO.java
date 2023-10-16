@@ -49,13 +49,13 @@ public class AlimentoDAO {
     }
     
     //BUSCAR
-    public boolean buscar(Alimento alimento){
+    public Alimento buscar(long idAlimento){
         for (Alimento a : alimentos) {
-            if (alimento.equals(a)) {
-                return true;
+            if (a != null && a.getId() == idAlimento) {
+                return a;
             } 
         }
-        return false;
+        return null;
     }
      
     public boolean isVazio(){

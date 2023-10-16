@@ -15,7 +15,6 @@ public class Preferencias {
     private static long serial;
     private final long id;
     private Pessoa pessoa;
-    private Alimento alimento;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
     
@@ -29,9 +28,6 @@ public class Preferencias {
         return pessoa;
     }
     
-    public Alimento getAlimento() {
-        return alimento;
-    }
     
     public Alimento[] getProteinas() {
         return proteinas;
@@ -58,19 +54,19 @@ public class Preferencias {
     }
     
     
-    public LocalDate getDataCriação() {
+    public LocalDate getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriação(LocalDate dataCriacao) {
+    public void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public LocalDate getDataModificação() {
+    public LocalDate getDataModificacao() {
         return dataModificacao;
     }
 
-    public void setDataModificação(LocalDate dataModificacao) {
+    public void setDataModificacao(LocalDate dataModificacao) {
         this.dataModificacao = dataModificacao;
     }
 
@@ -82,12 +78,70 @@ public class Preferencias {
         return "Atualmente ha " + serial + "preferencias no sistema";
     }
     
+    
     //CONSTRUTOR
-    public Preferencias(Pessoa pessoa, Alimento alimento, LocalDate dataCriacao, LocalDate dataModificacao) {
+    public Preferencias(Pessoa pessoa, Alimento[] proteinas, Alimento[] carboidratos, Alimento[] gorduras) {
+        
         this.id = ++serial;
         this.pessoa = pessoa;
-        this.alimento = alimento;
-        this.dataCriacao = dataCriacao;
-        this.dataModificacao = dataModificacao;
-    }    
+        this.proteinas = proteinas;
+        this.carboidratos = carboidratos;
+        this.gorduras = gorduras;
+        this.dataCriacao = LocalDate.now();
+        this.dataModificacao = LocalDate.now();
+    }  
+    
+    public String toStringProteinas(){
+        StringBuilder sb = new StringBuilder();
+        for (Alimento proteina : proteinas) {
+            if(proteina != null){
+                sb.append("\n ID: ").append(proteina.getId()).
+                append("\n Nome: ").append(proteina.getNome()).
+                append("\n Carboidratos: ").append(proteina.getCarboidratos()).
+                append("\n Proteinas: ").append(proteina.getProteinas()).
+                append("\n Gorduras: ").append(proteina.getGorduras()).
+                append("\n Calorias: ").append(proteina.getCalorias()).
+                append("\n Data de Criacao: ").append(proteina.getDataCriacao()).
+                append("\n Data de Modificacao: ").append(proteina.getDataModificacao()).
+                append("\n ========================================");
+            }
+        }
+        return sb.toString();
+    }
+    
+    public String toStringCarboidratos(){
+        StringBuilder sb = new StringBuilder();
+        for (Alimento carboidrato : carboidratos) {
+            if(carboidrato  != null){
+                sb.append("\n ID: ").append(carboidrato.getId()).
+                append("\n Nome: ").append(carboidrato.getNome()).
+                append("\n Carboidratos: ").append(carboidrato.getCarboidratos()).
+                append("\n Proteinas: ").append(carboidrato.getProteinas()).
+                append("\n Gorduras: ").append(carboidrato.getGorduras()).
+                append("\n Calorias: ").append(carboidrato.getCalorias()).
+                append("\n Data de Criacao: ").append(carboidrato.getDataCriacao()).
+                append("\n Data de Modificacao: ").append(carboidrato.getDataModificacao()).
+                append("\n ========================================");
+            }
+        }
+        return sb.toString();
+    }
+    
+    public String toStringGorduras(){
+        StringBuilder sb = new StringBuilder();
+        for (Alimento gordura : gorduras) {
+            if(gordura  != null){
+                sb.append("\n ID: ").append(gordura.getId()).
+                append("\n Nome: ").append(gordura.getNome()).
+                append("\n Carboidratos: ").append(gordura.getCarboidratos()).
+                append("\n Proteinas: ").append(gordura.getProteinas()).
+                append("\n Gorduras: ").append(gordura.getGorduras()).
+                append("\n Calorias: ").append(gordura.getCalorias()).
+                append("\n Data de Criacao: ").append(gordura.getDataCriacao()).
+                append("\n Data de Modificacao: ").append(gordura.getDataModificacao()).
+                append("\n ========================================");
+            }
+        }
+        return sb.toString();
+    }
 }
