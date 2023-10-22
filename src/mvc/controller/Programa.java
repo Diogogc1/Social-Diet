@@ -453,7 +453,11 @@ public class Programa {
                     mensagemDAO.adicionar(gui.mandarMensagem(pessoaLogada, seguirDAO));
                 }
                 case 3 ->{
+<<<<<<< Updated upstream
                     
+=======
+                    menu = -1;
+>>>>>>> Stashed changes
                 }
             }
         }while(menu != -1);
