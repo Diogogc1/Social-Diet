@@ -13,9 +13,12 @@ import mvc.model.AlimentoRefeicoes;
 import mvc.model.Avaliacao;
 import mvc.model.Dieta;
 import mvc.model.DietaDAO;
+import mvc.model.Mensagem;
 import mvc.model.Pessoa;
+import mvc.model.Post;
 import mvc.model.Preferencias;
 import mvc.model.Refeicao;
+import mvc.model.SeguirDAO;
 import mvc.model.TipoDieta;
 
 /**
@@ -58,10 +61,13 @@ public class GUI {
     long idDieta;
     
     //PREFERENCIAS
-    Alimento prefProteinas[] = new Alimento[3];
-    Alimento prefCarboidratos[] = new Alimento[3];
-    Alimento prefGorduras[] = new Alimento[3];
     long idAlimento;
+    
+    //POST
+    String conteudoMensagem;
+    
+    //MENSAGEM
+    String mensagem;
     
     //METÓDOS
     public int menuInicial(){
@@ -382,5 +388,67 @@ public class GUI {
         idAlimento = Integer.parseInt(scanner.nextLine());
         
         return new Preferencias(pessoaLogada, alimentoDAO.buscar(idAlimento));
+    }
+    
+    public int menuPostFit(){
+        
+        System.out.println("""
+                            ====== PostFit ======
+
+                            1. Timeline
+                            2. Mensagens
+                            3. Post
+                            4. Seguir
+                            5. SAIR
+                            """);
+        
+        System.out.print("\n Escolha uma opcao: ");
+        
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public int menuPost(){
+         System.out.println("""
+                            ====== Posts ======
+
+                            1. Ver posts
+                            2. Criar post
+                            3. SAIR
+                            """);
+        
+        System.out.print("\n Escolha uma opcao: ");
+        
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public Post criarPost(Pessoa pessoaLogada){
+        System.out.println("\n======= CRIAR POST =======");
+        
+        System.out.println("Conteudo do Post: ");
+        conteudoMensagem = scanner.nextLine();
+        
+        return new Post(pessoaLogada, conteudoMensagem);
+    }
+    
+    public int menuMensagem(){
+        System.out.println("""
+                            ====== Mensagens ======
+
+                            1. Ver mensagens
+                            2. Mandar mensagem
+                            3. SAIR
+                            """);
+        
+        System.out.print("\n Escolha uma opcao: ");
+        
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public Mensagem mandarMensagem(Pessoa pessoaLogada, SeguirDAO seguirDAO){
+        
+        System.out.println("Digite a mensagem:\n ");
+        conteudoMensagem = scanner.nextLine();
+        
+        return new Mensagem(pessoaLogada, pessoaLogada, mensagem);
     }
 }

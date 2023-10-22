@@ -63,7 +63,7 @@ public class Post {
     }
     
     //CONSTRUTOR
-    public Post(Pessoa pessoa, String conteudoMensagem, LocalDate dataCriacao, LocalDate dataModificacao) {
+    public Post(Pessoa pessoa, String conteudoMensagem) {
         this.id = ++serial;
         this.pessoa = pessoa;
         this.conteudoMensagem = conteudoMensagem;

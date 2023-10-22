@@ -11,12 +11,16 @@ import mvc.model.AlimentoRefeicoes;
 import mvc.model.AlimentoRefeicoesDAO;
 import mvc.model.Dieta;
 import mvc.model.DietaDAO;
+import mvc.model.Mensagem;
+import mvc.model.MensagemDAO;
 import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
+import mvc.model.PostDAO;
 import mvc.model.Preferencias;
 import mvc.model.PreferenciasDAO;
 import mvc.model.Refeicao;
 import mvc.model.RefeicaoDAO;
+import mvc.model.SeguirDAO;
 import mvc.model.TipoDieta;
 import mvc.model.TipoDietaDAO;
 import mvc.view.GUI;
@@ -60,6 +64,9 @@ public class Programa {
     private RefeicaoDAO refeicaoDAO = new RefeicaoDAO(dietaDAO, pessoaLogada);
     private AlimentoRefeicoesDAO alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
     private PreferenciasDAO preferenciasDAO = new PreferenciasDAO();
+    private PostDAO postDAO = new PostDAO();
+    private MensagemDAO mensagemDAO = new MensagemDAO();
+    private SeguirDAO seguirDAO = new SeguirDAO();
     
     public Programa() {
         do{
@@ -111,7 +118,7 @@ public class Programa {
                 }
                 //POSTFIT
                 case 2 -> {
-                    menuPostFit();
+                    menuPostFit(); 
                     menu = 0;
                 }
                 //SAIR
@@ -152,7 +159,7 @@ public class Programa {
                 }
                 //MENU REFEIÇÕES
                 case 5 -> {
-                    //menuRefeicao();
+                    menuRefeicao();
                     menu = 0;
                 }
                 //SAIR
@@ -243,7 +250,7 @@ public class Programa {
             switch(gui.menuDieta()){
                 //VER DIETAS
                 case 1 -> {
-                    //
+                    System.out.println(dietaDAO.toString(pessoaLogada));
                 }
                 
                 //CADASTRAR DIETA
@@ -397,8 +404,59 @@ public class Programa {
     }
     
     public void menuPostFit(){
-        
+        do{
+            switch(gui.menuPostFit()){
+                case 1 ->{
+                    
+                }
+                case 2 ->{
+                    menuMensagem();
+                    menu = 0;
+                }
+                case 3 ->{
+                    menuPost();
+                    menu = 0;
+                }
+                case 4 ->{
+
+                }
+                case 5 ->{
+                    menu = -1;
+                }
+            }
+        }while(menu != -1);
     }
     
+    public void menuPost(){
+        do{
+            switch(gui.menuPost()){
+                case 1 ->{
+                    System.out.println(postDAO.toString(pessoaLogada));
+                }
+                case 2 ->{
+                    postDAO.adicionar(gui.criarPost(pessoaLogada));
+                }
+                case 3 ->{
+                    menu =-1;
+                }
+            }
+        }while(menu != -1);
+    }
+    
+    public void menuMensagem(){
+        do{
+            switch(gui.menuMensagem()){
+                case 1 ->{
+                    System.out.println(postDAO.toString(pessoaLogada));
+                }
+                case 2 ->{
+                    mensagemDAO.adicionar(gui.mandarMensagem(pessoaLogada, seguirDAO));
+                }
+                case 3 ->{
+                    
+                }
+            }
+        }while(menu != -1);
+    }
     
 }

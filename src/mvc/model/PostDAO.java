@@ -55,12 +55,12 @@ public class PostDAO {
         return false;
     }
     
-    @Override
-    public String toString() {
+
+    public String toString(Pessoa pessoaLogada) {
         StringBuilder sb = new StringBuilder();
         sb.append("====== MENSAGENS ======");
         for (Post post : posts) {
-            if(post != null){
+            if(post != null && post.getPessoa().equals(pessoaLogada)){
                 sb.append("\n ID: ").append(post.getId()).
                 append("\n Conteudo Mensagem: ").append(post.getConteudoMensagem()).
                 append("\n Data de Criacao: ").append(post.getDataCriacao()).
@@ -68,14 +68,8 @@ public class PostDAO {
                 append("\n ========================================");
             }
         }
-        /*
-        private static long serial;
-    private final long id;
-    private Pessoa pessoa;
-    private String conteudoMensagem;
-    private LocalDate dataCriacao;
-    private LocalDate dataModificao;
-    */
+       
         return sb.toString();
     }
 }
+
