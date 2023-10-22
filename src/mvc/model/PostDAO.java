@@ -25,9 +25,9 @@ public class PostDAO {
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA A PESSOA PARA SER REMOVIDA
-    public boolean remover(Post post){
+    public boolean remover(long idPost){
         for (int i = 0; i < posts.length; i++) {
-            if(posts[i].equals(post)){
+            if(posts[i].getId() == idPost){
                 posts[i] = null;
                 return true;
             }
@@ -36,9 +36,9 @@ public class PostDAO {
     }
     
     //ALTERAR
-    public boolean alterar(Post post, Post postNovo){
+    public boolean alterar(long idPost, Post postNovo){
         for (int i = 0; i < posts.length; i++) {
-            if(posts[i].equals(post)){
+            if(posts[i].getId() == idPost){
                 posts[i] = postNovo;
                 return true;
             }
@@ -47,9 +47,9 @@ public class PostDAO {
     }
     
     //BUSCAR
-    public boolean buscar (Post post){
+    public boolean buscar (long idPost){
          for (Post post1 : posts) {
-             if (post1.equals(post)) {
+             if (post1.getId() == idPost) {
                  return true;
              }
          }

@@ -548,4 +548,22 @@ public class GUI {
         
         return id;
     }
+    
+    public long alterarSeguidor(){
+        System.out.println("\n/// ALTERAR SEGUIDOR ///");
+        
+        System.out.print("Informe o id que deseja: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id; 
+    }
+    
+    public long removerSeguidor(){
+        System.out.println("\n/// REMOVER SEGUIDOR///");
+        
+        System.out.print("Informe o id que deseja: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id; 
+    }  
 }

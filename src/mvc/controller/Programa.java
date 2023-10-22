@@ -443,7 +443,16 @@ public class Programa {
                     postDAO.adicionar(gui.criarPost(pessoaLogada));
                 }
                 case 3 ->{
-                    menu =-1;
+                    System.out.print(postDAO.buscar(gui.buscarPost()));
+                }
+                case 4 ->{
+                    postDAO.alterar(gui.alterarPost(), gui.criarPost(pessoaLogada));
+                }
+                case 5 ->{
+                    postDAO.remover(gui.removerPost());
+                }   
+                case 6 ->{
+                    menu = -1;
                 }
             }
         }while(menu != -1);
@@ -459,6 +468,15 @@ public class Programa {
                     mensagemDAO.adicionar(gui.mandarMensagem(pessoaLogada, seguirDAO, pessoaDAO));
                 }
                 case 3 ->{
+                    System.out.print(mensagemDAO.buscar(gui.buscarMensagem()));
+                }
+                case 4 ->{
+                    mensagemDAO.alterar(gui.alterarMensagem(), gui.mandarMensagem(pessoaLogada, seguirDAO, pessoaDAO));
+                }
+                case 5 ->{
+                    mensagemDAO.remover(gui.removerMensagem());
+                }   
+                case 6 ->{
                     menu = -1;
                 }
             }
@@ -475,6 +493,18 @@ public class Programa {
                 //SEGUIR ALGUÉM
                 case 2 -> {
                     seguirDAO.adicionar(gui.seguir(pessoaLogada, pessoaDAO));
+                }
+                case 3 ->{
+                    System.out.print(seguirDAO.buscar(gui.buscarSeguidor()));
+                }
+                case 4 ->{
+                    seguirDAO.alterar(gui.alterarSeguidor(), gui.seguir(pessoaLogada, pessoaDAO));
+                }
+                case 5 ->{
+                    seguirDAO.remover(gui.removerSeguidor());
+                }   
+                case 6 ->{
+                    menu = -1;
                 }
             }
         }while(menu != -1);
