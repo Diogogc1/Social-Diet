@@ -409,6 +409,9 @@ public class GUI {
 
                             1. Ver posts
                             2. Criar post
+                            3. Buscar post
+                            4. Alterar post
+                            5. Remover post
                             3. SAIR
                             """);
         
@@ -426,13 +429,43 @@ public class GUI {
         return new Post(pessoaLogada, conteudoMensagem);
     }
     
+    public long buscarPost(){
+        System.out.println("\n/// BUSCAR POST ///");
+        
+        System.out.print("Informe o id para busca: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id;
+    }
+    
+    public long alterarPost(){
+        System.out.println("\n/// ALTERAR POST ///");
+        
+        System.out.print("Informe o id que deseja: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id; 
+    }
+    
+    public long removerPost(){
+        System.out.println("\n/// REMOVER POST ///");
+        
+        System.out.print("Informe o id que deseja: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id; 
+    }
+    
     public int menuMensagem(){
         System.out.println("""
                             ====== Mensagens ======
 
                             1. Ver mensagens
                             2. Mandar mensagem
-                            3. SAIR
+                            3. Buscar mensagem
+                            4. Alterar mensagem
+                            5. Remover mensagem                 
+                            6. SAIR
                             """);
         
         System.out.print("\n Escolha uma opcao: ");
@@ -453,13 +486,44 @@ public class GUI {
         return new Mensagem(pessoaLogada, pessoaDAO.buscar(seguirDAO.buscar(id).getPessoaSeguindo().getId()), mensagem);
     }
     
+    public long buscarMensagem(){
+        System.out.println("\n/// BUSCAR MENSAGEM ///");
+        
+        System.out.print("Informe o id para busca: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id;
+    }
+    
+    public long alterarMensagem(){
+        System.out.println("\n/// ALTERAR MENSAGEM ///");
+        
+        System.out.print("Informe o id que deseja: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id; 
+    }
+    
+    public long removerMensagem(){
+        System.out.println("\n/// REMOVER MENSAGEM ///");
+        
+        System.out.print("Informe o id que deseja: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id; 
+    }
+    
+    
     public int menuSeguir(){
         System.out.println("""
                             ====== SEGUIR ======
 
-                            1. Ver seguidores
+                            1. Ver mensagens
                             2. Seguir
-                            3. SAIR
+                            3. Buscar seguidor
+                            4. Alterar seguidor
+                            5. Remover seguidor                
+                            6. SAIR
                             """);
         
         System.out.print("\n Escolha uma opcao: ");
@@ -474,5 +538,14 @@ public class GUI {
         id = Long.parseLong(scanner.nextLine());
         
         return new Seguir(pessoaLogada, pessoaDAO.buscar(id));
+    }
+    
+    public long buscarSeguidor(){
+        System.out.println("\n/// BUSCAR SEGUIDOR///");
+        
+        System.out.print("Informe o id para busca: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id;
     }
 }

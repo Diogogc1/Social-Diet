@@ -15,6 +15,8 @@ public class PessoaDAO {
 
     public PessoaDAO() {
         adicionar(new Pessoa("diogo", "1", LocalDate.of(2003, 10, 10), "diogo", "diogo"));
+        adicionar(new Pessoa("matheus", "1", LocalDate.of(2002, 03, 04), "matheus", "matheus"));
+        adicionar(new Pessoa("Benedita", "2", LocalDate.of(1947, 07, 23), "benedita", "benedita"));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR

@@ -11,7 +11,8 @@ package mvc.model;
  */
 public class PostDAO {
      Post posts[] = new Post[10];
-    
+      
+     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(Post post){
         for (int i = 0; i < posts.length; i++) {
