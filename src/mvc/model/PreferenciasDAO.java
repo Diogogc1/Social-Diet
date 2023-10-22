@@ -9,7 +9,8 @@ package mvc.model;
  * @author User
  */
 public class PreferenciasDAO {
-   Preferencias preferencias[] = new Preferencias[10];
+    Preferencias preferencias[] = new Preferencias[10];
+    private int aux;
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(Preferencias preferencia){
@@ -45,24 +46,27 @@ public class PreferenciasDAO {
     }
     
     //BUSCAR
-    public boolean buscar (Preferencias preferencia){
-        for (int i = 0; i < preferencias.length; i++){
-           if(preferencias[i].equals(preferencia)){
-               return true;
-           }
+    public Preferencias buscar(int cont){
+        aux = 0;
+        for(Preferencias preferencia1 : preferencias) {
+            if (preferencia1 != null && aux == cont){
+                aux++;
+            }else{
+                if(preferencia1 == null){
+                    aux = 0;
+                }
+            }
         }
-        return false;
+        return preferencias[aux];
     }
     
-    public String toString(Pessoa pessoaLogada) {
+    public String toString(Pessoa pessoaLogada){
         StringBuilder sb = new StringBuilder();
         sb.append("====== PREFERENCIAS ======");
         for(Preferencias preferencia : preferencias) {
             if(preferencia != null && preferencia.getPessoa().equals(pessoaLogada)){
                 sb.append("\n ID: ").append(preferencia.getId()).
-                append("\n Proteinas: ").append(preferencia.toStringProteinas()).
-                append("\n\n ///Carboidratos/// ").append(preferencia.toStringCarboidratos()).
-                append("\n\n ///Gorduras:/// ").append(preferencia.toStringGorduras()).
+                append("\n Alimento: ").append(preferencia.getAlimento()).
                 append("\n\n ///Data de Criacao:/// ").append(preferencia.getDataCriacao()).
                 append("\n\n ///Data de Modificacao:/// ").append(preferencia.getDataModificacao()).
                 append("\n ========================================");
@@ -70,7 +74,6 @@ public class PreferenciasDAO {
         }
         return sb.toString();
     }
-    
 }
 
 

@@ -12,11 +12,12 @@ import java.time.LocalDate;
 REFEIÇÃO,ALIMENTO, PORCAO, PROTEÍNA, GORDURA, CALORIAS,
 DATACRIACAO, DATAMODIFICACAO.*/
 public class AlimentoRefeicoes {
-    private int id;
-    private static int serial;
+    private final long id;
+    private static long serial;
     private Refeicao refeicao;
     private Alimento alimento;
     private double porcao;
+    private double carboidrato;
     private double proteina;
     private double gordura;
     private double calorias;
@@ -24,16 +25,12 @@ public class AlimentoRefeicoes {
     private LocalDate dataModificacao;
     
     //GETTERS E SETTERS
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public static int getSerial() {
+    public static long getSerial() {
         return serial;
-    }
-
-    public static void setSerial(int serial) {
-        AlimentoRefeicoes.serial = serial;
     }
 
     public Refeicao getRefeicao() {
@@ -58,6 +55,14 @@ public class AlimentoRefeicoes {
 
     public void setPorcao(double porcao) {
         this.porcao = porcao;
+    }
+
+    public double getCarboidrato() {
+        return carboidrato;
+    }
+
+    public void setCarboidrato(double carboidrato) {
+        this.carboidrato = carboidrato;
     }
 
     public double getProteina() {
@@ -101,15 +106,16 @@ public class AlimentoRefeicoes {
     }
     
     //CONSTRUTOR
-    public AlimentoRefeicoes(Refeicao refeicao, Alimento alimento, double porcao, double proteina, double gordura, double calorias, LocalDate dataCriacao, LocalDate dataModificacao) {
+    public AlimentoRefeicoes(Refeicao refeicao, Alimento alimento, double porcao, double carboidrato, double proteina, double gordura, double calorias) {
         this.id = serial++;
         this.refeicao = refeicao;
         this.alimento = alimento;
         this.porcao = porcao;
+        this.carboidrato = carboidrato;
         this.proteina = proteina;
         this.gordura = gordura;
         this.calorias = calorias;
-        this.dataCriacao = dataCriacao;
-        this.dataModificacao = dataModificacao;
+        this.dataCriacao = LocalDate.now();
+        this.dataModificacao = LocalDate.now();
     }   
 }

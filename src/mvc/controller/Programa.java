@@ -4,14 +4,18 @@
  */
 package mvc.controller;
 
+import mvc.model.Alimento;
 import mvc.model.AvaliacaoDAO;
 import mvc.model.AlimentoDAO;
-import mvc.model.Avaliacao;
+import mvc.model.AlimentoRefeicoes;
+import mvc.model.AlimentoRefeicoesDAO;
 import mvc.model.Dieta;
 import mvc.model.DietaDAO;
 import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
+import mvc.model.Preferencias;
 import mvc.model.PreferenciasDAO;
+import mvc.model.Refeicao;
 import mvc.model.RefeicaoDAO;
 import mvc.model.TipoDieta;
 import mvc.model.TipoDietaDAO;
@@ -35,6 +39,17 @@ public class Programa {
     
     //REFEIÇÃO
     private Dieta dietaSelecionada;
+    private Refeicao refeicaoNova;
+    private Alimento alimentoSelecionado;
+    private int contRefeicao;
+    private AlimentoRefeicoes alimentoRefeicoesNovo;
+    private Preferencias preferenciaNova;
+    private double carboidratos;
+    private double proteinas;
+    private double gorduras;
+    private double calorias;
+    private int porcao;
+    
     
     //DAOs
     private PessoaDAO pessoaDAO = new PessoaDAO();
@@ -43,11 +58,13 @@ public class Programa {
     private TipoDietaDAO tipoDietaDAO = new TipoDietaDAO();
     private DietaDAO dietaDAO = new DietaDAO();
     private RefeicaoDAO refeicaoDAO = new RefeicaoDAO(dietaDAO, pessoaLogada);
+    private AlimentoRefeicoesDAO alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
     private PreferenciasDAO preferenciasDAO = new PreferenciasDAO();
     
     public Programa() {
         do{
             switch(gui.menuInicial()){
+                //LOGIN
                 case 1 -> {  
                     String email = gui.email();
                     String senha = gui.senha();
@@ -63,7 +80,7 @@ public class Programa {
                         System.out.println("\n Email ou senha incorreto");
                     }
                 }
-                
+                //CADASTRO
                 case 2 -> {
                     pessoaNova = gui.cadastro();
                     if(pessoaDAO.adicionar(pessoaNova)){
@@ -72,7 +89,7 @@ public class Programa {
                         System.out.println("Erro - Pessoa não adicionada!");
                     }
                 }
-                
+                //SAIR
                 case 3 -> {
                     menu = -1;
                 }
@@ -87,16 +104,17 @@ public class Programa {
     public void menuPrincipal(){
         do{
             switch(gui.menuPrincipal()){
+                //FIT PERSON
                 case 1 -> {
                     menuFitPerson();
                     menu = 0;
                 }
-                
+                //POSTFIT
                 case 2 -> {
                     menuPostFit();
                     menu = 0;
                 }
-                
+                //SAIR
                 case 3 -> {
                     menu = -1;
                 }
@@ -137,7 +155,7 @@ public class Programa {
                     //menuRefeicao();
                     menu = 0;
                 }
-                
+                //SAIR
                 case 6 -> {
                     menu = -1;
                 }
@@ -158,7 +176,7 @@ public class Programa {
                         System.out.println("\n Nao ha alimentos cadastrados! Cadastre alimentos");
                     }else{
                         System.out.println("\n");
-                        System.out.println(alimentoDAO);
+                        System.out.println(alimentoDAO.toString(pessoaLogada));
                     }
                 }
                 //CADASTAR ALIMENTOS
@@ -223,9 +241,9 @@ public class Programa {
     public void menuDieta(){
         do{
             switch(gui.menuDieta()){
-                //DIETA AUTOMÁTICA
+                //VER DIETAS
                 case 1 -> {
-                    
+                    //
                 }
                 
                 //CADASTRAR DIETA
@@ -267,19 +285,47 @@ public class Programa {
                 }
                 //CADASTAR REFEICOES
                 case 2 -> {
-                    dietaSelecionada = gui.getNumerodeRefeicoes(dietaDAO, pessoaLogada);
+                    dietaSelecionada = gui.escolheDieta(dietaDAO, pessoaLogada);
+                    contRefeicao = refeicaoDAO.numeroDeRefeicaoDaDieta(dietaSelecionada);
                     
-                    for (int i = 0; i < dietaSelecionada.getNumeroRefeicoes(); i++) {
-                        if(refeicaoDAO.buscarDieta(dietaSelecionada)){
-                            refeicaoDAO.adicionar(gui.cadastrarRefeicao(dietaSelecionada));
+                    for (int i = 0; !refeicaoDAO.bateuMetaDieta(refeicaoNova); i++) {
+                        if(contRefeicao < dietaSelecionada.getNumeroRefeicoes()){
+                            //VERIFICA SE JÁ TEM REFEIÇÕES CADASTRADAS NESSA DIETA E CADASTRA SÓ O QUE FALTA
+                            if(i == 0){
+                                i = i + contRefeicao;
+                            }
+                            
+                            refeicaoNova = gui.cadastrarRefeicao(dietaSelecionada);
+                            
+                            for(int j = 0; !alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova); j++){
+                               alimentoSelecionado = gui.escolherAlimentosRefeicoes(alimentoDAO, pessoaLogada);
+                               alimentoRefeicoesNovo = gui.cadastrarAlimentosRefeicoes(alimentoSelecionado, refeicaoNova);
+                               alimentoRefeicoesDAO.adicionar(alimentoRefeicoesNovo);
+                            }
                         }else{
                             System.out.println("\n O numero maximo de refeicoes da dieta foi atingido!");
                         }
                     }
                 }
-                //SAIR
+                //GERAR REFEIÇÕES AUTOMÁTICAS
                 case 3 -> {
-                    menu = -1;
+                    dietaSelecionada = gui.escolheDieta(dietaDAO, pessoaLogada);
+                    
+                    for (int i = 0; !refeicaoDAO.bateuMetaDieta(refeicaoNova); i++) {
+                        if(contRefeicao < dietaSelecionada.getNumeroRefeicoes()){
+                            //VERIFICA SE JÁ TEM REFEIÇÕES CADASTRADAS NESSA DIETA E CADASTRA SÓ O QUE FALTA
+                            if(i == 0){
+                                i = i + contRefeicao;
+                            }
+                            
+                            refeicaoNova = gui.cadastrarRefeicao(dietaSelecionada);
+
+                            for(int j = 0; !alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova); j++){
+                                alimentoRefeicoesNovo = cadastrarAutomaticoAlimentoRefeicoes(refeicaoNova, j);
+                                alimentoRefeicoesDAO.adicionar(alimentoRefeicoesNovo);
+                            }
+                        }
+                    }
                 }
                 
                 default -> {
@@ -287,6 +333,18 @@ public class Programa {
                 }
             }
         }while(menu != -1);
+    }
+    
+    public AlimentoRefeicoes cadastrarAutomaticoAlimentoRefeicoes(Refeicao refeicao, int j){
+        preferenciaNova = preferenciasDAO.buscar(j);
+        
+        //GUARDANDO A PORCENTAGEM QUE O ALIMENTO REPRESENTA EM RELAÇÃO AO TOTAL DA REFEIÇÃO
+        carboidratos = (preferenciaNova.getAlimento().getCarboidratos() * 100 * porcao) / refeicao.getCarboidrato();
+        proteinas = (preferenciaNova.getAlimento().getProteinas() * 100 * porcao) / refeicao.getProteina();
+        gorduras = (preferenciaNova.getAlimento().getGorduras() * 100 * porcao) / refeicao.getGordura();
+        calorias = (preferenciaNova.getAlimento().getCalorias() * 100 * porcao) / refeicao.getCalorias();
+        
+        return new AlimentoRefeicoes(refeicao, preferenciaNova.getAlimento(), preferenciaNova.getAlimento().getPorcao(), carboidratos, proteinas, gorduras, calorias);
     }
     
     public void menuAvaliacao(){
