@@ -39,11 +39,30 @@ public class PessoaDAO {
         return false;
     }
     
+    public boolean alterarNome(Pessoa pessoaLogada, String nomeNovo){
+        for (Pessoa pessoa : pessoas) {
+            if (pessoaLogada.equals(pessoa)) {
+                pessoa.setNome(nomeNovo);
+                return true;
+            }
+        }
+        return false;
+    }
     
-    public boolean alterar(Pessoa pessoa, Pessoa novaPessoa){
-        for (int i = 0; i < pessoas.length; i++) {
-            if(pessoa.equals(pessoas[i])){
-                pessoas[i] = novaPessoa;
+    public boolean alterarEmail(Pessoa pessoaLogada, String emailNovo){
+        for (Pessoa pessoa : pessoas) {
+            if (pessoaLogada.equals(pessoa)) {
+                pessoa.setEmail(emailNovo);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean alterarSenha(Pessoa pessoaLogada, String senhaNova){
+        for (Pessoa pessoa : pessoas) {
+            if (pessoaLogada.equals(pessoa)) {
+                pessoa.setSenha(senhaNova);
                 return true;
             }
         }

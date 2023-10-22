@@ -9,10 +9,23 @@ package mvc.model;
  * @author diogo
  */
 public class AlimentoDAO {
-    Alimento alimentos[] = new Alimento[10];
+    Alimento alimentos[] = new Alimento[20];
 
     public AlimentoDAO(Pessoa pessoa) {
+        //GORDURA
         adicionar(new Alimento("Ovo", 1.2, 15.6, 18.6, 1, pessoa));
+        adicionar(new Alimento("Castanha-de-caju torrada", 29.1, 18.5, 46.3, 1, pessoa));
+        adicionar(new Alimento("Manteiga", 0.1, 0.4, 82.4, 1, pessoa));
+        
+        //CARBOIDRATO
+        adicionar(new Alimento("Arroz", 28.1, 2.5, 0.2, 1, pessoa));
+        adicionar(new Alimento("Pao frances", 49.9, 9.4, 3.7, 1, pessoa));
+        adicionar(new Alimento("Feijao", 13.8, 4.8, 0.5, 1, pessoa));
+        
+        //PROTEINAS
+        adicionar(new Alimento("Carne (coxão mole)", 0, 32.4, 8.9, 1, pessoa));
+        adicionar(new Alimento("Frango Caipira (sem Pele)", 0, 29.6, 7.7, 1, pessoa));
+        adicionar(new Alimento("Picanha assada (sem gordura)", 0, 21.3, 4.7, 1, pessoa));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
@@ -53,6 +66,16 @@ public class AlimentoDAO {
         for (Alimento a : alimentos) {
             if (a != null && a.getId() == idAlimento) {
                 return a;
+            } 
+        }
+        return null;
+    }
+    
+    //BUSCAR NOME
+    public Alimento buscarNome(String nome){
+        for (Alimento alimento : alimentos) {
+            if (alimento != null && alimento.getNome().equals(nome)) {
+                return alimento;
             } 
         }
         return null;
