@@ -222,11 +222,14 @@ public class GUI {
     
     public int menuAlimentos(){
         System.out.println("""
-                           /// ALIMENTOS ///
-
+                           ====== ALIMENTOS ======
+ 
                            1. Ver Alimentos
                            2. Cadastar Alimento
-                           3. SAIR
+                           3. Buscar
+                           4. Alterar 
+                           5. Excluir
+                           6. SAIR
                            """);
         System.out.println("\n Escolha uma opcao: ");
         return Integer.parseInt(scanner.nextLine());
@@ -258,6 +261,20 @@ public class GUI {
         
         return new Alimento(nome, carboidratos, proteinas, gorduras, porcao, pessoa);
     }
+    
+    public Alimento buscarAlimento(AlimentoDAO alimentoDAO){
+        System.out.println("Digite o nome do alimento: ");
+        
+        return alimentoDAO.buscarNome(scanner.nextLine());
+    }
+    
+    public Alimento escolherAlimento(AlimentoDAO alimentoDAO, Pessoa pessoaLogada){
+        System.out.println(alimentoDAO.toString(pessoaLogada));
+        
+        System.out.print("\n Escolha algum alimento pelo ID: ");
+        
+        return alimentoDAO.buscar(Long.parseLong(scanner.nextLine()));
+    } 
     
     public int cadastrarTipoDieta(){
         System.out.println("""
@@ -395,7 +412,8 @@ public class GUI {
                             2. Mensagens
                             3. Post
                             4. Seguir
-                            5. SAIR
+                            5. Configuracoes
+                            6. SAIR
                             """);
         
         System.out.print("\n Escolha uma opcao: ");
@@ -566,4 +584,37 @@ public class GUI {
         
         return id; 
     }  
+    public int menuConfiguracoes(){
+        System.out.println("""
+                           ====== CONFIGURACOES ======
+                           1. Alterar nome
+                           2. Alterar email
+                           3. Alterar senha
+                           4. Deslogar
+                           5. Excluir conta
+                           5. SAIR (voltar)
+                           """);
+        
+        System.out.print("\n Escolha uma opcao: ");
+        
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public String alterarNome(){
+        System.out.println("Digite o novo nome: ");
+        
+        return scanner.nextLine();
+    }
+    
+    public String alterarEmail(){
+        System.out.println("Digite o novo email: ");
+        
+        return scanner.nextLine();
+    }
+    
+    public String alterarSenha(){
+        System.out.println("Digite a nova senha: ");
+        
+        return scanner.nextLine();
+    }
 }
