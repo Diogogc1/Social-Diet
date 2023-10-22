@@ -15,7 +15,6 @@ import mvc.model.Dieta;
 import mvc.model.DietaDAO;
 import mvc.model.Pessoa;
 import mvc.model.Preferencias;
-import mvc.model.PreferenciasDAO;
 import mvc.model.Refeicao;
 import mvc.model.TipoDieta;
 
@@ -57,13 +56,6 @@ public class GUI {
     
     //REFEIÇÃO
     long idDieta;
-    
-    //ALIMENTOS REFEIÇÕES
-    private double arCarboidrato;
-    private double arPorcao;
-    private double arProteina;
-    private double arGordura;
-    private double arCalorias;
     
     //PREFERENCIAS
     Alimento prefProteinas[] = new Alimento[3];
@@ -362,15 +354,15 @@ public class GUI {
     
     public AlimentoRefeicoes cadastrarAlimentosRefeicoes(Alimento alimento, Refeicao refeicao){
         System.out.println("Quantas porcoes desse alimento voce ira consumir");
-        arPorcao = Integer.parseInt(scanner.nextLine());
+        porcao = Integer.parseInt(scanner.nextLine());
         
         //GUARDANDO A PORCENTAGEM QUE O ALIMENTO REPRESENTA EM RELAÇÃO AO TOTAL DA REFEIÇÃO
-        arCarboidrato = (alimento.getCarboidratos() * 100 * arPorcao) / refeicao.getCarboidrato();
-        arProteina = (alimento.getProteinas() * 100 * arPorcao) / refeicao.getProteina();
-        arGordura = (alimento.getGorduras() * 100 * arPorcao) / refeicao.getGordura();
-        arCalorias = (alimento.getCalorias() * 100 * arPorcao) / refeicao.getCalorias();
+        carboidratos = (alimento.getCarboidratos() * 100 * porcao) / refeicao.getCarboidrato();
+        proteinas = (alimento.getProteinas() * 100 * porcao) / refeicao.getProteina();
+        gorduras = (alimento.getGorduras() * 100 * porcao) / refeicao.getGordura();
+        calorias = (alimento.getCalorias() * 100 * porcao) / refeicao.getCalorias();
         
-        return new AlimentoRefeicoes(refeicao, alimento, arPorcao, arCarboidrato, arProteina, arGordura, arCalorias);
+        return new AlimentoRefeicoes(refeicao, alimento, porcao, carboidratos, proteinas, gorduras, calorias);
     }
     
     public int menuPreferencias(){
@@ -383,25 +375,12 @@ public class GUI {
         return Integer.parseInt(scanner.nextLine());
     }
     
-    public Preferencias cadastrarPreferencias(Pessoa pessoaLogada, AlimentoDAO alimentoDAO){
-        
+    public Preferencias cadastrarPreferencias(Pessoa pessoaLogada, AlimentoDAO alimentoDAO){   
         System.out.println("\n======= Cadastrar Preferencias =======");
-        for(int i=0; i<prefProteinas.length; i++){
-            System.out.print("Informe o id do "+ (i+1) +"° alimento de proteina: ");
-            idAlimento = Long.parseLong(scanner.nextLine());
-            prefProteinas[i] = alimentoDAO.buscar(idAlimento);
-        }
-        for(int i=0; i<prefCarboidratos.length; i++){
-            System.out.print("Informe o id do "+ (i+1) +"° alimento de carboidratos: ");
-            idAlimento = Long.parseLong(scanner.nextLine());
-            prefCarboidratos[i] = alimentoDAO.buscar(idAlimento);
-        }
-        for(int i=0; i<prefGorduras.length; i++){
-            System.out.print("Informe o id do "+ (i+1) +"° alimento de gorduras: ");
-            idAlimento = Long.parseLong(scanner.nextLine());
-            prefGorduras[i] = alimentoDAO.buscar(idAlimento);
-        }
+        System.out.println(alimentoDAO.toString(pessoaLogada));
+        System.out.println("Escolha algum alimento pelo ID: ");
+        idAlimento = Integer.parseInt(scanner.nextLine());
         
-        return new Preferencias(pessoaLogada, prefProteinas, prefCarboidratos, prefGorduras);
+        return new Preferencias(pessoaLogada, alimentoDAO.buscar(idAlimento));
     }
 }

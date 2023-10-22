@@ -16,8 +16,7 @@ public class Preferencias {
     private final long id;
     private Pessoa pessoa;
     private LocalDate dataCriacao;
-    private LocalDate dataModificacao;
-    
+    private LocalDate dataModificacao; 
     private Alimento alimento;
     
     //GETTERS AND SETTERS

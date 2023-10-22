@@ -10,6 +10,7 @@ package mvc.model;
  */
 public class PreferenciasDAO {
     Preferencias preferencias[] = new Preferencias[10];
+    private int aux;
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(Preferencias preferencia){
@@ -45,13 +46,18 @@ public class PreferenciasDAO {
     }
     
     //BUSCAR
-    public boolean buscar (Preferencias preferencia){
+    public Preferencias buscar(int cont){
+        aux = 0;
         for(Preferencias preferencia1 : preferencias) {
-            if (preferencia1.equals(preferencia)) {
-                return true;
+            if (preferencia1 != null && aux == cont){
+                aux++;
+            }else{
+                if(preferencia1 == null){
+                    aux = 0;
+                }
             }
         }
-        return false;
+        return preferencias[aux];
     }
     
     public String toString(Pessoa pessoaLogada){

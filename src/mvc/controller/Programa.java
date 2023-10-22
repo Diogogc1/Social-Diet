@@ -13,6 +13,7 @@ import mvc.model.Dieta;
 import mvc.model.DietaDAO;
 import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
+import mvc.model.Preferencias;
 import mvc.model.PreferenciasDAO;
 import mvc.model.Refeicao;
 import mvc.model.RefeicaoDAO;
@@ -42,6 +43,13 @@ public class Programa {
     private Alimento alimentoSelecionado;
     private int contRefeicao;
     private AlimentoRefeicoes alimentoRefeicoesNovo;
+    private Preferencias preferenciaNova;
+    private double carboidratos;
+    private double proteinas;
+    private double gorduras;
+    private double calorias;
+    private int porcao;
+    
     
     //DAOs
     private PessoaDAO pessoaDAO = new PessoaDAO();
@@ -282,10 +290,13 @@ public class Programa {
                     
                     for (int i = 0; !refeicaoDAO.bateuMetaDieta(refeicaoNova); i++) {
                         if(contRefeicao < dietaSelecionada.getNumeroRefeicoes()){
+                            //VERIFICA SE JÁ TEM REFEIÇÕES CADASTRADAS NESSA DIETA E CADASTRA SÓ O QUE FALTA
                             if(i == 0){
                                 i = i + contRefeicao;
                             }
+                            
                             refeicaoNova = gui.cadastrarRefeicao(dietaSelecionada);
+                            
                             for(int j = 0; !alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova); j++){
                                alimentoSelecionado = gui.escolherAlimentosRefeicoes(alimentoDAO, pessoaLogada);
                                alimentoRefeicoesNovo = gui.cadastrarAlimentosRefeicoes(alimentoSelecionado, refeicaoNova);
@@ -302,12 +313,17 @@ public class Programa {
                     
                     for (int i = 0; !refeicaoDAO.bateuMetaDieta(refeicaoNova); i++) {
                         if(contRefeicao < dietaSelecionada.getNumeroRefeicoes()){
-                            i = i + contRefeicao;
-                        }
-                        refeicaoNova = gui.cadastrarRefeicao(dietaSelecionada);
-                        
-                        for(int j = 0; !alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova); j++){
+                            //VERIFICA SE JÁ TEM REFEIÇÕES CADASTRADAS NESSA DIETA E CADASTRA SÓ O QUE FALTA
+                            if(i == 0){
+                                i = i + contRefeicao;
+                            }
                             
+                            refeicaoNova = gui.cadastrarRefeicao(dietaSelecionada);
+
+                            for(int j = 0; !alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova); j++){
+                                alimentoRefeicoesNovo = cadastrarAutomaticoAlimentoRefeicoes(refeicaoNova, j);
+                                alimentoRefeicoesDAO.adicionar(alimentoRefeicoesNovo);
+                            }
                         }
                     }
                 }
@@ -317,6 +333,18 @@ public class Programa {
                 }
             }
         }while(menu != -1);
+    }
+    
+    public AlimentoRefeicoes cadastrarAutomaticoAlimentoRefeicoes(Refeicao refeicao, int j){
+        preferenciaNova = preferenciasDAO.buscar(j);
+        
+        //GUARDANDO A PORCENTAGEM QUE O ALIMENTO REPRESENTA EM RELAÇÃO AO TOTAL DA REFEIÇÃO
+        carboidratos = (preferenciaNova.getAlimento().getCarboidratos() * 100 * porcao) / refeicao.getCarboidrato();
+        proteinas = (preferenciaNova.getAlimento().getProteinas() * 100 * porcao) / refeicao.getProteina();
+        gorduras = (preferenciaNova.getAlimento().getGorduras() * 100 * porcao) / refeicao.getGordura();
+        calorias = (preferenciaNova.getAlimento().getCalorias() * 100 * porcao) / refeicao.getCalorias();
+        
+        return new AlimentoRefeicoes(refeicao, preferenciaNova.getAlimento(), preferenciaNova.getAlimento().getPorcao(), carboidratos, proteinas, gorduras, calorias);
     }
     
     public void menuAvaliacao(){
