@@ -11,7 +11,13 @@ package mvc.model;
 public class RefeicaoDAO {
     Refeicao refeicoes[] = new Refeicao[10];
     int cont;
-
+    
+    private double carboidrato;
+    private double porcao;
+    private double proteina;
+    private double gordura;
+    private double calorias;
+    
     public RefeicaoDAO(DietaDAO dietaDAO, Pessoa pessoaLogada) {
         adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 0, 0, 0, 0, "Café da Manhã"));
     }
@@ -50,17 +56,17 @@ public class RefeicaoDAO {
     }
     
     //BUSCAR
-    public boolean buscarDieta(Dieta dieta){
+    public int numeroDeRefeicaoDaDieta(Dieta dieta){
         cont = 0;
         for (Refeicao r : refeicoes) {
             if (r.getDieta().equals(dieta)) {
                 cont++;
                 if(cont >= dieta.getNumeroRefeicoes()){
-                    return true;
+                    return cont;
                 }
             } 
         }
-        return false;
+        return cont;
     }
      
     public boolean isVazio(){
@@ -72,7 +78,23 @@ public class RefeicaoDAO {
         return true;
     }
     
-    
+    public boolean bateuMetaDieta(Refeicao refeicaoNova){
+        for (Refeicao refeicao : refeicoes) {
+            if(refeicao != null && refeicaoNova.getDieta().equals(refeicao.getDieta())){
+                carboidrato += (refeicao.getCarboidrato() * 100) / refeicaoNova.getDieta().getTipoDieta().getCarboidrato();
+                proteina += (refeicao.getProteina() * 100) / refeicaoNova.getDieta().getTipoDieta().getProteina();
+                gordura += (refeicao.getGordura() * 100) / refeicaoNova.getDieta().getTipoDieta().getGordura();
+            }
+            
+            if(carboidrato >= 100 && proteina >= 100 && gordura >= 100 && calorias >= 100){
+                carboidrato = 0;
+                proteina = 0;
+                gordura = 0;
+                return true;
+            }
+        }     
+        return false;
+    }
     
     public String toString(Pessoa pessoaLogada) {
         StringBuilder sb = new StringBuilder();

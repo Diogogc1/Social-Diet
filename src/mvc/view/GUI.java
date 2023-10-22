@@ -9,11 +9,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import mvc.model.Alimento;
 import mvc.model.AlimentoDAO;
+import mvc.model.AlimentoRefeicoes;
 import mvc.model.Avaliacao;
 import mvc.model.Dieta;
 import mvc.model.DietaDAO;
 import mvc.model.Pessoa;
 import mvc.model.Preferencias;
+import mvc.model.PreferenciasDAO;
 import mvc.model.Refeicao;
 import mvc.model.TipoDieta;
 
@@ -55,6 +57,13 @@ public class GUI {
     
     //REFEIÇÃO
     long idDieta;
+    
+    //ALIMENTOS REFEIÇÕES
+    private double arCarboidrato;
+    private double arPorcao;
+    private double arProteina;
+    private double arGordura;
+    private double arCalorias;
     
     //PREFERENCIAS
     Alimento prefProteinas[] = new Alimento[3];
@@ -311,7 +320,7 @@ public class GUI {
         return Integer.parseInt(scanner.nextLine());
     }
     
-    public Dieta getNumerodeRefeicoes(DietaDAO dietaDAO, Pessoa pessoaLogada){
+    public Dieta escolheDieta(DietaDAO dietaDAO, Pessoa pessoaLogada){
         System.out.println(dietaDAO.toString(pessoaLogada));
         
         System.out.println("\n Escolha uma opcao: ");
@@ -341,6 +350,27 @@ public class GUI {
         calorias = Double.parseDouble(scanner.nextLine());
         
         return new Refeicao(dieta, carboidratos, proteinas, gorduras, calorias, nome);
+    }
+    
+    public Alimento escolherAlimentosRefeicoes(AlimentoDAO alimentoDAO, Pessoa pessoaLogada){
+        System.out.println(alimentoDAO.toString(pessoaLogada));
+        System.out.println("Escolha um alimento pelo ID: ");
+        idAlimento = Integer.parseInt(scanner.nextLine());
+
+        return alimentoDAO.buscar(idAlimento);
+    }
+    
+    public AlimentoRefeicoes cadastrarAlimentosRefeicoes(Alimento alimento, Refeicao refeicao){
+        System.out.println("Quantas porcoes desse alimento voce ira consumir");
+        arPorcao = Integer.parseInt(scanner.nextLine());
+        
+        //GUARDANDO A PORCENTAGEM QUE O ALIMENTO REPRESENTA EM RELAÇÃO AO TOTAL DA REFEIÇÃO
+        arCarboidrato = (alimento.getCarboidratos() * 100 * arPorcao) / refeicao.getCarboidrato();
+        arProteina = (alimento.getProteinas() * 100 * arPorcao) / refeicao.getProteina();
+        arGordura = (alimento.getGorduras() * 100 * arPorcao) / refeicao.getGordura();
+        arCalorias = (alimento.getCalorias() * 100 * arPorcao) / refeicao.getCalorias();
+        
+        return new AlimentoRefeicoes(refeicao, alimento, arPorcao, arCarboidrato, arProteina, arGordura, arCalorias);
     }
     
     public int menuPreferencias(){

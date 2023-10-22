@@ -67,12 +67,11 @@ public class AlimentoDAO {
         return true;
     }
 
-    @Override
-    public String toString() {
+    public String toString(Pessoa pessoaLogada) {
         StringBuilder sb = new StringBuilder();
         sb.append("====== Alimentos ======");
         for (Alimento alimento : alimentos) {
-            if(alimento != null){
+            if(alimento != null && alimento.getPessoa().equals(pessoaLogada)){
                 sb.append("\n ID: ").append(alimento.getId()).
                 append("\n Nome: ").append(alimento.getNome()).
                 append("\n Carboidratos: ").append(alimento.getCarboidratos()).
