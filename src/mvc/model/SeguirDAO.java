@@ -45,12 +45,42 @@ public class SeguirDAO {
     }
     
     //BUSCAR
-     public boolean buscar(Seguir seguidor){
-        for (Seguir s : seguidores) {
-            if (seguidor.equals(s)) {
-                return true;
+    public Seguir buscar(long id){
+        for (Seguir seguidor : seguidores) {
+            if (seguidor.getId() == id) {
+                return seguidor;
             } 
         }
-        return false;
+        return null;
+    }
+     
+    public String timeline(Pessoa pessoaLogada, PostDAO postDAO){
+        StringBuilder sb = new StringBuilder();
+        sb.append("====== POSTS ======");
+        for (Seguir seguir : seguidores) {
+            if(seguir != null && seguir.getPessoaOrigem().equals(pessoaLogada)){
+                postDAO.toString(seguir.getPessoaSeguindo());
+            }
+        }
+
+        return sb.toString();
+    }
+
+     
+    public String toString(Pessoa pessoaLogada) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("====== Seguidores ======");
+        for (Seguir seguidor : seguidores) {
+            if(seguidor != null && seguidor.getPessoaOrigem().equals(pessoaLogada)){
+                sb.append("\n ID: ").append(seguidor.getPessoaSeguindo().getId()).
+                append("\n Nome: ").append(seguidor.getPessoaSeguindo().getNome()).
+                append("Sexo: ").append(seguidor.getPessoaSeguindo().getSexo()).
+                append("Data de nascimento: ").append(seguidor.getPessoaSeguindo().getDataDeNascimento()).
+                append("E-mail: ").append(seguidor.getPessoaSeguindo().getEmail()).
+                append("Senha: ").append(seguidor.getPessoaSeguindo().getSenha()).
+                append("\n ========================================");
+            }
+        }
+        return sb.toString();
     }
 }

@@ -406,20 +406,26 @@ public class Programa {
     public void menuPostFit(){
         do{
             switch(gui.menuPostFit()){
+                //TIMELINE
                 case 1 ->{
                     
                 }
+                //MENSAGEM
                 case 2 ->{
                     menuMensagem();
                     menu = 0;
                 }
+                //POST
                 case 3 ->{
                     menuPost();
                     menu = 0;
                 }
+                //SEGUIR
                 case 4 ->{
-
+                    menuSeguir();
+                    menu = 0;
                 }
+                //SAIR
                 case 5 ->{
                     menu = -1;
                 }
@@ -450,17 +456,27 @@ public class Programa {
                     System.out.println(postDAO.toString(pessoaLogada));
                 }
                 case 2 ->{
-                    mensagemDAO.adicionar(gui.mandarMensagem(pessoaLogada, seguirDAO));
+                    mensagemDAO.adicionar(gui.mandarMensagem(pessoaLogada, seguirDAO, pessoaDAO));
                 }
                 case 3 ->{
-<<<<<<< Updated upstream
-                    
-=======
                     menu = -1;
->>>>>>> Stashed changes
                 }
             }
         }while(menu != -1);
     }
     
+    public void menuSeguir(){
+        do{
+            switch(gui.menuSeguir()){
+                //VER SEGUIDORES
+                case 1 -> {
+                    System.out.println(seguirDAO.toString());
+                }
+                //SEGUIR ALGUÉM
+                case 2 -> {
+                    seguirDAO.adicionar(gui.seguir(pessoaLogada, pessoaDAO));
+                }
+            }
+        }while(menu != -1);
+    }
 }

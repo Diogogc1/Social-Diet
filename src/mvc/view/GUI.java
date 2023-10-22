@@ -15,9 +15,11 @@ import mvc.model.Dieta;
 import mvc.model.DietaDAO;
 import mvc.model.Mensagem;
 import mvc.model.Pessoa;
+import mvc.model.PessoaDAO;
 import mvc.model.Post;
 import mvc.model.Preferencias;
 import mvc.model.Refeicao;
+import mvc.model.Seguir;
 import mvc.model.SeguirDAO;
 import mvc.model.TipoDieta;
 
@@ -27,6 +29,7 @@ import mvc.model.TipoDieta;
  */
 public class GUI {
     Scanner scanner = new Scanner(System.in);
+    private long id;
   
     //LOGIN
     private String email;
@@ -44,7 +47,6 @@ public class GUI {
     private double pescoco;
     private double cintura;
     private double quadril;
-    private long idAvaliacao;
     
     //ALIMENTOS
     private double carboidratos;
@@ -56,12 +58,6 @@ public class GUI {
     //DIETA
     private String objetivo;
     private int nrRefeicoes;
-    
-    //REFEIÇÃO
-    long idDieta;
-    
-    //PREFERENCIAS
-    long idAlimento;
     
     //POST
     String conteudoMensagem;
@@ -201,27 +197,27 @@ public class GUI {
         System.out.println("\n/// BUSCAR AVALIACAO ///");
         
         System.out.print("Informe o id para busca: ");
-        idAvaliacao = Long.parseLong(scanner.nextLine());
+        id = Long.parseLong(scanner.nextLine());
         
-        return idAvaliacao;
+        return id;
     }
     
     public long alterarAvaliacao(){
         System.out.println("\n/// ALTERAR AVALIACAO ///");
         
         System.out.print("Informe o id que deseja: ");
-        idAvaliacao = Long.parseLong(scanner.nextLine());
+        id = Long.parseLong(scanner.nextLine());
         
-        return idAvaliacao; 
+        return id; 
     }
     
     public long removerAvaliacao(){
         System.out.println("\n/// REMOVER AVALIACAO ///");
         
         System.out.print("Informe o id que deseja: ");
-        idAvaliacao = Long.parseLong(scanner.nextLine());
+        id = Long.parseLong(scanner.nextLine());
         
-        return idAvaliacao; 
+        return id; 
     }
     
     public int menuAlimentos(){
@@ -322,9 +318,9 @@ public class GUI {
         System.out.println(dietaDAO.toString(pessoaLogada));
         
         System.out.println("\n Escolha uma opcao: ");
-        idDieta = Integer.parseInt(scanner.nextLine());
+        id = Integer.parseInt(scanner.nextLine());
         
-        return dietaDAO.buscar(idDieta);
+        return dietaDAO.buscar(id);
     }
     
     public Refeicao cadastrarRefeicao(Dieta dieta){
@@ -353,9 +349,9 @@ public class GUI {
     public Alimento escolherAlimentosRefeicoes(AlimentoDAO alimentoDAO, Pessoa pessoaLogada){
         System.out.println(alimentoDAO.toString(pessoaLogada));
         System.out.println("Escolha um alimento pelo ID: ");
-        idAlimento = Integer.parseInt(scanner.nextLine());
+        id = Integer.parseInt(scanner.nextLine());
 
-        return alimentoDAO.buscar(idAlimento);
+        return alimentoDAO.buscar(id);
     }
     
     public AlimentoRefeicoes cadastrarAlimentosRefeicoes(Alimento alimento, Refeicao refeicao){
@@ -385,9 +381,9 @@ public class GUI {
         System.out.println("\n======= Cadastrar Preferencias =======");
         System.out.println(alimentoDAO.toString(pessoaLogada));
         System.out.println("Escolha algum alimento pelo ID: ");
-        idAlimento = Integer.parseInt(scanner.nextLine());
+        id = Integer.parseInt(scanner.nextLine());
         
-        return new Preferencias(pessoaLogada, alimentoDAO.buscar(idAlimento));
+        return new Preferencias(pessoaLogada, alimentoDAO.buscar(id));
     }
     
     public int menuPostFit(){
@@ -444,11 +440,39 @@ public class GUI {
         return Integer.parseInt(scanner.nextLine());
     }
     
-    public Mensagem mandarMensagem(Pessoa pessoaLogada, SeguirDAO seguirDAO){
-        
+    public Mensagem mandarMensagem(Pessoa pessoaLogada, SeguirDAO seguirDAO, PessoaDAO pessoaDAO){ 
         System.out.println("Digite a mensagem:\n ");
         conteudoMensagem = scanner.nextLine();
         
-        return new Mensagem(pessoaLogada, pessoaLogada, mensagem);
+        //RECEBER PESSOA DESTINO
+        System.out.println(seguirDAO.toString(pessoaLogada));
+        
+        System.out.print("\n Escolha alguem pelo ID: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return new Mensagem(pessoaLogada, pessoaDAO.buscar(seguirDAO.buscar(id).getPessoaSeguindo().getId()), mensagem);
+    }
+    
+    public int menuSeguir(){
+        System.out.println("""
+                            ====== SEGUIR ======
+
+                            1. Ver seguidores
+                            2. Seguir
+                            3. SAIR
+                            """);
+        
+        System.out.print("\n Escolha uma opcao: ");
+        
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public Seguir seguir(Pessoa pessoaLogada, PessoaDAO pessoaDAO){
+        System.out.println(pessoaDAO.toString());
+        
+        System.out.print("\n Escolha alguem pelo ID: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return new Seguir(pessoaLogada, pessoaDAO.buscar(id));
     }
 }

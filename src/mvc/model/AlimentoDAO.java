@@ -12,7 +12,7 @@ public class AlimentoDAO {
     Alimento alimentos[] = new Alimento[10];
 
     public AlimentoDAO(Pessoa pessoa) {
-        adicionar(new Alimento("Ovo", 100, 100, 100, 1, pessoa));
+        adicionar(new Alimento("Ovo", 1.2, 15.6, 18.6, 1, pessoa));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR

@@ -47,15 +47,14 @@ public class PostDAO {
     
     //BUSCAR
     public boolean buscar (Post post){
-        for (int i = 0; i < posts.length; i++){
-           if(posts[i].equals(post)){
-               return true;
-           }
-        }
+         for (Post post1 : posts) {
+             if (post1.equals(post)) {
+                 return true;
+             }
+         }
         return false;
     }
     
-
     public String toString(Pessoa pessoaLogada) {
         StringBuilder sb = new StringBuilder();
         sb.append("====== MENSAGENS ======");

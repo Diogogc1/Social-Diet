@@ -50,13 +50,13 @@ public class PessoaDAO {
         return false;
     }
     
-    public boolean buscar(Pessoa pessoa){
-        for (Pessoa p : pessoas) {
-            if (pessoa.equals(p)) {
-                return true;
+    public Pessoa buscar(long id){
+        for(Pessoa pessoa : pessoas) {
+            if(pessoa.getId() == id){
+                return pessoa;
             } 
         }
-        return false;
+        return null;
     }
     
     public boolean validarLogin(String email, String senha){
@@ -75,5 +75,23 @@ public class PessoaDAO {
             }
         }
         return null;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("====== Pessoas ======");
+        for(Pessoa pessoa : pessoas) {
+            if(pessoa != null){
+                sb.append("\n ID: ").append(pessoa.getId()).
+                append("\n Nome: ").append(pessoa.getNome()).
+                append("Sexo: ").append(pessoa.getSexo()).
+                append("Data de nascimento: ").append(pessoa.getDataDeNascimento()).
+                append("E-mail: ").append(pessoa.getEmail()).
+                append("Senha: ").append(pessoa.getSenha()).
+                append("\n ========================================");
+            }
+        }
+        return sb.toString();
     }
 }

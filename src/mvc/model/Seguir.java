@@ -15,8 +15,8 @@ public class Seguir {
     //id, pessoa origem, pessoa seguindo, dataCriacao, dataModificacao
     private final long id;
     private static long serial;
-    private Pessoa pessoaOrigem;
-    private Pessoa pessoaSeguindo;
+    private Pessoa pessoaOrigem;  //DIOGO
+    private Pessoa pessoaSeguindo; //MATHEUS, ALE
     private final LocalDate dataCriacao;
     private LocalDate dataModificacao;
 
