@@ -11,7 +11,10 @@ package mvc.model;
  */
 public class PostDAO {
      Post posts[] = new Post[10];
-      
+
+    public PostDAO(Pessoa pessoaLogada) {
+        this.adicionar(new Post (pessoaLogada,"Boa noite, amigos!"));
+    }
      
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(Post post){

@@ -4,6 +4,7 @@
  */
 package mvc.model;
 import java.time.LocalDate;
+import java.util.Objects;
 /**
  *
  * @author User
@@ -69,5 +70,49 @@ public class Post {
         this.conteudoMensagem = conteudoMensagem;
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();
-    }   
+    } 
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 89 * hash + Objects.hashCode(this.pessoa);
+        hash = 89 * hash + Objects.hashCode(this.conteudoMensagem);
+        hash = 89 * hash + Objects.hashCode(this.dataCriacao);
+        hash = 89 * hash + Objects.hashCode(this.dataModificacao);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Post other = (Post) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.conteudoMensagem, other.conteudoMensagem)) {
+            return false;
+        }
+        if (!Objects.equals(this.pessoa, other.pessoa)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataCriacao, other.dataCriacao)) {
+            return false;
+        }
+        return Objects.equals(this.dataModificacao, other.dataModificacao);
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" + "id=" + id + ", pessoa=" + pessoa + ", conteudoMensagem=" + conteudoMensagem + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+    }
+    
 }

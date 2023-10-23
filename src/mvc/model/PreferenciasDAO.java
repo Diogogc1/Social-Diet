@@ -36,9 +36,9 @@ public class PreferenciasDAO {
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA A PESSOA PARA SER REMOVIDA
-    public boolean remover(Preferencias preferencia){
+    public boolean remover(long idPreferencia){
         for (int i = 0; i < preferencias.length; i++) {
-            if(preferencias[i].equals(preferencia)){
+            if(preferencias[i].getId() == idPreferencia){
                 preferencias[i] = null;
                 return true;
             }
@@ -47,15 +47,26 @@ public class PreferenciasDAO {
     }
     
     //ALTERAR
-    public boolean alterar(Preferencias preferencia, Preferencias preferenciaNovo){
+    public boolean alterar(long idPreferencia, Preferencias preferenciaNovo){
         for (int i = 0; i < preferencias.length; i++) {
-            if(preferencias[i].equals(preferencia)){
+            if(preferencias[i].getId() == idPreferencia){
                 preferencias[i] = preferenciaNovo;
                 return true;
             }
         }
         return false;
     }
+    
+    //BUSCAR POR ID
+    public Preferencias buscarPorId(long idPreferencia){
+        for(int i=0; i<preferencias.length; i++){
+            if(preferencias[i].getId() == idPreferencia){
+                return preferencias[i];
+            }
+        }
+        return null;
+    }
+    
     
     //BUSCAR
     public Preferencias buscar(int cont){

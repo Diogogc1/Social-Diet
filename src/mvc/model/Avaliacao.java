@@ -6,6 +6,7 @@ package mvc.model;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.lang.Math;
+import java.util.Objects;
 /**
  *
  * @author User
@@ -415,14 +416,84 @@ public class Avaliacao {
                 append("\n ========================================");
         System.out.println(sb);
     }
-    /*
-    this.id = ++serial;
-        this.pessoa = pessoa;
-        this.peso = peso;
-        this.altura = altura;
-        this.idade = idade;
-        this.pescoco = pescoco;
-        this.cintura = cintura;
-        this.quadril = quadril;
-    */
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 53 * hash + Objects.hashCode(this.pessoa);
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.peso) ^ (Double.doubleToLongBits(this.peso) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.altura) ^ (Double.doubleToLongBits(this.altura) >>> 32));
+        hash = 53 * hash + this.idade;
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.pescoco) ^ (Double.doubleToLongBits(this.pescoco) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.cintura) ^ (Double.doubleToLongBits(this.cintura) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.quadril) ^ (Double.doubleToLongBits(this.quadril) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.imc) ^ (Double.doubleToLongBits(this.imc) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.tmb) ^ (Double.doubleToLongBits(this.tmb) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.bf) ^ (Double.doubleToLongBits(this.bf) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.massaGorda) ^ (Double.doubleToLongBits(this.massaGorda) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.massaMagra) ^ (Double.doubleToLongBits(this.massaMagra) >>> 32));
+        hash = 53 * hash + Objects.hashCode(this.dataCriacao);
+        hash = 53 * hash + Objects.hashCode(this.dataModificacao);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Avaliacao other = (Avaliacao) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.peso) != Double.doubleToLongBits(other.peso)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.altura) != Double.doubleToLongBits(other.altura)) {
+            return false;
+        }
+        if (this.idade != other.idade) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.pescoco) != Double.doubleToLongBits(other.pescoco)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.cintura) != Double.doubleToLongBits(other.cintura)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.quadril) != Double.doubleToLongBits(other.quadril)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.imc) != Double.doubleToLongBits(other.imc)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.tmb) != Double.doubleToLongBits(other.tmb)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.bf) != Double.doubleToLongBits(other.bf)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.massaGorda) != Double.doubleToLongBits(other.massaGorda)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.massaMagra) != Double.doubleToLongBits(other.massaMagra)) {
+            return false;
+        }
+        if (!Objects.equals(this.pessoa, other.pessoa)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataCriacao, other.dataCriacao)) {
+            return false;
+        }
+        return Objects.equals(this.dataModificacao, other.dataModificacao);
+    }
+    
+    
 }
