@@ -4,11 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/view/GUI.java</file>
-            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/MensagemDAO.java</file>
-            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/AvaliacaoDAO.java</file>
             <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/PostDAO.java</file>
             <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/controller/Programa.java</file>
-            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/SeguirDAO.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/DietaDAO.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/Alimento.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Trabalho_POO/src/mvc/model/Post.java</file>
         </group>
     </open-files>
 </project-private>
