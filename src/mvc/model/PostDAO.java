@@ -36,6 +36,7 @@ public class PostDAO {
     }
     
     //ALTERAR
+    /A
     public boolean alterar(long idPost, Post postNovo){
         for (int i = 0; i < posts.length; i++) {
             if(posts[i].getId() == idPost){
