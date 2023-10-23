@@ -4,6 +4,7 @@
  */
 package mvc.model;
 import java.time.LocalDate;
+import java.util.Objects;
 /**
  *
  * @author User
@@ -88,5 +89,58 @@ public class TipoDieta {
         this.gordura = gordura;
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();
-    }     
+    }    
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.nome);
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.carboidrato) ^ (Double.doubleToLongBits(this.carboidrato) >>> 32));
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.proteina) ^ (Double.doubleToLongBits(this.proteina) >>> 32));
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.gordura) ^ (Double.doubleToLongBits(this.gordura) >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.dataCriacao);
+        hash = 59 * hash + Objects.hashCode(this.dataModificacao);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TipoDieta other = (TipoDieta) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.carboidrato) != Double.doubleToLongBits(other.carboidrato)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.proteina) != Double.doubleToLongBits(other.proteina)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.gordura) != Double.doubleToLongBits(other.gordura)) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataCriacao, other.dataCriacao)) {
+            return false;
+        }
+        return Objects.equals(this.dataModificacao, other.dataModificacao);
+    }
+
+    @Override
+    public String toString() {
+        return "TipoDieta{" + "id=" + id + ", nome=" + nome + ", carboidrato=" + carboidrato + ", proteina=" + proteina + ", gordura=" + gordura + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+    }
+    
+    
 }

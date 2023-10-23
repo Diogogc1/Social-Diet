@@ -32,7 +32,6 @@ public class Dieta {
         this.avaliacao = avaliacao;
         this.tipoDieta = tipoDieta;
         this.objetivo = objetivo;
-        
         if(objetivo.equals("Diminuir o peso")){
             this.calorias = avaliacao.getTmb() - 500;
         }else{
@@ -48,7 +47,6 @@ public class Dieta {
                 }
             }
         }
- 
         this.numeroRefeicoes = numeroRefeicoes;
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();

@@ -11,6 +11,12 @@ package mvc.model;
 
 public class SeguirDAO {
     Seguir seguidores[] = new Seguir[10];
+
+    public SeguirDAO(Pessoa pessoaLogada, Pessoa pessoaSeguindo) {
+        this.adicionar(new Seguir(pessoaLogada, pessoaSeguindo));
+    }
+    
+    
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(Seguir seguidor){
