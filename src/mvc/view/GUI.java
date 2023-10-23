@@ -566,6 +566,7 @@ public class GUI {
         
         return id;
     }
+<<<<<<< HEAD
     
     public long alterarSeguidor(){
         System.out.println("\n/// ALTERAR SEGUIDOR ///");
@@ -617,4 +618,6 @@ public class GUI {
         
         return scanner.nextLine();
     }
+=======
+>>>>>>> parent of 7291f06 (.)
 }
