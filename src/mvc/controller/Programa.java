@@ -55,18 +55,8 @@ public class Programa {
     private double calorias;
     private int porcao;
     
+    
     //DAOs
-    private PessoaDAO pessoaDAO;
-    private AvaliacaoDAO avaliacaoDAO;
-    private AlimentoDAO alimentoDAO;
-    private TipoDietaDAO tipoDietaDAO;
-    private DietaDAO dietaDAO;
-    private RefeicaoDAO refeicaoDAO;
-    private AlimentoRefeicoesDAO alimentoRefeicoesDAO;
-    private PreferenciasDAO preferenciasDAO;
-    private PostDAO postDAO;
-    private MensagemDAO mensagemDAO;
-    private SeguirDAO seguirDAO;
     
     public Programa() {
         menuInicial();
@@ -424,24 +414,24 @@ public class Programa {
     public void menuPreferencias(){
         do{
             switch(gui.menuPreferencias()){
-                case 1 ->{
-                System.out.println(preferenciasDAO.toString(pessoaLogada));
-
-                }
-                //CADASTRAR
-                case 2 ->{
-                    System.out.println(alimentoDAO);
-                    if(preferenciasDAO.adicionar(gui.cadastrarPreferencias(pessoaLogada, alimentoDAO))){
-                        System.out.println("\n Preferencia cadastrada");
-                    }else{
-                        System.out.println("\n Preferencia nao cadastrada");
-                    }
-
-                }
-                case 3 ->{
-                    menu = -1;
-                }
-            }
+                            case 1 ->{
+                            System.out.println(preferenciasDAO.toString(pessoaLogada));
+                            
+                            }
+                            //CADASTRAR
+                            case 2 ->{
+                                System.out.println(alimentoDAO);
+                                if(preferenciasDAO.adicionar(gui.cadastrarPreferencias(pessoaLogada, alimentoDAO))){
+                                    System.out.println("\n Preferencia cadastrada");
+                                }else{
+                                    System.out.println("\n Preferencia nao cadastrada");
+                                }
+                                
+                            }
+                            case 3 ->{
+                                menu = -1;
+                            }
+                        }
         }while(menu != -1);
     }
     
@@ -490,7 +480,16 @@ public class Programa {
                     postDAO.adicionar(gui.criarPost(pessoaLogada));
                 }
                 case 3 ->{
-                    menu =-1;
+                    System.out.print(postDAO.buscar(gui.buscarPost()));
+                }
+                case 4 ->{
+                    postDAO.alterar(gui.alterarPost(), gui.criarPost(pessoaLogada));
+                }
+                case 5 ->{
+                    postDAO.remover(gui.removerPost());
+                }   
+                case 6 ->{
+                    menu = -1;
                 }
             }
         }while(menu != -1);
@@ -506,6 +505,15 @@ public class Programa {
                     mensagemDAO.adicionar(gui.mandarMensagem(pessoaLogada, seguirDAO, pessoaDAO));
                 }
                 case 3 ->{
+                    System.out.print(mensagemDAO.buscar(gui.buscarMensagem()));
+                }
+                case 4 ->{
+                    mensagemDAO.alterar(gui.alterarMensagem(), gui.mandarMensagem(pessoaLogada, seguirDAO, pessoaDAO));
+                }
+                case 5 ->{
+                    mensagemDAO.remover(gui.removerMensagem());
+                }   
+                case 6 ->{
                     menu = -1;
                 }
             }
@@ -522,6 +530,18 @@ public class Programa {
                 //SEGUIR ALGUÉM
                 case 2 -> {
                     seguirDAO.adicionar(gui.seguir(pessoaLogada, pessoaDAO));
+                }
+                case 3 ->{
+                    System.out.print(seguirDAO.buscar(gui.buscarSeguidor()));
+                }
+                case 4 ->{
+                    seguirDAO.alterar(gui.alterarSeguidor(), gui.seguir(pessoaLogada, pessoaDAO));
+                }
+                case 5 ->{
+                    seguirDAO.remover(gui.removerSeguidor());
+                }   
+                case 6 ->{
+                    menu = -1;
                 }
             }
         }while(menu != -1);
