@@ -303,13 +303,13 @@ public class Programa {
                 
                 //ALTERAR DIETA
                 case 4 -> {
-                    dietaDAO.alterar(dietaDAO.buscar(gui.escolherDieta()), gui.cadastrarDieta(pessoaNova, avaliacaoDAO, tipoDieta)) ;
+                    dietaDAO.alterar(dietaDAO.buscar(gui.escolherDieta()), gui.cadastrarDieta(pessoaNova, avaliacaoDAO, montarTipoDieta())) ;
                 }
                 //REMOVER DIETA
                 case 5 -> {
                     dietaDAO.remover(gui.escolheDieta(dietaDAO, pessoaLogada));
                 }
-                
+                //SAIR
                 case 6 -> {
                     menu = -1;
                 }
