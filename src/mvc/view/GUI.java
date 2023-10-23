@@ -20,6 +20,7 @@ import mvc.model.PessoaDAO;
 import mvc.model.Post;
 import mvc.model.Preferencias;
 import mvc.model.Refeicao;
+import mvc.model.RefeicaoDAO;
 import mvc.model.Seguir;
 import mvc.model.SeguirDAO;
 import mvc.model.TipoDieta;
@@ -341,7 +342,11 @@ public class GUI {
 
                            1. Ver Refeicoes
                            2. Cadastar Refeicao
-                           3. SAIR
+                           3. Gerar Refeicao Automaticamente
+                           4. Buscar 
+                           5. Alterar
+                           6. Remover
+                           7. SAIR
                            """);
         System.out.println("\n Escolha uma opcao: ");
         return Integer.parseInt(scanner.nextLine());
@@ -378,6 +383,20 @@ public class GUI {
         
         return new Refeicao(dieta, carboidratos, proteinas, gorduras, calorias, nome);
     }
+    
+    public Refeicao buscarRefeicao(RefeicaoDAO refeicaoDAO){
+        System.out.println("Digite o nome da Refeicao: ");
+        
+        return refeicaoDAO.buscarNome(scanner.nextLine());
+    }
+    
+    public Refeicao escolherRefeicao(RefeicaoDAO refeicaoDAO, Pessoa pessoaLogada){
+        System.out.println(refeicaoDAO.toString(pessoaLogada));
+        
+        System.out.print("\n Escolha alguma Refeicao pelo ID: ");
+        
+        return refeicaoDAO.buscar(Long.parseLong(scanner.nextLine()));
+    } 
     
     public Alimento escolherAlimentosRefeicoes(AlimentoDAO alimentoDAO, Pessoa pessoaLogada){
         System.out.println(alimentoDAO.toString(pessoaLogada));

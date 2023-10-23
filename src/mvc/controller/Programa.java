@@ -4,7 +4,6 @@
  */
 package mvc.controller;
 
-import java.util.Scanner;
 import mvc.model.Alimento;
 import mvc.model.AvaliacaoDAO;
 import mvc.model.AlimentoDAO;
@@ -45,6 +44,7 @@ public class Programa {
     //REFEIÇÃO
     private Dieta dietaSelecionada;
     private Refeicao refeicaoNova;
+    private Refeicao refeicaoSelecionada;
     private Alimento alimentoSelecionado;
     private int contRefeicao;
     private AlimentoRefeicoes alimentoRefeicoesNovo;
@@ -61,10 +61,10 @@ public class Programa {
     private AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO(pessoaLogada);
     private AlimentoDAO alimentoDAO = new AlimentoDAO(pessoaLogada);
     private TipoDietaDAO tipoDietaDAO = new TipoDietaDAO();
-    private DietaDAO dietaDAO = new DietaDAO();
+    private DietaDAO dietaDAO = new DietaDAO(pessoaLogada, avaliacaoDAO, tipoDietaDAO);
     private RefeicaoDAO refeicaoDAO = new RefeicaoDAO(dietaDAO, pessoaLogada);
     private AlimentoRefeicoesDAO alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
-    private PreferenciasDAO preferenciasDAO = new PreferenciasDAO();
+    private PreferenciasDAO preferenciasDAO = new PreferenciasDAO(pessoaLogada, alimentoDAO);
     private PostDAO postDAO = new PostDAO();
     private MensagemDAO mensagemDAO = new MensagemDAO(pessoaLogada, pessoaDAO.buscar(1));
     private SeguirDAO seguirDAO = new SeguirDAO();
@@ -90,10 +90,10 @@ public class Programa {
                         avaliacaoDAO = new AvaliacaoDAO(pessoaLogada);
                         alimentoDAO = new AlimentoDAO(pessoaLogada);
                         tipoDietaDAO = new TipoDietaDAO();
-                        dietaDAO = new DietaDAO();
+                        dietaDAO = new DietaDAO(pessoaLogada, avaliacaoDAO, tipoDietaDAO);
                         refeicaoDAO = new RefeicaoDAO(dietaDAO, pessoaLogada);
                         alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
-                        preferenciasDAO = new PreferenciasDAO();
+                        preferenciasDAO = new PreferenciasDAO(pessoaLogada, alimentoDAO);
                         postDAO = new PostDAO();
                         mensagemDAO = new MensagemDAO(pessoaLogada, pessoaDAO.buscar(1));
                         seguirDAO = new SeguirDAO();
@@ -224,7 +224,9 @@ public class Programa {
                 
                 //EXCLUIR ALIMENTO
                 case 5 -> {
-                    alimentoDAO.remover(gui.escolherAlimento(alimentoDAO, pessoaLogada));
+                    alimentoSelecionado = gui.escolherAlimento(alimentoDAO, pessoaLogada);
+                    alimentoDAO.remover(alimentoSelecionado);
+                    alimentoRefeicoesDAO.removerAlimento(alimentoSelecionado);
                 }
                 
                 default -> {
@@ -268,7 +270,7 @@ public class Programa {
             }
             
             case "4" -> {
-                d.setObjetivo("Aumentar o pesoAumentar o peso");
+                d.setObjetivo("Aumentar o peso");
             }
         }
         return d;
@@ -303,7 +305,7 @@ public class Programa {
                 
                 //ALTERAR DIETA
                 case 4 -> {
-                    dietaDAO.alterar(dietaDAO.buscar(gui.escolherDieta()), gui.cadastrarDieta(pessoaNova, avaliacaoDAO, montarTipoDieta())) ;
+                    dietaDAO.alterar(dietaDAO.buscar(gui.escolherDieta()), gui.cadastrarDieta(pessoaLogada, avaliacaoDAO, montarTipoDieta())) ;
                 }
                 //REMOVER DIETA
                 case 5 -> {
@@ -376,6 +378,26 @@ public class Programa {
                             }
                         }
                     }
+                }
+                //BUSCAR
+                case 4 -> {
+                    System.out.println(gui.buscarRefeicao(refeicaoDAO));
+                }
+                
+                //ALTERAR
+                case 5 -> {
+                    refeicaoDAO.alterar(gui.escolherRefeicao(refeicaoDAO, pessoaLogada), gui.cadastrarRefeicao(gui.escolheDieta(dietaDAO, pessoaLogada)));
+                }
+                
+                //REMOVER
+                case 6 -> {
+                    refeicaoSelecionada = gui.escolherRefeicao(refeicaoDAO, pessoaLogada);
+                    refeicaoDAO.remover(refeicaoSelecionada);
+                    alimentoRefeicoesDAO.removerRefeicao(refeicaoSelecionada);
+                }
+                
+                case 7 -> {
+                    menu = -1;
                 }
                 
                 default -> {

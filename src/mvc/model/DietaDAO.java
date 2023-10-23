@@ -3,13 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package mvc.model;
-
 /**
  *
  * @author diogo
  */
 public class DietaDAO {
     Dieta[] dietas = new Dieta[10];
+
+    public DietaDAO(Pessoa pessoaLogada, AvaliacaoDAO avaliacaoDAO, TipoDietaDAO tipoDietaDAO) {
+        adicionar(new Dieta(pessoaLogada, avaliacaoDAO.buscarPessoa(pessoaLogada), tipoDietaDAO.buscar(2), "Manter o peso", 0, 0));
+    }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(Dieta dieta){

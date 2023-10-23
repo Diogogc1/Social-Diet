@@ -13,13 +13,14 @@ public class RefeicaoDAO {
     int cont;
     
     private double carboidrato;
-    private double porcao;
     private double proteina;
     private double gordura;
     private double calorias;
     
     public RefeicaoDAO(DietaDAO dietaDAO, Pessoa pessoaLogada) {
-        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 0, 0, 0, 0, "Café da Manhã"));
+        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Café da Manhã"));
+        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Almoco"));
+        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Janta"));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
@@ -56,6 +57,25 @@ public class RefeicaoDAO {
     }
     
     //BUSCAR
+    public Refeicao buscar(long id){
+        for (Refeicao refeicao : refeicoes) {
+            if (refeicao.getId() == id) {
+                return refeicao;
+            } 
+        }
+        return null;
+    }
+    
+    //BUSCAR NOME
+    public Refeicao buscarNome(String nome){
+        for (Refeicao refeicao : refeicoes) {
+            if (refeicao != null && refeicao.getNomeDaRefeicao().equals(nome)) {
+                return refeicao;
+            } 
+        }
+        return null;
+    }
+    
     public int numeroDeRefeicaoDaDieta(Dieta dieta){
         cont = 0;
         for (Refeicao r : refeicoes) {

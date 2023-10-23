@@ -11,6 +11,18 @@ package mvc.model;
 public class PreferenciasDAO {
     Preferencias preferencias[] = new Preferencias[10];
     private int aux;
+
+    public PreferenciasDAO(Pessoa pessoaLogada, AlimentoDAO alimentoDAO) {
+        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(0)));
+        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(1)));
+        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(2)));
+        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(3)));
+        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(4)));
+        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(5)));
+        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(6)));
+        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(7)));
+        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(8)));
+    }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(Preferencias preferencia){

@@ -17,36 +17,47 @@ public class AlimentoRefeicoesDAO {
     private double calorias;
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public String adicionar(AlimentoRefeicoes alimentoRefeicao){
+    public boolean adicionar(AlimentoRefeicoes alimentoRefeicao){
         for (int i = 0; i < alimentoRefeicoes.length; i++) {
             if(alimentoRefeicoes[i] == null){
                 alimentoRefeicoes[i] = alimentoRefeicao;
-                return "Alimento da Refeição adicionado com sucesso!";
+                return true;
             } 
         }
-        return "Erro - Alimento da Refeição não adicionado!";
+        return false;
     }
     
-    //REMOVER - PERCORRE O VETOR E PROCURA A PESSOA PARA SER REMOVIDA
-    public String remover(AlimentoRefeicoes alimentoRefeicao){
+    //REMOVER ALIMENTO
+    public boolean removerAlimento(Alimento alimento){
         for (int i = 0; i < alimentoRefeicoes.length; i++) {
-            if(alimentoRefeicoes[i].equals(alimentoRefeicao)){
+            if(alimentoRefeicoes[i].getAlimento().equals(alimento)){
                 alimentoRefeicoes[i] = null;
-                return "Alimento da Refeição removido com sucesso!";
+                return true;
             }
         }
-        return "Erro - Alimento da Refeição não removido!";
+        return false;
+    }
+    
+    //REMOVER REFEICAO
+    public boolean removerRefeicao(Refeicao refeicao){
+        for (int i = 0; i < alimentoRefeicoes.length; i++) {
+            if(alimentoRefeicoes[i].getRefeicao().equals(refeicao)){
+                alimentoRefeicoes[i] = null;
+                return true;
+            }
+        }
+        return false;
     }
     
     //ALTERAR
-    public String alterar(AlimentoRefeicoes alimentoRefeicao, AlimentoRefeicoes alimentoRefeicaoNovo){
+    public boolean alterar(AlimentoRefeicoes alimentoRefeicao, AlimentoRefeicoes alimentoRefeicaoNovo){
         for (int i = 0; i < alimentoRefeicoes.length; i++) {
             if(alimentoRefeicoes[i].equals(alimentoRefeicao)){
                 alimentoRefeicoes[i] = alimentoRefeicaoNovo;
-                return "Alimento da Refeição alterado com sucesso!";
+                return true;
             }
         }
-        return "Erro - Alimento da Refeição não alterado!";
+        return false;
     }
     
     public boolean bateuMetaRefeicao(Refeicao refeicaoNova){

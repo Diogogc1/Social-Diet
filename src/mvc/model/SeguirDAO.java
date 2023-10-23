@@ -24,7 +24,7 @@ public class SeguirDAO {
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA A REFEICAO PARA SER REMOVIDA
-    public boolean remover(long idSeguidora){
+    public boolean remover(long idSeguidor){
         for (int i = 0; i < seguidores.length; i++) {
             if(seguidores[i].getId() == (idSeguidor)){
                 seguidores[i] = null;
@@ -35,7 +35,7 @@ public class SeguirDAO {
     }
     
     //ALTERAR
-    public boolean alterar(long idSeguidora, Seguir seguidorNova){
+    public boolean alterar(long idSeguidor, Seguir seguidorNova){
         for (int i = 0; i < seguidores.length; i++) {
             if(seguidores[i].getId() == idSeguidor){
                 seguidores[i] = seguidorNova;
@@ -46,7 +46,7 @@ public class SeguirDAO {
     }
     
     //BUSCAR
-    public Seguir buscar(long idSeguidora){
+    public Seguir buscar(long idSeguidor){
         for (Seguir seguidor : seguidores) {
             if (seguidor.getId() == idSeguidor) {
                 return seguidor;
