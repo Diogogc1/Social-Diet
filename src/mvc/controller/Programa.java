@@ -57,6 +57,17 @@ public class Programa {
     
     
     //DAOs
+    private PessoaDAO pessoaDAO = new PessoaDAO();
+    private AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO(pessoaLogada);
+    private AlimentoDAO alimentoDAO = new AlimentoDAO(pessoaLogada);
+    private TipoDietaDAO tipoDietaDAO = new TipoDietaDAO();
+    private DietaDAO dietaDAO = new DietaDAO();
+    private RefeicaoDAO refeicaoDAO = new RefeicaoDAO(dietaDAO, pessoaLogada);
+    private AlimentoRefeicoesDAO alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
+    private PreferenciasDAO preferenciasDAO = new PreferenciasDAO();
+    private PostDAO postDAO = new PostDAO();
+    private MensagemDAO mensagemDAO = new MensagemDAO(pessoaLogada, pessoaDAO.buscar(1));
+    private SeguirDAO seguirDAO = new SeguirDAO();
     
     public Programa() {
         menuInicial();
