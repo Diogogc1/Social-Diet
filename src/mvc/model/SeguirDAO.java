@@ -8,6 +8,8 @@ package mvc.model;
  *
  * @author diogo
  */
+
+/a
 public class SeguirDAO {
     Seguir seguidores[] = new Seguir[10];
     
