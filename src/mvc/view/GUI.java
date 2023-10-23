@@ -419,6 +419,33 @@ public class GUI {
         return new Preferencias(pessoaLogada, alimentoDAO.buscar(id));
     }
     
+    public long buscarPreferencia(){
+        System.out.println("\n/// BUSCAR PREFERENCIA ///");
+        
+        System.out.print("Informe o id para busca: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id;
+    }
+    
+    public long alterarPreferencia(){
+        System.out.println("\n/// ALTERAR PREFERENCIA ///");
+        
+        System.out.print("Informe o id que deseja: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id; 
+    }
+    
+    public long removerPreferencia(){
+        System.out.println("\n/// REMOVER PREFERENCIA ///");
+        
+        System.out.print("Informe o id que deseja: ");
+        id = Long.parseLong(scanner.nextLine());
+        
+        return id; 
+    }
+    
     public int menuPostFit(){
         
         System.out.println("""
@@ -582,7 +609,7 @@ public class GUI {
         
         return id;
     }
-<<<<<<< HEAD
+
     
     public long alterarSeguidor(){
         System.out.println("\n/// ALTERAR SEGUIDOR ///");
@@ -634,6 +661,5 @@ public class GUI {
         
         return scanner.nextLine();
     }
-=======
->>>>>>> parent of 7291f06 (.)
+
 }

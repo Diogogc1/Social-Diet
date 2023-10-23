@@ -4,6 +4,7 @@
  */
 package mvc.model;
 import java.time.LocalDate;
+import java.util.Objects;
 /**
  *
  * @author User
@@ -76,6 +77,54 @@ public class Mensagem {
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.pessoaOrigem);
+        hash = 37 * hash + Objects.hashCode(this.pessoaDestino);
+        hash = 37 * hash + Objects.hashCode(this.mensagem);
+        hash = 37 * hash + Objects.hashCode(this.dataCriacao);
+        hash = 37 * hash + Objects.hashCode(this.dataModificacao);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Mensagem other = (Mensagem) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.mensagem, other.mensagem)) {
+            return false;
+        }
+        if (!Objects.equals(this.pessoaOrigem, other.pessoaOrigem)) {
+            return false;
+        }
+        if (!Objects.equals(this.pessoaDestino, other.pessoaDestino)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataCriacao, other.dataCriacao)) {
+            return false;
+        }
+        return Objects.equals(this.dataModificacao, other.dataModificacao);
+    }
+
+    @Override
+    public String toString() {
+        return "Mensagem{" + "id=" + id + ", pessoaOrigem=" + pessoaOrigem + ", pessoaDestino=" + pessoaDestino + ", mensagem=" + mensagem + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+    }
+    
     
     
 }

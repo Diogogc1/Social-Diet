@@ -57,17 +57,17 @@ public class Programa {
     
     
     //DAOs
-    private PessoaDAO pessoaDAO = new PessoaDAO();
-    private AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO(pessoaLogada);
-    private AlimentoDAO alimentoDAO = new AlimentoDAO(pessoaLogada);
-    private TipoDietaDAO tipoDietaDAO = new TipoDietaDAO();
-    private DietaDAO dietaDAO = new DietaDAO();
-    private RefeicaoDAO refeicaoDAO = new RefeicaoDAO(dietaDAO, pessoaLogada);
-    private AlimentoRefeicoesDAO alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
-    private PreferenciasDAO preferenciasDAO = new PreferenciasDAO();
-    private PostDAO postDAO = new PostDAO();
-    private MensagemDAO mensagemDAO = new MensagemDAO(pessoaLogada, pessoaDAO.buscar(1));
-    private SeguirDAO seguirDAO = new SeguirDAO();
+    private PessoaDAO pessoaDAO;
+    private AvaliacaoDAO avaliacaoDAO;
+    private AlimentoDAO alimentoDAO;
+    private TipoDietaDAO tipoDietaDAO;
+    private DietaDAO dietaDAO;
+    private RefeicaoDAO refeicaoDAO;
+    private AlimentoRefeicoesDAO alimentoRefeicoesDAO;
+    private PreferenciasDAO preferenciasDAO;
+    private PostDAO postDAO;
+    private MensagemDAO mensagemDAO;
+    private SeguirDAO seguirDAO;
     
     public Programa() {
         menuInicial();
@@ -90,13 +90,13 @@ public class Programa {
                         avaliacaoDAO = new AvaliacaoDAO(pessoaLogada);
                         alimentoDAO = new AlimentoDAO(pessoaLogada);
                         tipoDietaDAO = new TipoDietaDAO();
-                        dietaDAO = new DietaDAO();
+                        dietaDAO = new DietaDAO(pessoaLogada, avaliacaoDAO, tipoDietaDAO);
                         refeicaoDAO = new RefeicaoDAO(dietaDAO, pessoaLogada);
                         alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
                         preferenciasDAO = new PreferenciasDAO();
-                        postDAO = new PostDAO();
+                        postDAO = new PostDAO(pessoaLogada);
                         mensagemDAO = new MensagemDAO(pessoaLogada, pessoaDAO.buscar(1));
-                        seguirDAO = new SeguirDAO();
+                        seguirDAO = new SeguirDAO(pessoaLogada, pessoaDAO.buscar(1));
                         
                         //MENU PRINCIPAL
                         menuPrincipal();
@@ -440,7 +440,16 @@ public class Programa {
                                 
                             }
                             case 3 ->{
-                                menu = -1;
+                               System.out.print(preferenciasDAO.buscarPorId(gui.buscarPreferencia())); 
+                            }
+                            case 4 ->{
+                                preferenciasDAO.alterar(gui.alterarPreferencia(), gui.cadastrarPreferencias(pessoaLogada, alimentoDAO));
+                            }
+                            case 5 ->{
+                                preferenciasDAO.remover(gui.removerPreferencia());
+                            }
+                            case 6 ->{
+                              menu = -1;  
                             }
                         }
         }while(menu != -1);

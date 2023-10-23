@@ -32,7 +32,21 @@ public class Dieta {
         this.avaliacao = avaliacao;
         this.tipoDieta = tipoDieta;
         this.objetivo = objetivo;
-        this.calorias = calorias;
+        if(objetivo.equals("Diminuir o peso")){
+            this.calorias = avaliacao.getTmb() - 500;
+        }else{
+            if(objetivo.equals("Manter o peso")){
+                this.calorias = avaliacao.getTmb();
+            }else{
+                if(objetivo.equals("Melhorar composicao corporal")){
+                    this.calorias = avaliacao.getTmb() + 200;
+                }else{
+                    if(objetivo.equals("Aumentar o peso")){
+                        this.calorias = avaliacao.getTmb() + 500;
+                    }
+                }
+            }
+        }
         this.numeroRefeicoes = numeroRefeicoes;
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();
