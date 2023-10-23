@@ -54,6 +54,16 @@ public class DietaDAO {
         return null;
     }
     
+    //BUSCAR NOME
+    public Alimento buscarNome(String nome){
+        for (Dieta dieta : dietas) {
+            if (dieta != null && dieta.getNome().equals(nome)) {
+                return dieta;
+            } 
+        }
+        return null;
+    }
+    
     //BUSCAR PESSOA AVALIACAO FISICA
     public Dieta buscarPessoa (Pessoa pessoaLogada){
         for(Dieta dieta : dietas){
