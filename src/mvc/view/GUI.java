@@ -11,6 +11,7 @@ import mvc.model.Alimento;
 import mvc.model.AlimentoDAO;
 import mvc.model.AlimentoRefeicoes;
 import mvc.model.Avaliacao;
+import mvc.model.AvaliacaoDAO;
 import mvc.model.Dieta;
 import mvc.model.DietaDAO;
 import mvc.model.Mensagem;
@@ -301,9 +302,11 @@ public class GUI {
         return Integer.parseInt(scanner.nextLine());
     }
     
-    public Dieta cadastrarDieta(Pessoa pessoa, Avaliacao avaliacao, TipoDieta tipoDieta){
+    public Dieta cadastrarDieta(Pessoa pessoa, AvaliacaoDAO avaliacaoDAO, TipoDieta tipoDieta){
         /*id, pessoa, avaliacao fisica, tipo dieta, objetivo, 
         calorias, nro refeicoes, dataCriacao, dataModificacao*/
+        System.out.println(avaliacaoDAO.toString(pessoa));
+        id = Long.parseLong(scanner.nextLine());
         
         System.out.println("/// Monte uma Dieta ///");
         System.out.println("1. Qual o seu objetivo?");
@@ -319,7 +322,7 @@ public class GUI {
         nrRefeicoes = Integer.parseInt(scanner.nextLine());
         
         //CALORIAS DA DIETA SÃO DEFINIDAS NO CONTROLLER, NA CLASSE PROGRAMA
-        return new Dieta(pessoa, avaliacao, tipoDieta, objetivo, calorias, nrRefeicoes);
+        return new Dieta(pessoa, avaliacaoDAO.buscar(id), tipoDieta, objetivo, calorias, nrRefeicoes);
     }
     
     public long buscarDieta(){
