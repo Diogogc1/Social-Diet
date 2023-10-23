@@ -4,6 +4,7 @@
  */
 package mvc.controller;
 
+import java.util.Scanner;
 import mvc.model.Alimento;
 import mvc.model.AvaliacaoDAO;
 import mvc.model.AlimentoDAO;
@@ -85,7 +86,7 @@ public class Programa {
                         
                         //INSTACIAÇÃO DOS DAOs
                         pessoaDAO = new PessoaDAO();
-                        avaliacaoDAO = new AvaliacaoDAO();
+                        avaliacaoDAO = new AvaliacaoDAO(pessoaLogada);
                         alimentoDAO = new AlimentoDAO(pessoaLogada);
                         tipoDietaDAO = new TipoDietaDAO();
                         dietaDAO = new DietaDAO();
@@ -93,7 +94,7 @@ public class Programa {
                         alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
                         preferenciasDAO = new PreferenciasDAO();
                         postDAO = new PostDAO();
-                        mensagemDAO = new MensagemDAO();
+                        mensagemDAO = new MensagemDAO(pessoaLogada, pessoaDAO.buscar(1));
                         seguirDAO = new SeguirDAO();
                         
                         //MENU PRINCIPAL
@@ -250,7 +251,8 @@ public class Programa {
     }
     
     public Dieta tratarObjetivo(TipoDieta tipoDieta){
-        Dieta d = gui.cadastrarDieta(pessoaLogada, avaliacaoDAO.buscarPessoa(pessoaLogada), tipoDieta);
+        
+        Dieta d = gui.cadastrarDieta(pessoaLogada, avaliacaoDAO, tipoDieta);
         switch(d.getObjetivo()){
             case "1" -> {
                 d.setObjetivo("Diminuir o peso");
@@ -293,7 +295,21 @@ public class Programa {
                     }
                 }
                 
+                //BUSCAR DIETA
                 case 3 -> {
+                    System.out.println(dietaDAO.buscar(gui.buscarDieta()));
+                }
+                
+                //ALTERAR DIETA
+                case 4 -> {
+                    dietaDAO.alterar(dietaDAO.buscar(gui.escolherDieta()), gui.cadastrarDieta(pessoaNova, avaliacaoDAO, tipoDieta)) ;
+                }
+                //REMOVER DIETA
+                case 5 -> {
+                    dietaDAO.remover(gui.escolheDieta(dietaDAO, pessoaLogada));
+                }
+                
+                case 6 -> {
                     menu = -1;
                 }
                 

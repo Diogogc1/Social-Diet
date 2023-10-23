@@ -290,8 +290,11 @@ public class GUI {
     public int menuDieta(){
         System.out.println("""
                            ======== DIETA ========
-                           1. Gerar Dieta Automatica
-                           2. Montar sua propria Dieta
+                           1. Ver Dietas
+                           2. Montar Dieta
+                           3. Buscar Dieta
+                           4. Alterar Dieta
+                           5. Remover Dieta
                            3. SAIR
                            """);
         System.out.println("\n Escolha uma opcao: ");
@@ -318,6 +321,16 @@ public class GUI {
         //CALORIAS DA DIETA SÃO DEFINIDAS NO CONTROLLER, NA CLASSE PROGRAMA
         return new Dieta(pessoa, avaliacao, tipoDieta, objetivo, calorias, nrRefeicoes);
     }
+    
+    public long buscarDieta(){
+        System.out.print("Informe o id para busca: ");
+        return Long.parseLong(scanner.nextLine());
+    }
+    
+    public long escolherDieta(){
+        System.out.print("Informe o id que deseja: ");
+        return Long.parseLong(scanner.nextLine());
+    } 
     
     public int menuRefeicao(){
         System.out.println("""
