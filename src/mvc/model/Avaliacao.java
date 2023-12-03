@@ -31,7 +31,7 @@ public class Avaliacao {
     private double bf;
     private double massaGorda;
     private double massaMagra;
-    private LocalDate dataCriacao;
+    private final LocalDate dataCriacao;
     private LocalDate dataModificacao;
     
     //GETTERS E SETTERS
@@ -139,10 +139,6 @@ public class Avaliacao {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDate dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
-
     public LocalDate getDataModificacao() {
         return dataModificacao;
     }
@@ -163,10 +159,12 @@ public class Avaliacao {
         this.quadril = quadril;
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();
-        this.imc = calcularImc();
+        
+        
+        /*this.imc = calcularImc();
         this.tmb = calcularTmb();
         this.bf = calcularBf();
-        gerarRelatorio();
+        gerarRelatorio();*/
     }
     
     
@@ -194,14 +192,16 @@ public class Avaliacao {
         int opcAtvd;
         //MODIFICAR SAIDAS E ENTRADAS PARA A MAIN
         System.out.println("""
+                           
                            O quanto você pratica exercícios?
                            1. Nenhuma
                            2. 1 a 3 vezes na semana
                            3. 6 a 7 vezes na semana
                            4. 2 vezes ao dia (ou intensamente todos os dias)
                            5. Treinamento intenso (muito difícil)
-                           Escolha uma opção:
                            """);
+        
+        System.out.print("\n Escolha uma opcao: ");
         opcAtvd = Integer.parseInt(sc.nextLine());
         
         switch(opcAtvd){
@@ -395,13 +395,14 @@ public class Avaliacao {
     /*PÓS O REGISTRO DA AVALIAÇÃO FÍSICA DEVERÁ SER GERADO UM RELATÓRIO
     COM INFORMAÇÕES PARA A PESSOA. ALÉM DISSO, OS DADOS DEVEM SER
     INTERPRETADOS. SE DISPONÍVEL, COMPARE COM A ÚLTIMA AVALIAÇÃO FÍSICA.*/
-    public void gerarRelatorio() {
+    @Override
+    public String toString() {
         
         String estadoBf = interpretarBf();
         
         //RELATÓRIO FINAL
         StringBuilder sb = new StringBuilder();
-                sb.append("====== RELATORIO ======").
+                sb.append("\n ====== RELATORIO DA AVALIACAO ======").
                 append("\n ID: ").append(this.id).
                 append("\n Peso: ").append(this.peso).
                 append("\n Altura: ").append(this.altura).
@@ -414,9 +415,10 @@ public class Avaliacao {
                 append("\n BF: ").append(this.bf).
                 append("\n TMB: ").append(estadoBf).
                 append("\n ========================================");
-        System.out.println(sb);
+        return sb.toString();
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -494,6 +496,4 @@ public class Avaliacao {
         }
         return Objects.equals(this.dataModificacao, other.dataModificacao);
     }
-    
-    
 }

@@ -10,6 +10,7 @@ package mvc.model;
  */
 public class RefeicaoDAO {
     Refeicao refeicoes[] = new Refeicao[10];
+    private final Login login = new Login();
     int cont;
     
     private double carboidrato;
@@ -116,11 +117,12 @@ public class RefeicaoDAO {
         return false;
     }
     
-    public String toString(Pessoa pessoaLogada) {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("====== REFEICOES ======");
         for(Refeicao refeicao : refeicoes) {
-            if(refeicao != null && refeicao.getDieta().getPessoa().equals(pessoaLogada)){
+            if(refeicao != null && refeicao.getDieta().getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append(refeicao.getId()).
                 append("\n Nome: ").append(refeicao.getNomeDaRefeicao()).
                 append("\n Carboidratos: ").append(refeicao.getCarboidrato()).

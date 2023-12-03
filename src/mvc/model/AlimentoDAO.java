@@ -4,12 +4,15 @@
  */
 package mvc.model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author diogo
  */
 public class AlimentoDAO {
     Alimento alimentos[] = new Alimento[20];
+    private final Login login = new Login();
 
     public AlimentoDAO(Pessoa pessoa) {
         //GORDURA
@@ -52,9 +55,15 @@ public class AlimentoDAO {
     
     //ALTERAR
     public boolean alterar(Alimento alimento, Alimento novoAlimento){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimento.equals(alimentos[i])){
-                alimentos[i] = novoAlimento;
+        for (Alimento alimento1 : alimentos) {
+            if (alimento.equals(alimento1)) {
+                alimento1.setNome(novoAlimento.getNome());
+                alimento1.setPorcao(novoAlimento.getPorcao());
+                alimento1.setCarboidratos(novoAlimento.getCarboidratos());
+                alimento1.setProteinas(novoAlimento.getProteinas());
+                alimento1.setGorduras(novoAlimento.getGorduras());
+                alimento1.setCalorias(novoAlimento.getCalorias());
+                alimento1.setDataDeModificacao(LocalDate.now());
                 return true;
             }
         }
@@ -90,13 +99,15 @@ public class AlimentoDAO {
         return true;
     }
 
-    public String toString(Pessoa pessoaLogada) {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("====== Alimentos ======");
+        sb.append("========== ALIMENTOS ==========");
         for (Alimento alimento : alimentos) {
-            if(alimento != null && alimento.getPessoa().equals(pessoaLogada)){
+            if(alimento != null && alimento.getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append(alimento.getId()).
                 append("\n Nome: ").append(alimento.getNome()).
+                append("\n Porcao: ").append(alimento.getPorcao()).
                 append("\n Carboidratos: ").append(alimento.getCarboidratos()).
                 append("\n Proteinas: ").append(alimento.getProteinas()).
                 append("\n Gorduras: ").append(alimento.getGorduras()).

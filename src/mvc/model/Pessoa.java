@@ -168,5 +168,4 @@ public class Pessoa {
         }
         return Objects.equals(this.dataModificacao, other.dataModificacao);
     }
-    
 }

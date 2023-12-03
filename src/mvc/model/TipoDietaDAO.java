@@ -10,6 +10,12 @@ package mvc.model;
  */
 public class TipoDietaDAO {
     TipoDieta tiposDieta[] = new TipoDieta[3];
+
+    public TipoDietaDAO() {
+        adicionar(new TipoDieta("Equilibrada", 0.4, 0.3, 0.3));
+        adicionar(new TipoDieta("Low Carb", 0.3, 0.5, 0.2));
+        adicionar(new TipoDieta("Cetogenica", 0.15, 0.15, 0.7));
+    }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(TipoDieta tipoDieta){
@@ -47,10 +53,29 @@ public class TipoDietaDAO {
     //BUSCAR
     public TipoDieta buscar (int id){
         for (TipoDieta tipoDieta : tiposDieta) {
-            if (tipoDieta.getId() == id) {
+            if (tipoDieta != null && tipoDieta.getId() == id) {
                 return tipoDieta;
             }
         }
         return null;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n ====== Seguidores ======");
+        for (TipoDieta tipoDieta : tiposDieta) {
+            if(tipoDieta != null){
+                sb.append("\n ID: ").append(tipoDieta.getId()).
+                append("\n Nome: ").append(tipoDieta.getNome()).
+                append("\n Carboidratos: ").append(tipoDieta.getCarboidrato()).
+                append("\n Proteinas: ").append(tipoDieta.getProteina()).
+                append("\n Gorduras: ").append(tipoDieta.getGordura()).
+                append("\n Data de Criacao: ").append(tipoDieta.getDataCriacao()).
+                append("\n Data de Modificacao: ").append(tipoDieta.getDataModificacao()).
+                append("\n ========================================");
+            }
+        }
+        return sb.toString();
     }
 }

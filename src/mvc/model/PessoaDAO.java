@@ -73,7 +73,7 @@ public class PessoaDAO {
     
     public Pessoa buscar(long id){
         for(Pessoa pessoa : pessoas) {
-            if(pessoa.getId() == id){
+            if(pessoa != null && pessoa.getId() == id){
                 return pessoa;
             } 
         }

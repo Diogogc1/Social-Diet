@@ -30,7 +30,7 @@ public class AlimentoRefeicoesDAO {
     //REMOVER ALIMENTO
     public boolean removerAlimento(Alimento alimento){
         for (int i = 0; i < alimentoRefeicoes.length; i++) {
-            if(alimentoRefeicoes[i].getAlimento().equals(alimento)){
+            if(alimentoRefeicoes[i] != null && alimentoRefeicoes[i].getAlimento().equals(alimento)){
                 alimentoRefeicoes[i] = null;
                 return true;
             }

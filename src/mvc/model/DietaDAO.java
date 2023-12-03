@@ -9,8 +9,10 @@ package mvc.model;
  */
 public class DietaDAO {
     Dieta[] dietas = new Dieta[10];
+    private final Login login = new Login();
+    
     public DietaDAO(Pessoa pessoaLogada, AvaliacaoDAO avaliacaoDAO, TipoDietaDAO tipoDietaDAO) {
-        adicionar(new Dieta(pessoaLogada, avaliacaoDAO.buscarPessoa(pessoaLogada), tipoDietaDAO.buscar(2), "Manter o peso", 0, 0));
+        adicionar(new Dieta(pessoaLogada, avaliacaoDAO.buscarPessoa(pessoaLogada), tipoDietaDAO.buscar(1), "Manter o peso", 0, 0));
     }
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(Dieta dieta){
@@ -66,11 +68,12 @@ public class DietaDAO {
         return null;
     }
     
-    public String toString(Pessoa pessoaLogada) {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("====== Dietas ======");
         for(Dieta dieta : dietas) {
-            if(dieta != null && dieta.getPessoa().equals(pessoaLogada)){
+            if(dieta != null && dieta.getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append(dieta.getId()).
                 append("\n Tipo de Dieta: ").append(dieta.getTipoDieta()).
                 append("\n Objetivo: ").append(dieta.getObjetivo()).

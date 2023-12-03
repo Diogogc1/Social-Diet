@@ -20,7 +20,7 @@ public class Alimento {
     private double gorduras;
     private double calorias;
     private int porcao;
-    private Pessoa pessoa;
+    private final Pessoa pessoa;
     private final LocalDate dataDeCriacao;
     private LocalDate dataDeModificacao;
     
@@ -107,10 +107,28 @@ public class Alimento {
         return dataDeModificacao;
     }
 
+    public void setDataDeModificacao(LocalDate dataDeModificacao) {
+        this.dataDeModificacao = dataDeModificacao;
+    }
+
     //TO STRING
     @Override
     public String toString() {
-        return "Alimento{" + "id=" + id + ", nome=" + nome + ", carboidratos=" + carboidratos + ", proteinas=" + proteinas + ", gorduras=" + gorduras + ", calorias=" + calorias + ", porcao=" + porcao + ", pessoa=" + pessoa + ", dataDeCriacao=" + dataDeCriacao + ", dataDeModificacao=" + dataDeModificacao + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n =========== ALIMENTO ===========");
+
+        sb.append("\n ID: ").append(id).
+        append("\n Nome: ").append(nome).
+        append("Porcao: ").append(porcao).
+        append("\n Carboidratos: ").append(carboidratos).
+        append("\n Proteinas: ").append(proteinas).
+        append("\n Gorduras: ").append(gorduras).
+        append("\n Calorias: ").append(calorias).
+        append("\n Data de Criacao: ").append(dataDeCriacao).
+        append("\n Data de Modificacao: ").append(dataDeModificacao).
+        append("\n =================================");
+   
+        return sb.toString();
     }
     
     //EQUALS E HASH CODE
