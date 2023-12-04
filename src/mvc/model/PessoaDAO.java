@@ -101,15 +101,13 @@ public class PessoaDAO {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("====== Pessoas ======");
+        sb.append("====== PESSOAS ======");
         for(Pessoa pessoa : pessoas) {
             if(pessoa != null){
                 sb.append("\n ID: ").append(pessoa.getId()).
                 append("\n Nome: ").append(pessoa.getNome()).
-                append("Sexo: ").append(pessoa.getSexo()).
-                append("Data de nascimento: ").append(pessoa.getDataDeNascimento()).
-                append("E-mail: ").append(pessoa.getEmail()).
-                append("Senha: ").append(pessoa.getSenha()).
+                append("\n Sexo: ").append(pessoa.getSexo()).
+                append("\n Data de nascimento: ").append(pessoa.getDataDeNascimento()).
                 append("\n ========================================");
             }
         }

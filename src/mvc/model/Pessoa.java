@@ -108,10 +108,19 @@ public class Pessoa {
     //TO STRING
     @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", Atualmente, há " + serial + "pessoas no sistema"
-                + ", nome=" + nome + ", sexo=" + sexo + ", dataDeNascimento=" + dataDeNascimento
-                + ", email=" + email + ", senha=" + senha + ", tipoDeUsuario=" + tipoUsuario
-                + ", dataDeCriacao=" + dataCriacao + ", dataDeModificacao=" + dataModificacao + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n =========== PESSOA ===========");
+
+        sb.append("\n ID: ").append(id).
+        append("\n Nome: ").append(nome).
+        append("\n Sexo: ").append(sexo).
+        append("\n Email: ").append(email). 
+        append("\n Senha: ").append(senha).
+        append("\n Data de Criacao: ").append(dataModificacao).
+        append("\n Data de modificacao: ").append(dataModificacao).
+        append("\n =================================");
+
+        return sb.toString();
     }
 
     //EQUALS E HASH CODE

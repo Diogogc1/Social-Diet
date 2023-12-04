@@ -80,7 +80,7 @@ public class RefeicaoDAO {
     public int numeroDeRefeicaoDaDieta(Dieta dieta){
         cont = 0;
         for (Refeicao r : refeicoes) {
-            if (r.getDieta().equals(dieta)) {
+            if (r != null && r.getDieta().equals(dieta)) {
                 cont++;
                 if(cont >= dieta.getNumeroRefeicoes()){
                     return cont;
@@ -99,18 +99,20 @@ public class RefeicaoDAO {
         return true;
     }
     
-    public boolean bateuMetaDieta(Refeicao refeicaoNova){
+    public boolean bateuMetaDieta(Dieta dietaSelecionada){
+        carboidrato = 0;
+        proteina = 0;
+        gordura = 0;
+        calorias = 0;
         for (Refeicao refeicao : refeicoes) {
-            if(refeicao != null && refeicaoNova.getDieta().equals(refeicao.getDieta())){
-                carboidrato += (refeicao.getCarboidrato() * 100) / refeicaoNova.getDieta().getTipoDieta().getCarboidrato();
-                proteina += (refeicao.getProteina() * 100) / refeicaoNova.getDieta().getTipoDieta().getProteina();
-                gordura += (refeicao.getGordura() * 100) / refeicaoNova.getDieta().getTipoDieta().getGordura();
+            if(refeicao != null && dietaSelecionada.equals(refeicao.getDieta())){
+                carboidrato += refeicao.getCarboidrato() / (dietaSelecionada.getTipoDieta().getCarboidrato() * dietaSelecionada.getCalorias());
+                proteina    += refeicao.getProteina()    / (dietaSelecionada.getTipoDieta().getProteina() * dietaSelecionada.getCalorias());
+                gordura     += refeicao.getGordura()     / (dietaSelecionada.getTipoDieta().getGordura() * dietaSelecionada.getCalorias());
+                calorias    += refeicao.getCalorias()    / (dietaSelecionada.getCalorias());
             }
             
-            if(carboidrato >= 100 && proteina >= 100 && gordura >= 100 && calorias >= 100){
-                carboidrato = 0;
-                proteina = 0;
-                gordura = 0;
+            if(carboidrato >= 1 && proteina >= 1 && gordura >= 1 && calorias >= 1){
                 return true;
             }
         }     
@@ -120,7 +122,7 @@ public class RefeicaoDAO {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("====== REFEICOES ======");
+        sb.append("========== REFEICOES ==========");
         for(Refeicao refeicao : refeicoes) {
             if(refeicao != null && refeicao.getDieta().getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append(refeicao.getId()).
@@ -131,7 +133,7 @@ public class RefeicaoDAO {
                 append("\n Calorias: ").append(refeicao.getCalorias()).
                 append("\n Data de Criacao: ").append(refeicao.getDataCriacao()).
                 append("\n Data de Modificacao: ").append(refeicao.getDataModificacao()).
-                append("\n ========================================");
+                append("\n ================================");
             }
         }
         return sb.toString();

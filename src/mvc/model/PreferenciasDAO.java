@@ -58,30 +58,37 @@ public class PreferenciasDAO {
         return false;
     }
     
-    //BUSCAR POR ID
-    public Preferencias buscarPorId(long idPreferencia){
-        for(int i=0; i<preferencias.length; i++){
-            if(preferencias[i].getId() == idPreferencia){
-                return preferencias[i];
+    //BUSCAR
+    public Preferencias buscar(long id){
+        for(Preferencias preferencia : preferencias) {
+            if (preferencia != null && preferencia.getId() == id){
+                return preferencia;
             }
         }
         return null;
     }
     
-    
-    //BUSCAR
-    public Preferencias buscar(int cont){
+    public Preferencias buscarNaoNulo(int j){
         aux = 0;
-        for(Preferencias preferencia1 : preferencias) {
-            if (preferencia1 != null && aux == cont){
-                aux++;
-            }else{
-                if(preferencia1 == null){
-                    aux = 0;
-                }
+        for (Preferencias preferencia : preferencias) {
+            if(preferencia != null){
+               aux++;
+               if(j == aux){
+                   return preferencia;
+               }
             }
         }
         return preferencias[aux];
+    }
+
+    //É vazio
+    public boolean isVazio(){
+        for(Preferencias preferencia : preferencias) {
+            if (preferencia != null){
+                return false;
+            }
+        }
+        return true;
     }
     
     @Override

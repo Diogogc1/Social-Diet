@@ -24,6 +24,20 @@ public class AlimentoRefeicoes {
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
     
+    //CONSTRUTOR
+    public AlimentoRefeicoes(Refeicao refeicao, Alimento alimento, double porcao, double carboidrato, double proteina, double gordura, double calorias) {
+        this.id = serial++;
+        this.refeicao = refeicao;
+        this.alimento = alimento;
+        this.porcao = porcao;
+        this.carboidrato = carboidrato;
+        this.proteina = proteina;
+        this.gordura = gordura;
+        this.calorias = calorias;
+        this.dataCriacao = LocalDate.now();
+        this.dataModificacao = LocalDate.now();
+    }   
+    
     //GETTERS E SETTERS
     public long getId() {
         return id;
@@ -104,18 +118,45 @@ public class AlimentoRefeicoes {
     public void setDataModificacao(LocalDate dataModificacao) {
         this.dataModificacao = dataModificacao;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AlimentoRefeicoes other = (AlimentoRefeicoes) obj;
+        return this.id == other.id;
+    }
     
-    //CONSTRUTOR
-    public AlimentoRefeicoes(Refeicao refeicao, Alimento alimento, double porcao, double carboidrato, double proteina, double gordura, double calorias) {
-        this.id = serial++;
-        this.refeicao = refeicao;
-        this.alimento = alimento;
-        this.porcao = porcao;
-        this.carboidrato = carboidrato;
-        this.proteina = proteina;
-        this.gordura = gordura;
-        this.calorias = calorias;
-        this.dataCriacao = LocalDate.now();
-        this.dataModificacao = LocalDate.now();
-    }   
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("====== ALIMENTO DA REFEICAO ======");
+        sb.append("\n ID: ").append(id).
+        append("\n Alimento: ").append(alimento.getNome()).
+        append("\n Refeicao: ").append(refeicao.getNomeDaRefeicao()).
+        append("\n Porcao: ").append(porcao).
+        append("\n Carboidratos: ").append(carboidrato).
+        append("\n Proteinas: ").append(proteina).
+        append("\n Gorduras: ").append(gordura).
+        append("\n Calorias: ").append(calorias).
+        append("\n Data de Criacao: ").append(dataCriacao).
+        append("\n Data de Modificacao: ").append(dataModificacao).
+        append("\n ======================================== \n");
+
+        return sb.toString();
+    }
 }

@@ -44,18 +44,13 @@ public class Programa {
     Avaliacao avaliacaoNova;
     
     //REFEIÇÃO
-    private Dieta dietaSelecionada;
+    private Dieta dietaEscolhida;
     private Refeicao refeicaoNova;
-    private Refeicao refeicaoSelecionada;
-    private Alimento alimentoSelecionado;
+    private Refeicao refeicaoEscolhida;
+    private Alimento alimentoEscolhido;
     private int contRefeicao;
     private AlimentoRefeicoes alimentoRefeicoesNovo;
-    private Preferencias preferenciaNova;
-    private double carboidratos;
-    private double proteinas;
-    private double gorduras;
-    private double calorias;
-    private int porcao;
+    private Alimento alimentoCadastrado;
     
     //PESSOA DAO
     private final PessoaDAO pessoaDAO = new PessoaDAO();
@@ -72,8 +67,8 @@ public class Programa {
     private final AlimentoRefeicoesDAO alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
     private final PreferenciasDAO preferenciasDAO = new PreferenciasDAO(login.getPessoaLogada(), alimentoDAO);
     private final PostDAO postDAO = new PostDAO(login.getPessoaLogada());
-    private final MensagemDAO mensagemDAO = new MensagemDAO(login.getPessoaLogada(), pessoaDAO.buscar(1));
-    private final SeguirDAO seguirDAO = new SeguirDAO(login.getPessoaLogada(), pessoaDAO.buscar(1));
+    private final MensagemDAO mensagemDAO = new MensagemDAO(login.getPessoaLogada(), pessoaDAO.buscar(2));
+    private final SeguirDAO seguirDAO = new SeguirDAO(login.getPessoaLogada(), pessoaDAO.buscar(2));
     
     public Programa() {
         menuInicial();
@@ -217,9 +212,9 @@ public class Programa {
                 
                 //EXCLUIR ALIMENTO
                 case 5 -> {
-                    alimentoSelecionado = gui.escolherAlimento(alimentoDAO, login.getPessoaLogada());
-                    alimentoDAO.remover(alimentoSelecionado);
-                    alimentoRefeicoesDAO.removerAlimento(alimentoSelecionado);
+                    alimentoEscolhido = gui.escolherAlimento(alimentoDAO, login.getPessoaLogada());
+                    alimentoDAO.remover(alimentoEscolhido);
+                    alimentoRefeicoesDAO.removerAlimento(alimentoEscolhido);
                 }
                 
                 //SAIR
@@ -251,29 +246,6 @@ public class Programa {
         } 
     }
     
-    public Dieta tratarObjetivo(TipoDieta tipoDieta){
-        
-        Dieta d = gui.cadastrarDieta(login.getPessoaLogada(), avaliacaoDAO, tipoDieta);
-        switch(d.getObjetivo()){
-            case "1" -> {
-                d.setObjetivo("Diminuir o peso");
-            }
-            
-            case "2" -> {
-                d.setObjetivo("Manter o peso");
-            }
-            
-            case "3" -> {
-                d.setObjetivo("Melhorar composicao corporal");
-            }
-            
-            case "4" -> {
-                d.setObjetivo("Aumentar o peso");
-            }
-        }
-        return d;
-    }
-    
     public void menuDieta(){
         do{
             switch(gui.menuDieta()){
@@ -288,7 +260,7 @@ public class Programa {
                     if(tipoDieta == null){
                         System.out.println("Opcao Invalida!");
                     }else{
-                        if(dietaDAO.adicionar(tratarObjetivo(tipoDieta))){
+                        if(dietaDAO.adicionar(gui.cadastrarDieta(login.getPessoaLogada(), avaliacaoDAO, tipoDieta))){
                             System.out.println("\n Dieta adicionada com sucesso!");
                         }else{
                             System.out.println("\n ERRO - Dieta nao adicionada!");
@@ -335,70 +307,79 @@ public class Programa {
                 }
                 //CADASTAR REFEICOES
                 case 2 -> {
-                    dietaSelecionada = gui.escolheDieta(dietaDAO);
-                    contRefeicao = refeicaoDAO.numeroDeRefeicaoDaDieta(dietaSelecionada);
-                    
-                    refeicaoNova = gui.cadastrarRefeicao(dietaSelecionada);
+                    dietaEscolhida = gui.escolheDieta(dietaDAO);
+                    contRefeicao = refeicaoDAO.numeroDeRefeicaoDaDieta(dietaEscolhida);
 
-                    for (int i = 0; !refeicaoDAO.bateuMetaDieta(refeicaoNova); i++) {
-                        if(contRefeicao < dietaSelecionada.getNumeroRefeicoes()){
-                            //VERIFICA SE JÁ TEM REFEIÇÕES CADASTRADAS NESSA DIETA E CADASTRA SÓ O QUE FALTA
-                            if(i == 0){
-                                i = i + contRefeicao;
-                            }
-                            
-                            refeicaoNova = gui.cadastrarRefeicao(dietaSelecionada);
-                            
-                            for(int j = 0; !alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova); j++){
-                               alimentoSelecionado = gui.escolherAlimentosRefeicoes(alimentoDAO, login.getPessoaLogada());
-                               alimentoRefeicoesNovo = gui.cadastrarAlimentosRefeicoes(alimentoSelecionado, refeicaoNova);
-                               alimentoRefeicoesDAO.adicionar(alimentoRefeicoesNovo);
-                            }
-                        }else{
-                            System.out.println("\n O numero maximo de refeicoes da dieta foi atingido!");
+                     //VERIFICA SE JÁ TEM REFEIÇÕES CADASTRADAS NESSA DIETA E CADASTRA SÓ O QUE FALTA
+                    while (!refeicaoDAO.bateuMetaDieta(dietaEscolhida) && contRefeicao < dietaEscolhida.getNumeroRefeicoes()) {
+                        
+                        refeicaoNova = gui.cadastrarRefeicao(dietaEscolhida);
+                        refeicaoDAO.adicionar(refeicaoNova);
+
+                        while(!alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova)){
+                            alimentoEscolhido = gui.escolherAlimentosRefeicoes(alimentoDAO);
+                            alimentoRefeicoesNovo = gui.cadastrarAlimentosRefeicoes(alimentoEscolhido, refeicaoNova);
+                            alimentoRefeicoesDAO.adicionar(alimentoRefeicoesNovo);
                         }
+                        System.out.println("\n\n O numero maximo de alimentos da refeicao foi atingido!");
+                        contRefeicao++;
+                    }
+                    
+                    if(contRefeicao >= dietaEscolhida.getNumeroRefeicoes()){
+                        System.out.println("\n\n O numero maximo de refeicoes da dieta foi atingido!");
                     }
                 }
                 //GERAR REFEIÇÕES AUTOMÁTICAS
                 case 3 -> {
-                    dietaSelecionada = gui.escolheDieta(dietaDAO);
-                    refeicaoNova = gui.escolherRefeicao(refeicaoDAO, login.getPessoaLogada());
+                    dietaEscolhida = gui.escolheDieta(dietaDAO);
+                    contRefeicao = refeicaoDAO.numeroDeRefeicaoDaDieta(dietaEscolhida);
                     
-                    
-                    for (int i = 0; !refeicaoDAO.bateuMetaDieta(refeicaoNova); i++) {
-                        if(contRefeicao < dietaSelecionada.getNumeroRefeicoes()){
-                            //VERIFICA SE JÁ TEM REFEIÇÕES CADASTRADAS NESSA DIETA E CADASTRA SÓ O QUE FALTA
-                            if(i == 0){
-                                i = i + contRefeicao;
-                            }
-                            
-                            refeicaoNova = gui.cadastrarRefeicao(dietaSelecionada);
+                     if(!preferenciasDAO.isVazio()){
+                        while(!refeicaoDAO.bateuMetaDieta(dietaEscolhida) && contRefeicao < dietaEscolhida.getNumeroRefeicoes()) {
+                            refeicaoNova = gui.cadastrarRefeicao(dietaEscolhida);
+                            refeicaoDAO.adicionar(refeicaoNova);
 
-                            for(int j = 0; !alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova); j++){
-                                alimentoRefeicoesNovo = cadastrarAutomaticoAlimentoRefeicoes(refeicaoNova, j);
+                            for(int j = 1; !alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova); j++){
+                                alimentoRefeicoesNovo = alimentoRefeicoesDAO.cadastrarAutomaticoAlimentoRefeicoes(refeicaoNova, j, preferenciasDAO);
+                                alimentoCadastrado = preferenciasDAO.buscarNaoNulo(j).getAlimento();
+                                if(alimentoCadastrado == null){
+                                    j = 1;
+                                    alimentoCadastrado = preferenciasDAO.buscarNaoNulo(j).getAlimento();
+                                }
+                                
                                 alimentoRefeicoesDAO.adicionar(alimentoRefeicoesNovo);
                             }
+                            contRefeicao++;
                         }
-                    }
+                    }else{
+                         System.out.println("\n\n Voce nao possui preferencias!");
+                     }
                 }
-                //BUSCAR
+                
+                //VER ALIMENTOS QUE ESTÃO NA REFEIÇÃO
                 case 4 -> {
+                    refeicaoEscolhida = gui.escolherRefeicao(refeicaoDAO, login.getPessoaLogada());
+                    alimentoRefeicoesDAO.mostrarAlimentosDeUmaRefeicao(refeicaoEscolhida);
+                }
+                
+                //BUSCAR
+                case 5 -> {
                     System.out.println(gui.buscarRefeicao(refeicaoDAO));
                 }
                 
                 //ALTERAR
-                case 5 -> {
+                case 6 -> {
                     refeicaoDAO.alterar(gui.escolherRefeicao(refeicaoDAO, login.getPessoaLogada()), gui.cadastrarRefeicao(gui.escolheDieta(dietaDAO)));
                 }
                 
                 //REMOVER
-                case 6 -> {
-                    refeicaoSelecionada = gui.escolherRefeicao(refeicaoDAO, login.getPessoaLogada());
-                    refeicaoDAO.remover(refeicaoSelecionada);
-                    alimentoRefeicoesDAO.removerRefeicao(refeicaoSelecionada);
+                case 7 -> {
+                    refeicaoEscolhida = gui.escolherRefeicao(refeicaoDAO, login.getPessoaLogada());
+                    refeicaoDAO.remover(refeicaoEscolhida);
+                    alimentoRefeicoesDAO.removerRefeicao(refeicaoEscolhida);
                 }
                 
-                case 7 -> {
+                case 8 -> {
                     menu = -1;
                 }
                 
@@ -409,25 +390,13 @@ public class Programa {
         }while(menu != -1);
     }
     
-    public AlimentoRefeicoes cadastrarAutomaticoAlimentoRefeicoes(Refeicao refeicao, int j){
-        preferenciaNova = preferenciasDAO.buscar(j);
-        
-        //GUARDANDO A PORCENTAGEM QUE O ALIMENTO REPRESENTA EM RELAÇÃO AO TOTAL DA REFEIÇÃO
-        carboidratos = (preferenciaNova.getAlimento().getCarboidratos() * 100 * porcao) / refeicao.getCarboidrato();
-        proteinas = (preferenciaNova.getAlimento().getProteinas() * 100 * porcao) / refeicao.getProteina();
-        gorduras = (preferenciaNova.getAlimento().getGorduras() * 100 * porcao) / refeicao.getGordura();
-        calorias = (preferenciaNova.getAlimento().getCalorias() * 100 * porcao) / refeicao.getCalorias();
-        
-        return new AlimentoRefeicoes(refeicao, preferenciaNova.getAlimento(), preferenciaNova.getAlimento().getPorcao(), carboidratos, proteinas, gorduras, calorias);
-    }
-    
     public void menuAvaliacao(){
         do{
             switch(gui.menuAvaliacao()){
                 case 1 ->{
                    avaliacaoNova = gui.fazerAvaliacao(login.getPessoaLogada());
                    avaliacaoNova.setImc(avaliacaoNova.calcularImc());
-                   avaliacaoNova.setTmb(avaliacaoNova.calcularTmb());
+                   avaliacaoNova.setTmb(avaliacaoNova.calcularTmb(avaliacaoNova.obterTaxaAtvd(gui.praticaExercicios())));
                    avaliacaoNova.setBf(avaliacaoNova.calcularBf());
 
                    //MOSTRAR RELATÓRIO
@@ -438,9 +407,10 @@ public class Programa {
                     System.out.print(avaliacaoDAO.buscar(gui.buscarAvaliacao()));
                 }
                 case 3 -> {
+                    
                     avaliacaoNova = gui.fazerAvaliacao(login.getPessoaLogada());
                     avaliacaoNova.setImc(avaliacaoNova.calcularImc());
-                    avaliacaoNova.setTmb(avaliacaoNova.calcularTmb());
+                    avaliacaoNova.setTmb(avaliacaoNova.calcularTmb(avaliacaoNova.obterTaxaAtvd(gui.praticaExercicios())));
                     avaliacaoNova.setBf(avaliacaoNova.calcularBf());
                     
                     System.out.println(avaliacaoNova);
@@ -463,32 +433,32 @@ public class Programa {
     public void menuPreferencias(){
         do{
             switch(gui.menuPreferencias()){
-                            case 1 ->{
-                                System.out.println(preferenciasDAO);                           
-                            }
-                            //CADASTRAR
-                            case 2 ->{
-                                System.out.println(alimentoDAO);
-                                if(preferenciasDAO.adicionar(gui.cadastrarPreferencias(login.getPessoaLogada(), alimentoDAO))){
-                                    System.out.println("\n Preferencia cadastrada");
-                                }else{
-                                    System.out.println("\n Preferencia nao cadastrada");
-                                }
-                                
-                            }
-                            case 3 ->{
-                               System.out.print(preferenciasDAO.buscarPorId(gui.buscarPreferencia())); 
-                            }
-                            case 4 ->{
-                                preferenciasDAO.alterar(gui.alterarPreferencia(), gui.cadastrarPreferencias(login.getPessoaLogada(), alimentoDAO));
-                            }
-                            case 5 ->{
-                                preferenciasDAO.remover(gui.removerPreferencia());
-                            }
-                            case 6 ->{
-                              menu = -1;  
-                            }
-                        }
+                case 1 ->{
+                    System.out.println(preferenciasDAO);                           
+                }
+                //CADASTRAR
+                case 2 ->{
+                    System.out.println(alimentoDAO);
+                    if(preferenciasDAO.adicionar(gui.cadastrarPreferencias(login.getPessoaLogada(), alimentoDAO))){
+                        System.out.println("\n Preferencia cadastrada");
+                    }else{
+                        System.out.println("\n Preferencia nao cadastrada");
+                    }
+
+                }
+                case 3 ->{
+                   System.out.print(preferenciasDAO.buscar(gui.buscarPreferencia())); 
+                }
+                case 4 ->{
+                    preferenciasDAO.alterar(gui.alterarPreferencia(), gui.cadastrarPreferencias(login.getPessoaLogada(), alimentoDAO));
+                }
+                case 5 ->{
+                    preferenciasDAO.remover(gui.removerPreferencia());
+                }
+                case 6 ->{
+                  menu = -1;  
+                }
+            }
         }while(menu != -1);
     }
     
@@ -559,13 +529,17 @@ public class Programa {
                     System.out.println(mensagemDAO);
                 }
                 case 2 ->{
-                    mensagemDAO.adicionar(gui.mandarMensagem(login.getPessoaLogada(), seguirDAO, pessoaDAO));
+                    if(mensagemDAO.adicionar(gui.mandarMensagem(login.getPessoaLogada(), seguirDAO, pessoaDAO))){
+                        System.out.println("\n Mensagem enviada com sucesso!");
+                    }else{
+                        System.out.println("\n ERRO! Mensagem não enviada!");
+                    }
                 }
                 case 3 ->{
-                    System.out.print(mensagemDAO.buscar(gui.buscarMensagem()));
+                    System.out.print(mensagemDAO.buscar(gui.buscarMensagem(mensagemDAO)));
                 }
                 case 4 ->{
-                    mensagemDAO.alterar(gui.alterarMensagem(), gui.mandarMensagem(login.getPessoaLogada(), seguirDAO, pessoaDAO));
+                    mensagemDAO.alterar(gui.alterarMensagem(mensagemDAO), gui.mandarMensagem(login.getPessoaLogada(), seguirDAO, pessoaDAO));
                 }
                 case 5 ->{
                     mensagemDAO.remover(gui.removerMensagem());
@@ -592,10 +566,10 @@ public class Programa {
                     System.out.print(seguirDAO.buscar(gui.buscarSeguidor()));
                 }
                 case 4 ->{
-                    seguirDAO.alterar(gui.alterarSeguidor(), gui.seguir(login.getPessoaLogada(), pessoaDAO));
+                    seguirDAO.alterar(gui.alterarSeguidor(seguirDAO), gui.seguir(login.getPessoaLogada(), pessoaDAO));
                 }
                 case 5 ->{
-                    seguirDAO.remover(gui.removerSeguidor());
+                    seguirDAO.remover(gui.removerSeguidor(seguirDAO));
                 }   
                 case 6 ->{
                     menu = -1;
@@ -607,8 +581,12 @@ public class Programa {
    public void menuConfiguracoes(){
        do{
            switch(gui.menuConfiguracoes()){
-               //ALTERAR NOME
+               //VER MEU DADOS
                case 1 -> {
+                   System.out.println(login.getPessoaLogada());
+               }
+               //ALTERAR NOME
+               case 2 -> {
                    if(pessoaDAO.alterarNome(login.getPessoaLogada(), gui.alterarNome())){
                        System.out.println("\n Nome alterado com sucesso!");
                    }else{
@@ -616,7 +594,7 @@ public class Programa {
                    }
                }
                //ALTERAR EMAIL
-               case 2 -> {
+               case 3 -> {
                    if(pessoaDAO.alterarEmail(login.getPessoaLogada(), gui.alterarEmail())){
                        System.out.println("\n Email alterado com sucesso!");
                    }else{
@@ -624,7 +602,7 @@ public class Programa {
                    }
                }
                //ALTERAR SENHA
-               case 3 -> {
+               case 4 -> {
                    if(pessoaDAO.alterarSenha(login.getPessoaLogada(), gui.alterarSenha())){
                        System.out.println("\n Senha alterada com sucesso!");
                    }else{
@@ -632,13 +610,17 @@ public class Programa {
                    }
                }
                //DESLOGAR
-               case 4 -> {
+               case 5 -> {
                    menuInicial();
                }
                //EXCLUIR CONTA
-               case 5 -> {
+               case 6 -> {
                    pessoaDAO.remover(login.getPessoaLogada());
                    menuInicial();
+               }
+               //SAIR
+               case 7 -> {
+                   menu = -1;
                }
            }
        }while(menu != -1);

@@ -74,16 +74,12 @@ public class SeguirDAO {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("====== Seguidores ======");
+        sb.append("\n ==== SEGUIDORES ====");
         for (Seguir seguidor : seguidores) {
             if(seguidor != null && seguidor.getPessoaOrigem().equals(login.getPessoaLogada())){
-                sb.append("\n ID: ").append(seguidor.getPessoaSeguindo().getId()).
+                sb.append("\n ID: ").append(seguidor.getId()).
                 append("\n Nome: ").append(seguidor.getPessoaSeguindo().getNome()).
-                append("Sexo: ").append(seguidor.getPessoaSeguindo().getSexo()).
-                append("Data de nascimento: ").append(seguidor.getPessoaSeguindo().getDataDeNascimento()).
-                append("E-mail: ").append(seguidor.getPessoaSeguindo().getEmail()).
-                append("Senha: ").append(seguidor.getPessoaSeguindo().getSenha()).
-                append("\n ========================================");
+                append("\n ====================");
             }
         }
         return sb.toString();

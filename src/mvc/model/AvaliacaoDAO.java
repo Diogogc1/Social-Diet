@@ -15,14 +15,14 @@ public class AvaliacaoDAO {
     Avaliacao avaliacoes[] = new Avaliacao[10];
     private final Login login = new Login();
 
-    public AvaliacaoDAO(Pessoa pessoaLogada) {
+    public AvaliacaoDAO(Pessoa pessoaLogada){
         this.adicionar(new Avaliacao(pessoaLogada, 70, 160, 25, 35, 70, 90));
         this.adicionar(new Avaliacao(pessoaLogada, 71, 161, 26, 36, 71, 91));
         this.adicionar(new Avaliacao(pessoaLogada, 72, 162, 27, 37, 72, 92));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public boolean adicionar(Avaliacao avaliacao){
+    public final boolean adicionar(Avaliacao avaliacao){
         for (int i = 0; i < avaliacoes.length; i++) {
             if(avaliacoes[i] == null){
                 avaliacoes[i] = avaliacao;
