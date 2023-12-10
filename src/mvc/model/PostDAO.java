@@ -10,10 +10,11 @@ package mvc.model;
  * @author User
  */
 public class PostDAO {
-     Post posts[] = new Post[10];
+    Post posts[] = new Post[10];
+    private final Login login = new Login();
 
     public PostDAO(Pessoa pessoaLogada) {
-        this.adicionar(new Post (pessoaLogada,"Boa noite, amigos!"));
+//        this.adicionar(new Post(pessoaLogada,"Boa noite, amigos!"));
     }
      
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
@@ -59,11 +60,12 @@ public class PostDAO {
         return false;
     }
     
-    public String toString(Pessoa pessoaLogada) {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("====== MENSAGENS ======");
+        sb.append("\n ============= POSTS =============");
         for (Post post : posts) {
-            if(post != null && post.getPessoa().equals(pessoaLogada)){
+            if(post != null && post.getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append(post.getId()).
                 append("\n Conteudo Mensagem: ").append(post.getConteudoMensagem()).
                 append("\n Data de Criacao: ").append(post.getDataCriacao()).

@@ -22,6 +22,17 @@ public class TipoDieta {
     private double gordura;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
+
+    //CONSTRUTOR
+    public TipoDieta(String nome, double carboidrato, double proteina, double gordura) {
+        this.id = ++serial;
+        this.nome = nome;
+        this.carboidrato = carboidrato;
+        this.proteina = proteina;
+        this.gordura = gordura;
+        this.dataCriacao = LocalDate.now();
+        this.dataModificacao = LocalDate.now();
+    } 
     
     //GETTERS E SETTERS
     public long getId() {
@@ -78,18 +89,7 @@ public class TipoDieta {
     
     public void setDataModificacao(LocalDate dataModificacao) {
         this.dataModificacao = dataModificacao;
-    }
-
-    //CONSTRUTOR
-    public TipoDieta(String nome, double carboidrato, double proteina, double gordura) {
-        this.id = ++serial;
-        this.nome = nome;
-        this.carboidrato = carboidrato;
-        this.proteina = proteina;
-        this.gordura = gordura;
-        this.dataCriacao = LocalDate.now();
-        this.dataModificacao = LocalDate.now();
-    }    
+    }   
 
     @Override
     public int hashCode() {

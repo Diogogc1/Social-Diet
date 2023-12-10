@@ -10,6 +10,7 @@ package mvc.model;
  */
 public class RefeicaoDAO {
     Refeicao refeicoes[] = new Refeicao[10];
+    private final Login login = new Login();
     int cont;
     
     private double carboidrato;
@@ -18,9 +19,9 @@ public class RefeicaoDAO {
     private double calorias;
     
     public RefeicaoDAO(DietaDAO dietaDAO, Pessoa pessoaLogada) {
-        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Café da Manhã"));
-        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Almoco"));
-        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Janta"));
+//        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Café da Manhã"));
+//        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Almoco"));
+//        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Janta"));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
@@ -79,7 +80,7 @@ public class RefeicaoDAO {
     public int numeroDeRefeicaoDaDieta(Dieta dieta){
         cont = 0;
         for (Refeicao r : refeicoes) {
-            if (r.getDieta().equals(dieta)) {
+            if (r != null && r.getDieta().equals(dieta)) {
                 cont++;
                 if(cont >= dieta.getNumeroRefeicoes()){
                     return cont;
@@ -98,38 +99,41 @@ public class RefeicaoDAO {
         return true;
     }
     
-    public boolean bateuMetaDieta(Refeicao refeicaoNova){
+    public boolean bateuMetaDieta(Dieta dietaSelecionada){
+        carboidrato = 0;
+        proteina = 0;
+        gordura = 0;
+        calorias = 0;
         for (Refeicao refeicao : refeicoes) {
-            if(refeicao != null && refeicaoNova.getDieta().equals(refeicao.getDieta())){
-                carboidrato += (refeicao.getCarboidrato() * 100) / refeicaoNova.getDieta().getTipoDieta().getCarboidrato();
-                proteina += (refeicao.getProteina() * 100) / refeicaoNova.getDieta().getTipoDieta().getProteina();
-                gordura += (refeicao.getGordura() * 100) / refeicaoNova.getDieta().getTipoDieta().getGordura();
+            if(refeicao != null && dietaSelecionada.equals(refeicao.getDieta())){
+                carboidrato += refeicao.getCarboidrato() / (dietaSelecionada.getTipoDieta().getCarboidrato() * dietaSelecionada.getCaloria());
+                proteina    += refeicao.getProteina()    / (dietaSelecionada.getTipoDieta().getProteina() * dietaSelecionada.getCaloria());
+                gordura     += refeicao.getGordura()     / (dietaSelecionada.getTipoDieta().getGordura() * dietaSelecionada.getCaloria());
+                calorias    += refeicao.getCaloria()    / (dietaSelecionada.getCaloria());
             }
             
-            if(carboidrato >= 100 && proteina >= 100 && gordura >= 100 && calorias >= 100){
-                carboidrato = 0;
-                proteina = 0;
-                gordura = 0;
+            if(carboidrato >= 1 && proteina >= 1 && gordura >= 1 && calorias >= 1){
                 return true;
             }
         }     
         return false;
     }
     
-    public String toString(Pessoa pessoaLogada) {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("====== REFEICOES ======");
+        sb.append("========== REFEICOES ==========");
         for(Refeicao refeicao : refeicoes) {
-            if(refeicao != null && refeicao.getDieta().getPessoa().equals(pessoaLogada)){
+            if(refeicao != null && refeicao.getDieta().getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append(refeicao.getId()).
                 append("\n Nome: ").append(refeicao.getNomeDaRefeicao()).
                 append("\n Carboidratos: ").append(refeicao.getCarboidrato()).
                 append("\n Proteinas: ").append(refeicao.getProteina()).
                 append("\n Gorduras: ").append(refeicao.getGordura()).
-                append("\n Calorias: ").append(refeicao.getCalorias()).
+                append("\n Calorias: ").append(refeicao.getCaloria()).
                 append("\n Data de Criacao: ").append(refeicao.getDataCriacao()).
                 append("\n Data de Modificacao: ").append(refeicao.getDataModificacao()).
-                append("\n ========================================");
+                append("\n ================================");
             }
         }
         return sb.toString();

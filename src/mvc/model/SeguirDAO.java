@@ -11,12 +11,11 @@ package mvc.model;
 
 public class SeguirDAO {
     Seguir seguidores[] = new Seguir[10];
+    private final Login login = new Login();
 
-    public SeguirDAO(Pessoa pessoaLogada, Pessoa pessoaSeguindo) {
-        this.adicionar(new Seguir(pessoaLogada, pessoaSeguindo));
+    public SeguirDAO() {
+        //this.adicionar(new Seguir(pessoaLogada, pessoaSeguindo));
     }
-    
-    
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(Seguir seguidor){
@@ -63,29 +62,24 @@ public class SeguirDAO {
      
     public String timeline(Pessoa pessoaLogada, PostDAO postDAO){
         StringBuilder sb = new StringBuilder();
-        sb.append("====== POSTS ======");
         for (Seguir seguir : seguidores) {
             if(seguir != null && seguir.getPessoaOrigem().equals(pessoaLogada)){
-                postDAO.toString(seguir.getPessoaSeguindo());
+                System.out.println(postDAO);
             }
         }
 
         return sb.toString();
     }
 
-     
-    public String toString(Pessoa pessoaLogada) {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("====== Seguidores ======");
+        sb.append("\n ==== SEGUIDORES ====");
         for (Seguir seguidor : seguidores) {
-            if(seguidor != null && seguidor.getPessoaOrigem().equals(pessoaLogada)){
-                sb.append("\n ID: ").append(seguidor.getPessoaSeguindo().getId()).
+            if(seguidor != null && seguidor.getPessoaOrigem().equals(login.getPessoaLogada())){
+                sb.append("\n ID: ").append(seguidor.getId()).
                 append("\n Nome: ").append(seguidor.getPessoaSeguindo().getNome()).
-                append("Sexo: ").append(seguidor.getPessoaSeguindo().getSexo()).
-                append("Data de nascimento: ").append(seguidor.getPessoaSeguindo().getDataDeNascimento()).
-                append("E-mail: ").append(seguidor.getPessoaSeguindo().getEmail()).
-                append("Senha: ").append(seguidor.getPessoaSeguindo().getSenha()).
-                append("\n ========================================");
+                append("\n ====================");
             }
         }
         return sb.toString();

@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public class Dieta {
     /*id, pessoa, avaliacao fisica,  tipo dieta, objetivo, 
-    calorias, nro refeicoes, dataCriacao, dataModificacao.*/
+    caloria, nro refeicoes, dataCriacao, dataModificacao.*/
     
     private final long id;
     private static long serial;
@@ -21,7 +21,7 @@ public class Dieta {
     private Avaliacao avaliacao;
     private TipoDieta tipoDieta;
     private String objetivo;
-    private double calorias;
+    private double caloria;
     private int numeroRefeicoes;
     private final LocalDate dataCriacao;
     private final LocalDate dataModificacao;
@@ -32,23 +32,26 @@ public class Dieta {
         this.avaliacao = avaliacao;
         this.tipoDieta = tipoDieta;
         this.objetivo = objetivo;
+        this.caloria = calorias;
         
-        if(objetivo.equals("Diminuir o peso")){
-            this.calorias = avaliacao.getTmb() - 500;
-        }else{
-            if(objetivo.equals("Manter o peso")){
-                this.calorias = avaliacao.getTmb();
-            }else{
-                if(objetivo.equals("Melhorar composicao corporal")){
-                    this.calorias = avaliacao.getTmb() + 200;
-                }else{
-                    if(objetivo.equals("Aumentar o peso")){
-                        this.calorias = avaliacao.getTmb() + 500;
-                    }
-                }
+        switch(this.objetivo){
+            case "1" -> {
+                this.objetivo = "Diminuir o peso";
+                this.caloria = avaliacao.getTmb() - 350;
             }
+            
+            case "2" -> {
+               this.objetivo = "Manter o peso";
+               this.caloria = avaliacao.getTmb();
+            }
+            
+            case "3" -> {
+                this.objetivo = "Aumentar o peso";
+                this.caloria = avaliacao.getTmb() + 350;
+            }
+
         }
- 
+        
         this.numeroRefeicoes = numeroRefeicoes;
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();
@@ -90,12 +93,12 @@ public class Dieta {
         this.objetivo = objetivo;
     }
     
-    public double getCalorias() {
-        return calorias;
+    public double getCaloria() {
+        return caloria;
     }
 
-    public void setCalorias(double calorias) {
-        this.calorias = calorias;
+    public void setCaloria(double caloria) {
+        this.caloria = caloria;
     }
 
     public int getNumeroRefeicoes() {
@@ -118,7 +121,7 @@ public class Dieta {
 
     @Override
     public String toString() {
-        return "Dieta{" + "id=" + id + ", pessoa=" + pessoa + ", avaliacao=" + avaliacao + ", tipoDieta=" + tipoDieta + ", objetivo=" + objetivo + ", calorias=" + calorias + ", numeroRefeicoes=" + numeroRefeicoes + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        return "Dieta{" + "id=" + id + ", pessoa=" + pessoa + ", avaliacao=" + avaliacao + ", tipoDieta=" + tipoDieta + ", objetivo=" + objetivo + ", calorias=" + caloria + ", numeroRefeicoes=" + numeroRefeicoes + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
     }
     
     //EQUALS E HASH CODE
@@ -130,7 +133,7 @@ public class Dieta {
         hash = 37 * hash + Objects.hashCode(this.avaliacao);
         hash = 37 * hash + Objects.hashCode(this.tipoDieta);
         hash = 37 * hash + Objects.hashCode(this.objetivo);
-        hash = 37 * hash + (int) (Double.doubleToLongBits(this.calorias) ^ (Double.doubleToLongBits(this.calorias) >>> 32));
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.caloria) ^ (Double.doubleToLongBits(this.caloria) >>> 32));
         hash = 37 * hash + this.numeroRefeicoes;
         hash = 37 * hash + Objects.hashCode(this.dataCriacao);
         hash = 37 * hash + Objects.hashCode(this.dataModificacao);
@@ -152,7 +155,7 @@ public class Dieta {
         if (this.id != other.id) {
             return false;
         }
-        if (Double.doubleToLongBits(this.calorias) != Double.doubleToLongBits(other.calorias)) {
+        if (Double.doubleToLongBits(this.caloria) != Double.doubleToLongBits(other.caloria)) {
             return false;
         }
         if (this.numeroRefeicoes != other.numeroRefeicoes) {

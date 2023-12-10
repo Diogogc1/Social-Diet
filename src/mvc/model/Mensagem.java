@@ -122,9 +122,17 @@ public class Mensagem {
 
     @Override
     public String toString() {
-        return "Mensagem{" + "id=" + id + ", pessoaOrigem=" + pessoaOrigem + ", pessoaDestino=" + pessoaDestino + ", mensagem=" + mensagem + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
-    }
-    
-    
-    
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n =========== MENSAGENS ===========");
+
+        sb.append("\n ID: ").append(id).
+        append("\n Remetente: ").append(pessoaOrigem.getNome()).
+        append("\n Destinatário: ").append(pessoaDestino.getNome()).
+        append("\n Mensagem: ").append(mensagem). 
+        append("\n Data de Criacao: ").append(dataCriacao).
+        append("\n Data de Modificacao: ").append(dataModificacao).
+        append("\n =================================");
+
+        return sb.toString();
+    }    
 }

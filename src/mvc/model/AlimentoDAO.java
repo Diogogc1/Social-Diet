@@ -4,28 +4,31 @@
  */
 package mvc.model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author diogo
  */
 public class AlimentoDAO {
     Alimento alimentos[] = new Alimento[20];
+    private final Login login = new Login();
 
     public AlimentoDAO(Pessoa pessoa) {
-        //GORDURA
-        adicionar(new Alimento("Ovo", 1.2, 15.6, 18.6, 1, pessoa));
-        adicionar(new Alimento("Castanha-de-caju torrada", 29.1, 18.5, 46.3, 1, pessoa));
-        adicionar(new Alimento("Manteiga", 0.1, 0.4, 82.4, 1, pessoa));
-        
-        //CARBOIDRATO
-        adicionar(new Alimento("Arroz", 28.1, 2.5, 0.2, 1, pessoa));
-        adicionar(new Alimento("Pao frances", 49.9, 9.4, 3.7, 1, pessoa));
-        adicionar(new Alimento("Feijao", 13.8, 4.8, 0.5, 1, pessoa));
-        
-        //PROTEINAS
-        adicionar(new Alimento("Carne (coxão mole)", 0, 32.4, 8.9, 1, pessoa));
-        adicionar(new Alimento("Frango Caipira (sem Pele)", 0, 29.6, 7.7, 1, pessoa));
-        adicionar(new Alimento("Picanha assada (sem gordura)", 0, 21.3, 4.7, 1, pessoa));
+//        //GORDURA
+//        adicionar(new Alimento("Ovo", 1.2, 15.6, 18.6, 1, pessoa));
+//        adicionar(new Alimento("Castanha-de-caju torrada", 29.1, 18.5, 46.3, 1, pessoa));
+//        adicionar(new Alimento("Manteiga", 0.1, 0.4, 82.4, 1, pessoa));
+//        
+//        //CARBOIDRATO
+//        adicionar(new Alimento("Arroz", 28.1, 2.5, 0.2, 1, pessoa));
+//        adicionar(new Alimento("Pao frances", 49.9, 9.4, 3.7, 1, pessoa));
+//        adicionar(new Alimento("Feijao", 13.8, 4.8, 0.5, 1, pessoa));
+//        
+//        //PROTEINAS
+//        adicionar(new Alimento("Carne (coxão mole)", 0, 32.4, 8.9, 1, pessoa));
+//        adicionar(new Alimento("Frango Caipira (sem Pele)", 0, 29.6, 7.7, 1, pessoa));
+//        adicionar(new Alimento("Picanha assada (sem gordura)", 0, 21.3, 4.7, 1, pessoa));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
@@ -52,9 +55,15 @@ public class AlimentoDAO {
     
     //ALTERAR
     public boolean alterar(Alimento alimento, Alimento novoAlimento){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimento.equals(alimentos[i])){
-                alimentos[i] = novoAlimento;
+        for (Alimento alimento1 : alimentos) {
+            if (alimento.equals(alimento1)) {
+                alimento1.setNome(novoAlimento.getNome());
+                alimento1.setPorcao(novoAlimento.getPorcao());
+                alimento1.setCarboidrato(novoAlimento.getCarboidrato());
+                alimento1.setProteina(novoAlimento.getProteina());
+                alimento1.setGordura(novoAlimento.getGordura());
+                alimento1.setCaloria(novoAlimento.getCaloria());
+                alimento1.setDataDeModificacao(LocalDate.now());
                 return true;
             }
         }
@@ -90,17 +99,19 @@ public class AlimentoDAO {
         return true;
     }
 
-    public String toString(Pessoa pessoaLogada) {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("====== Alimentos ======");
+        sb.append("========== ALIMENTOS ==========");
         for (Alimento alimento : alimentos) {
-            if(alimento != null && alimento.getPessoa().equals(pessoaLogada)){
+            if(alimento != null && alimento.getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append(alimento.getId()).
                 append("\n Nome: ").append(alimento.getNome()).
-                append("\n Carboidratos: ").append(alimento.getCarboidratos()).
-                append("\n Proteinas: ").append(alimento.getProteinas()).
-                append("\n Gorduras: ").append(alimento.getGorduras()).
-                append("\n Calorias: ").append(alimento.getCalorias()).
+                append("\n Porcao: ").append(alimento.getPorcao()).
+                append("\n Carboidratos: ").append(alimento.getCarboidrato()).
+                append("\n Proteinas: ").append(alimento.getProteina()).
+                append("\n Gorduras: ").append(alimento.getGordura()).
+                append("\n Calorias: ").append(alimento.getCaloria()).
                 append("\n Data de Criacao: ").append(alimento.getDataCriacao()).
                 append("\n Data de Modificacao: ").append(alimento.getDataModificacao()).
                 append("\n ========================================");

@@ -31,7 +31,7 @@ public class Avaliacao {
     private double bf;
     private double massaGorda;
     private double massaMagra;
-    private LocalDate dataCriacao;
+    private final LocalDate dataCriacao;
     private LocalDate dataModificacao;
     
     //GETTERS E SETTERS
@@ -139,10 +139,6 @@ public class Avaliacao {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDate dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
-
     public LocalDate getDataModificacao() {
         return dataModificacao;
     }
@@ -163,10 +159,12 @@ public class Avaliacao {
         this.quadril = quadril;
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();
-        this.imc = calcularImc();
+        
+        
+        /*this.imc = calcularImc();
         this.tmb = calcularTmb();
         this.bf = calcularBf();
-        gerarRelatorio();
+        gerarRelatorio();*/
     }
     
     
@@ -189,21 +187,9 @@ public class Avaliacao {
     1,725: MUITO ATIVO (EXERCÍCIO INTENSO TODOS OS DIAS OU EXERCÍCIO DUAS VEZES AO DIA)
     1,9: EXTRA ATIVO (EXERCÍCIO MUITO DIFÍCIL, TREINAMENTO OU TRABALHO FÍSICO)*/
     
-    public double obterTaxaAtvd() {
+    public double obterTaxaAtvd(int opcAtvd) {
         double taxaAtvd = 0;
-        int opcAtvd;
-        //MODIFICAR SAIDAS E ENTRADAS PARA A MAIN
-        System.out.println("""
-                           O quanto você pratica exercícios?
-                           1. Nenhuma
-                           2. 1 a 3 vezes na semana
-                           3. 6 a 7 vezes na semana
-                           4. 2 vezes ao dia (ou intensamente todos os dias)
-                           5. Treinamento intenso (muito difícil)
-                           Escolha uma opção:
-                           """);
-        opcAtvd = Integer.parseInt(sc.nextLine());
-        
+
         switch(opcAtvd){
             case 1 -> taxaAtvd = 1.2;
             case 2 -> taxaAtvd = 1.375;
@@ -219,18 +205,12 @@ public class Avaliacao {
     {66 + [(13,7 X PESO(KG)) + ( 5 X ALTURA(CM)) – (6,8 X IDADE(ANOS))]}
     FÓRMULA PARA MULHERES: TMB = FATOR DA TAXA DE ATIVIDADE X {655 +
     [(9,6 X PESO(KG)) + (1,8 X ALTURA(CM)) – (4,7 X IDADE(ANOS))]}*/
-    public double calcularTmb(){
-       
-        double taxaAtvd;
-        
-        taxaAtvd = this.obterTaxaAtvd();
+    public double calcularTmb(double taxaAtvd){
         
         if("1".equals(this.pessoa.getSexo())){
-            
             this.tmb = taxaAtvd * (66.0 + (13.7 * this.peso) + (5.0 * this.altura) - (6.8 * this.idade));
             
         }else if("2".equals(this.pessoa.getSexo())) {
-            
             this.tmb = taxaAtvd * (655 + (9.6 * this.peso) + (1.8 * this.altura) - (4.7 * this.idade));
             
         }
@@ -395,13 +375,14 @@ public class Avaliacao {
     /*PÓS O REGISTRO DA AVALIAÇÃO FÍSICA DEVERÁ SER GERADO UM RELATÓRIO
     COM INFORMAÇÕES PARA A PESSOA. ALÉM DISSO, OS DADOS DEVEM SER
     INTERPRETADOS. SE DISPONÍVEL, COMPARE COM A ÚLTIMA AVALIAÇÃO FÍSICA.*/
-    public void gerarRelatorio() {
+    @Override
+    public String toString() {
         
         String estadoBf = interpretarBf();
         
         //RELATÓRIO FINAL
         StringBuilder sb = new StringBuilder();
-                sb.append("====== RELATORIO ======").
+                sb.append("\n ====== RELATORIO DA AVALIACAO ======").
                 append("\n ID: ").append(this.id).
                 append("\n Peso: ").append(this.peso).
                 append("\n Altura: ").append(this.altura).
@@ -414,9 +395,10 @@ public class Avaliacao {
                 append("\n BF: ").append(this.bf).
                 append("\n TMB: ").append(estadoBf).
                 append("\n ========================================");
-        System.out.println(sb);
+        return sb.toString();
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -494,6 +476,4 @@ public class Avaliacao {
         }
         return Objects.equals(this.dataModificacao, other.dataModificacao);
     }
-    
-    
 }

@@ -15,11 +15,11 @@ public class Refeicao {
     private final long id;
     private static long serial;
     private Dieta Dieta;
-    private String nomeRefeicao;
+    private String nome;
     private double carboidrato;
     private double proteina;
     private double gordura;
-    private double calorias;
+    private double caloria;
     private final LocalDate dataCriacao;
     private final LocalDate dataModificacao;
 
@@ -31,8 +31,8 @@ public class Refeicao {
         this.carboidrato = carboidrato;
         this.proteina = proteina;
         this.gordura = gordura;
-        this.calorias = calorias;
-        this.nomeRefeicao = nomeDaRefeicao;
+        this.caloria = calorias;
+        this.nome = nomeDaRefeicao;
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();
     }
@@ -77,20 +77,20 @@ public class Refeicao {
         this.gordura = gordura;
     }
 
-    public double getCalorias() {
-        return calorias;
+    public double getCaloria() {
+        return caloria;
     }
 
-    public void setCalorias(double calorias) {
-        this.calorias = calorias;
+    public void setCaloria(double caloria) {
+        this.caloria = caloria;
     }
 
     public String getNomeDaRefeicao() {
-        return nomeRefeicao;
+        return nome;
     }
 
     public void setNomeDaRefeicao(String nomeDaRefeicao) {
-        this.nomeRefeicao = nomeDaRefeicao;
+        this.nome = nomeDaRefeicao;
     }
 
     public LocalDate getDataCriacao() {
@@ -104,7 +104,7 @@ public class Refeicao {
     //TO STRING - PRECISO DA DIETA (MATHEUS)
     @Override
     public String toString() {
-        return "Refeicao{" + "id=" + id + ", Dieta=" + Dieta + ", carboidrato=" + carboidrato + ", proteina=" + proteina + ", gordura=" + gordura + ", calorias=" + calorias + ", nomeRefeicao=" + nomeRefeicao + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        return "Refeicao{" + "id=" + id + ", Dieta=" + Dieta + ", carboidrato=" + carboidrato + ", proteina=" + proteina + ", gordura=" + gordura + ", calorias=" + caloria + ", nomeRefeicao=" + nome + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
     }
     
     //EQUALS E HASH CODE - PRECISO DA DIETA (MATHEUS)
@@ -116,8 +116,8 @@ public class Refeicao {
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.carboidrato) ^ (Double.doubleToLongBits(this.carboidrato) >>> 32));
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.proteina) ^ (Double.doubleToLongBits(this.proteina) >>> 32));
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.gordura) ^ (Double.doubleToLongBits(this.gordura) >>> 32));
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.calorias) ^ (Double.doubleToLongBits(this.calorias) >>> 32));
-        hash = 97 * hash + Objects.hashCode(this.nomeRefeicao);
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.caloria) ^ (Double.doubleToLongBits(this.caloria) >>> 32));
+        hash = 97 * hash + Objects.hashCode(this.nome);
         hash = 97 * hash + Objects.hashCode(this.dataCriacao);
         hash = 97 * hash + Objects.hashCode(this.dataModificacao);
         return hash;
@@ -147,10 +147,10 @@ public class Refeicao {
         if (Double.doubleToLongBits(this.gordura) != Double.doubleToLongBits(other.gordura)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.calorias) != Double.doubleToLongBits(other.calorias)) {
+        if (Double.doubleToLongBits(this.caloria) != Double.doubleToLongBits(other.caloria)) {
             return false;
         }
-        if (!Objects.equals(this.nomeRefeicao, other.nomeRefeicao)) {
+        if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
         if (!Objects.equals(this.Dieta, other.Dieta)) {

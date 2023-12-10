@@ -11,11 +11,11 @@ package mvc.model;
 public class MensagemDAO {
     Mensagem mensagens[] = new Mensagem[10];
 
-    public MensagemDAO(Pessoa pessoaOrigem, Pessoa pessoaDestino) {
-        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Opa, bao?"));
-        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Bao e vc?"));
-        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Comecou a usar o postfit ne?"));
-        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Sim, muito bao"));
+    public MensagemDAO() {
+//        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Opa, bao?"));
+//        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Bao e vc?"));
+//        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Comecou a usar o postfit ne?"));
+//        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Sim, muito bao"));
     }
     
     
@@ -66,16 +66,16 @@ public class MensagemDAO {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("====== MENSAGENS ======");
+        sb.append("\n =========== MENSAGENS ===========");
         for (Mensagem mensagem : mensagens) {
             if(mensagem != null){
                 sb.append("\n ID: ").append(mensagem.getId()).
-                append("\n Nome: ").append(mensagem.getPessoaOrigem()).
-                append("\n Altura: ").append(mensagem.getPessoaDestino()).
-                append("\n Idade: ").append(mensagem.getMensagem()). 
+                append("\n Remetente: ").append(mensagem.getPessoaOrigem().getNome()).
+                append("\n Destinatário: ").append(mensagem.getPessoaDestino().getNome()).
+                append("\n Mensagem: ").append(mensagem.getMensagem()). 
                 append("\n Data de Criacao: ").append(mensagem.getDataCriacao()).
                 append("\n Data de Modificacao: ").append(mensagem.getDataModificacao()).
-                append("\n ========================================");
+                append("\n =================================");
             }
         }
         return sb.toString();

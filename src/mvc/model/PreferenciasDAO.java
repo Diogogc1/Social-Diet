@@ -10,18 +10,19 @@ package mvc.model;
  */
 public class PreferenciasDAO {
     Preferencias preferencias[] = new Preferencias[10];
+    private final Login login = new Login();
     private int aux;
 
     public PreferenciasDAO(Pessoa pessoaLogada, AlimentoDAO alimentoDAO) {
-        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(0)));
-        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(1)));
-        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(2)));
-        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(3)));
-        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(4)));
-        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(5)));
-        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(6)));
-        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(7)));
-        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(8)));
+//        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(1)));
+//        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(2)));
+//        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(3)));
+//        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(4)));
+//        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(5)));
+//        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(6)));
+//        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(7)));
+//        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(8)));
+//        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(9)));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
@@ -57,42 +58,50 @@ public class PreferenciasDAO {
         return false;
     }
     
-    //BUSCAR POR ID
-    public Preferencias buscarPorId(long idPreferencia){
-        for(int i=0; i<preferencias.length; i++){
-            if(preferencias[i].getId() == idPreferencia){
-                return preferencias[i];
+    //BUSCAR
+    public Preferencias buscar(long id){
+        for(Preferencias preferencia : preferencias) {
+            if (preferencia != null && preferencia.getId() == id){
+                return preferencia;
             }
         }
         return null;
     }
     
-    
-    //BUSCAR
-    public Preferencias buscar(int cont){
+    public Preferencias buscarNaoNulo(int j){
         aux = 0;
-        for(Preferencias preferencia1 : preferencias) {
-            if (preferencia1 != null && aux == cont){
-                aux++;
-            }else{
-                if(preferencia1 == null){
-                    aux = 0;
-                }
+        for (Preferencias preferencia : preferencias) {
+            if(preferencia != null){
+               aux++;
+               if(j == aux){
+                   return preferencia;
+               }
             }
         }
         return preferencias[aux];
     }
+
+    //É vazio
+    public boolean isVazio(){
+        for(Preferencias preferencia : preferencias) {
+            if (preferencia != null){
+                return false;
+            }
+        }
+        return true;
+    }
     
-    public String toString(Pessoa pessoaLogada){
+    @Override
+    public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("====== PREFERENCIAS ======");
         for(Preferencias preferencia : preferencias) {
-            if(preferencia != null && preferencia.getPessoa().equals(pessoaLogada)){
+            if(preferencia != null && preferencia.getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append(preferencia.getId()).
                 append("\n Alimento: ").append(preferencia.getAlimento()).
-                append("\n\n ///Data de Criacao:/// ").append(preferencia.getDataCriacao()).
-                append("\n\n ///Data de Modificacao:/// ").append(preferencia.getDataModificacao()).
-                append("\n ========================================");
+                append("\n\n Data de Criacao: ").append(preferencia.getDataCriacao()).
+                append("\n Data de Modificacao: ").append(preferencia.getDataModificacao()).
+                append("\n ======================================== \n\n");
             }
         }
         return sb.toString();

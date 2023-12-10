@@ -10,11 +10,14 @@ package mvc.model;
  */
 public class AlimentoRefeicoesDAO {
     AlimentoRefeicoes alimentoRefeicoes[] = new AlimentoRefeicoes[10];
+    private final Login login = new Login();
         
     private double carboidrato;
     private double proteina;
     private double gordura;
     private double calorias;
+    Preferencias preferenciaNova;
+    private int aux;
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(AlimentoRefeicoes alimentoRefeicao){
@@ -30,7 +33,7 @@ public class AlimentoRefeicoesDAO {
     //REMOVER ALIMENTO
     public boolean removerAlimento(Alimento alimento){
         for (int i = 0; i < alimentoRefeicoes.length; i++) {
-            if(alimentoRefeicoes[i].getAlimento().equals(alimento)){
+            if(alimentoRefeicoes[i] != null && alimentoRefeicoes[i].getAlimento().equals(alimento)){
                 alimentoRefeicoes[i] = null;
                 return true;
             }
@@ -60,31 +63,71 @@ public class AlimentoRefeicoesDAO {
         return false;
     }
     
-    public boolean bateuMetaRefeicao(Refeicao refeicaoNova){
-        for(AlimentoRefeicoes alimentoRefeicao : alimentoRefeicoes) {
-            if(alimentoRefeicao != null && refeicaoNova.equals(alimentoRefeicao.getRefeicao())){
-                carboidrato += (alimentoRefeicao.getAlimento().getCarboidratos() * 100 * alimentoRefeicao.getPorcao()) / refeicaoNova.getCarboidrato();
-                proteina += (alimentoRefeicao.getAlimento().getProteinas() * 100 * alimentoRefeicao.getPorcao()) / refeicaoNova.getProteina();
-                gordura += (alimentoRefeicao.getAlimento().getGorduras() * 100 * alimentoRefeicao.getPorcao()) / refeicaoNova.getGordura();
-                calorias += (alimentoRefeicao.getAlimento().getCalorias() * 100 * alimentoRefeicao.getPorcao()) / refeicaoNova.getCalorias();
+    //BUSCAR REFEICAO
+    public AlimentoRefeicoes buscarAlimentosDeUmaRefeicao(Refeicao refeicaoEscolhida, int flag){
+        aux = 0;
+        for (AlimentoRefeicoes alimentoRefeicao : alimentoRefeicoes) {
+            if(alimentoRefeicao != null && alimentoRefeicao.getRefeicao().equals(refeicaoEscolhida)){
+                if(aux == flag){
+                    return alimentoRefeicao;
+                }
+                aux++;
             }
-            
-            if(carboidrato >= 100 && proteina >= 100 && gordura >= 100 && calorias >= 100){
-                carboidrato = 0;
-                proteina = 0;
-                gordura = 0;
-                calorias = 0;
-                return true;
-            }
-        }     
-        return false;
+        }
+        return null;
     }
     
-    //LER
-    public void ler (AlimentoRefeicoes alimentoRefeicao){
-        System.out.println("Registros: \n");
-        for(int i = 0; i < alimentoRefeicoes.length; i++){
-            System.out.println(alimentoRefeicoes[i] + " ");
+    
+    public boolean bateuMetaRefeicao(Refeicao refeicaoNova){
+        carboidrato = 0;
+        proteina = 0;
+        gordura = 0;
+        calorias = 0;
+        
+        for (AlimentoRefeicoes alimentoRefeicao : alimentoRefeicoes) {
+            if(alimentoRefeicao != null && alimentoRefeicao.getRefeicao().equals(refeicaoNova)){
+                carboidrato += (alimentoRefeicao.getAlimento().getCarboidrato() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getCarboidrato();
+                proteina += (alimentoRefeicao.getAlimento().getProteina() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getProteina();
+                gordura += (alimentoRefeicao.getAlimento().getGordura() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getGordura();
+                calorias += (alimentoRefeicao.getAlimento().getCaloria() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getCaloria();
+            }
         }
+  
+        return carboidrato >= 1 && proteina >= 1 && gordura >= 1 && calorias >= 1;
+    }
+    
+    public AlimentoRefeicoes cadastrarAutomaticoAlimentoRefeicoes(Refeicao refeicao, int j, PreferenciasDAO preferenciasDAO){
+        preferenciaNova = preferenciasDAO.buscarNaoNulo(j);
+        
+        //GUARDANDO A PORCENTAGEM QUE O ALIMENTO REPRESENTA EM RELAÇÃO AO TOTAL DA REFEIÇÃO
+        carboidrato = (preferenciaNova.getAlimento().getCarboidrato() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getCarboidrato();
+        proteina = (preferenciaNova.getAlimento().getProteina() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getProteina();
+        gordura = (preferenciaNova.getAlimento().getGordura() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getGordura();
+        calorias = (preferenciaNova.getAlimento().getCaloria() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getCaloria();
+        
+        return new AlimentoRefeicoes(refeicao, preferenciaNova.getAlimento(), preferenciaNova.getAlimento().getPorcao(), carboidrato, proteina, gordura, calorias);
+    }
+    
+    //TO STRING
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("====== ALIMENTOS DAS REFEICOES ======");
+        for(AlimentoRefeicoes alimentoRefeicao : alimentoRefeicoes) {
+            if(alimentoRefeicao != null && alimentoRefeicao.getAlimento().getPessoa().equals(login.getPessoaLogada())){
+                sb.append("\n ID: ").append( alimentoRefeicao.getId()).
+                append("\n Alimento: ").append( alimentoRefeicao.getAlimento().getNome()).
+                append("\n Refeicao: ").append( alimentoRefeicao.getAlimento().getNome()).
+                append("\n Porcao: ").append(alimentoRefeicao.getPorcao()).
+                append("\n Carboidratos: ").append(alimentoRefeicao.getAlimento().getCarboidrato()).
+                append("\n Proteinas: ").append(alimentoRefeicao.getAlimento().getProteina()).
+                append("\n Gorduras: ").append(alimentoRefeicao.getAlimento().getGordura()).
+                append("\n Calorias: ").append(alimentoRefeicao.getAlimento().getCaloria()).
+                append("\n\n Data de Criacao: ").append( alimentoRefeicao.getDataCriacao()).
+                append("\n Data de Modificacao: ").append( alimentoRefeicao.getDataModificacao()).
+                append("\n ======================================== \n");
+            }
+        }
+        return sb.toString();
     }
 }
