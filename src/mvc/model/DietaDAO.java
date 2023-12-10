@@ -12,8 +12,8 @@ public class DietaDAO {
     private final Login login = new Login();
     
     public DietaDAO(Pessoa pessoaLogada, AvaliacaoDAO avaliacaoDAO, TipoDietaDAO tipoDietaDAO) {
-        Avaliacao avaliacaoDieta = avaliacaoDAO.buscarPessoa(pessoaLogada);
-        adicionar(new Dieta(pessoaLogada, avaliacaoDieta, tipoDietaDAO.buscar(1), "Manter o PESO", avaliacaoDieta.calcularTmb(1.375), 4)); 
+//        Avaliacao avaliacaoDieta = avaliacaoDAO.buscarPessoa(pessoaLogada);
+//        adicionar(new Dieta(pessoaLogada, avaliacaoDieta, tipoDietaDAO.buscar(1), "Manter o PESO", avaliacaoDieta.calcularTmb(1.375), 4)); 
     }
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public final boolean adicionar(Dieta dieta){
@@ -78,7 +78,7 @@ public class DietaDAO {
                 sb.append("\n ID: ").append(dieta.getId()).
                 append("\n Tipo de Dieta: ").append(dieta.getTipoDieta().getNome()).
                 append("\n Objetivo: ").append(dieta.getObjetivo()).
-                append("\n Calorias: ").append(dieta.getCalorias()).
+                append("\n Calorias: ").append(dieta.getCaloria()).
                 append("\n Numero de Refeicoes: ").append(dieta.getNumeroRefeicoes()).
                 append("\n Data de Criacao: ").append(dieta.getDataCriacao()).
                 append("\n Data de Modificacao: ").append(dieta.getDataModificacao()).

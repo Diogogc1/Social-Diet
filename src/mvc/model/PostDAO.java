@@ -14,7 +14,7 @@ public class PostDAO {
     private final Login login = new Login();
 
     public PostDAO(Pessoa pessoaLogada) {
-        this.adicionar(new Post(pessoaLogada,"Boa noite, amigos!"));
+//        this.adicionar(new Post(pessoaLogada,"Boa noite, amigos!"));
     }
      
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR

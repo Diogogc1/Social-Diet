@@ -4,6 +4,8 @@
  */
 package mvc.model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author diogo
@@ -14,7 +16,7 @@ public class Login {
     public Login(){}
             
     public Login(PessoaDAO pessoaDAO) {
-        pessoaLogada = pessoaDAO.buscar(1);
+        pessoaLogada = new Pessoa("AAAA", "M", LocalDate.now(), "diogo", "diogo");
     }
 
     public Pessoa getPessoaLogada() {

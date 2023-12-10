@@ -11,11 +11,11 @@ package mvc.model;
 public class MensagemDAO {
     Mensagem mensagens[] = new Mensagem[10];
 
-    public MensagemDAO(Pessoa pessoaOrigem, Pessoa pessoaDestino) {
-        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Opa, bao?"));
-        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Bao e vc?"));
-        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Comecou a usar o postfit ne?"));
-        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Sim, muito bao"));
+    public MensagemDAO() {
+//        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Opa, bao?"));
+//        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Bao e vc?"));
+//        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Comecou a usar o postfit ne?"));
+//        this.adicionar(new Mensagem (pessoaOrigem, pessoaDestino, "Sim, muito bao"));
     }
     
     

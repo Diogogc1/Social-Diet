@@ -16,9 +16,9 @@ public class AvaliacaoDAO {
     private final Login login = new Login();
 
     public AvaliacaoDAO(Pessoa pessoaLogada){
-        this.adicionar(new Avaliacao(pessoaLogada, 70, 160, 25, 35, 70, 90));
-        this.adicionar(new Avaliacao(pessoaLogada, 71, 161, 26, 36, 71, 91));
-        this.adicionar(new Avaliacao(pessoaLogada, 72, 162, 27, 37, 72, 92));
+//        this.adicionar(new Avaliacao(pessoaLogada, 70, 160, 25, 35, 70, 90));
+//        this.adicionar(new Avaliacao(pessoaLogada, 71, 161, 26, 36, 71, 91));
+//        this.adicionar(new Avaliacao(pessoaLogada, 72, 162, 27, 37, 72, 92));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR

@@ -47,6 +47,7 @@ public class Programa {
     private Dieta dietaEscolhida;
     private Refeicao refeicaoNova;
     private Refeicao refeicaoEscolhida;
+    private AlimentoRefeicoes alimentoRefeicoesBuscado;
     private Alimento alimentoEscolhido;
     private int contRefeicao;
     private AlimentoRefeicoes alimentoRefeicoesNovo;
@@ -67,41 +68,32 @@ public class Programa {
     private final AlimentoRefeicoesDAO alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
     private final PreferenciasDAO preferenciasDAO = new PreferenciasDAO(login.getPessoaLogada(), alimentoDAO);
     private final PostDAO postDAO = new PostDAO(login.getPessoaLogada());
-    private final MensagemDAO mensagemDAO = new MensagemDAO(login.getPessoaLogada(), pessoaDAO.buscar(2));
-    private final SeguirDAO seguirDAO = new SeguirDAO(login.getPessoaLogada(), pessoaDAO.buscar(2));
+    private final MensagemDAO mensagemDAO = new MensagemDAO();
+    private final SeguirDAO seguirDAO = new SeguirDAO();
     
     public Programa() {
         menuInicial();
     }
     
-    public void menuInicial(){
+    public final void menuInicial(){
         do{
             switch(gui.menuInicial()){
                 //LOGIN
                 case 1 -> {  
                     String email = gui.email();
                     String senha = gui.senha();
-                    
-                    if(pessoaDAO.validarLogin(email, senha)){
-                        //PESSOA LOGADA É CRIADA
-                        login.setPessoaLogada(pessoaDAO.buscarLogin(email, senha));
-                        
-                        //MENU PRINCIPAL
-                        menuPrincipal();
-                        menu = 0;
-                    }
-                    else{
-                        System.out.println("\n Email ou senha incorreto");
-                    }
+
+                    //PESSOA LOGADA É CRIADA
+                    login.setPessoaLogada(pessoaDAO.buscarLogin(email, senha));
+
+                    //MENU PRINCIPAL
+                    menuPrincipal();
+                    menu = 0;
                 }
                 //CADASTRO
                 case 2 -> {
                     pessoaNova = gui.cadastro();
-                    if(pessoaDAO.adicionar(pessoaNova)){
-                        System.out.println("Pessoa adicionada com sucesso!");
-                    }else{
-                        System.out.println("Erro - Pessoa não adicionada!");
-                    }
+                    pessoaDAO.adicionar(pessoaNova); 
                 }
                 //SAIR
                 case 3 -> {
@@ -187,7 +179,7 @@ public class Programa {
                 //VER ALIMENTOS
                 case 1 -> {
                     if(alimentoDAO.isVazio()){
-                        System.out.println("\n Nao ha alimentos cadastrados! Cadastre alimentos");
+                        System.out.println("\n Nao ha alimentos cadastrados! Cadastre alimentos \n");
                     }else{
                         System.out.println("\n");
                         System.out.println(alimentoDAO);
@@ -359,7 +351,11 @@ public class Programa {
                 //VER ALIMENTOS QUE ESTÃO NA REFEIÇÃO
                 case 4 -> {
                     refeicaoEscolhida = gui.escolherRefeicao(refeicaoDAO, login.getPessoaLogada());
-                    alimentoRefeicoesDAO.mostrarAlimentosDeUmaRefeicao(refeicaoEscolhida);
+                    alimentoRefeicoesBuscado = alimentoRefeicoesDAO.buscarAlimentosDeUmaRefeicao(refeicaoEscolhida, 0);
+                    for (int i = 1; alimentoRefeicoesBuscado != null; i++) {
+                        System.out.println(alimentoRefeicoesBuscado);
+                        alimentoRefeicoesBuscado = alimentoRefeicoesDAO.buscarAlimentosDeUmaRefeicao(refeicaoEscolhida, i);
+                    }
                 }
                 
                 //BUSCAR
@@ -587,36 +583,27 @@ public class Programa {
                }
                //ALTERAR NOME
                case 2 -> {
-                   if(pessoaDAO.alterarNome(login.getPessoaLogada(), gui.alterarNome())){
-                       System.out.println("\n Nome alterado com sucesso!");
-                   }else{
-                       System.out.println("\n Erro - Nome não alterado!");
-                   }
+                    login.getPessoaLogada().setNome(gui.alterarNome());
+                    pessoaDAO.alterarNome(login.getPessoaLogada(), login.getPessoaLogada().getNome());
                }
                //ALTERAR EMAIL
                case 3 -> {
-                   if(pessoaDAO.alterarEmail(login.getPessoaLogada(), gui.alterarEmail())){
-                       System.out.println("\n Email alterado com sucesso!");
-                   }else{
-                       System.out.println("\n Erro - Email não alterado!");
-                   }
+                    login.getPessoaLogada().setNome(gui.alterarEmail());
+                    pessoaDAO.alterarEmail(login.getPessoaLogada(), login.getPessoaLogada().getEmail()); 
                }
                //ALTERAR SENHA
                case 4 -> {
-                   if(pessoaDAO.alterarSenha(login.getPessoaLogada(), gui.alterarSenha())){
-                       System.out.println("\n Senha alterada com sucesso!");
-                   }else{
-                       System.out.println("\n Erro - Senha não alterada!");
-                   }
+                    login.getPessoaLogada().setSenha(gui.alterarSenha());
+                    pessoaDAO.alterarSenha(login.getPessoaLogada(), login.getPessoaLogada().getEmail());
                }
                //DESLOGAR
                case 5 -> {
-                   menuInicial();
+                    menuInicial();
                }
                //EXCLUIR CONTA
                case 6 -> {
-                   pessoaDAO.remover(login.getPessoaLogada());
-                   menuInicial();
+                    pessoaDAO.remover(login.getPessoaLogada());
+                    menuInicial();
                }
                //SAIR
                case 7 -> {

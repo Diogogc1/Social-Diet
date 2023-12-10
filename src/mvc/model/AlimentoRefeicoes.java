@@ -20,7 +20,7 @@ public class AlimentoRefeicoes {
     private double carboidrato;
     private double proteina;
     private double gordura;
-    private double calorias;
+    private double caloria;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
     
@@ -33,7 +33,7 @@ public class AlimentoRefeicoes {
         this.carboidrato = carboidrato;
         this.proteina = proteina;
         this.gordura = gordura;
-        this.calorias = calorias;
+        this.caloria = calorias;
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();
     }   
@@ -95,12 +95,12 @@ public class AlimentoRefeicoes {
         this.gordura = gordura;
     }
 
-    public double getCalorias() {
-        return calorias;
+    public double getCaloria() {
+        return caloria;
     }
 
-    public void setCalorias(double calorias) {
-        this.calorias = calorias;
+    public void setCaloria(double caloria) {
+        this.caloria = caloria;
     }
 
     public LocalDate getDataCriacao() {
@@ -144,7 +144,7 @@ public class AlimentoRefeicoes {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("====== ALIMENTO DA REFEICAO ======");
+        sb.append("======= ALIMENTO DA REFEICAO =======");
         sb.append("\n ID: ").append(id).
         append("\n Alimento: ").append(alimento.getNome()).
         append("\n Refeicao: ").append(refeicao.getNomeDaRefeicao()).
@@ -152,10 +152,10 @@ public class AlimentoRefeicoes {
         append("\n Carboidratos: ").append(carboidrato).
         append("\n Proteinas: ").append(proteina).
         append("\n Gorduras: ").append(gordura).
-        append("\n Calorias: ").append(calorias).
+        append("\n Calorias: ").append(caloria).
         append("\n Data de Criacao: ").append(dataCriacao).
         append("\n Data de Modificacao: ").append(dataModificacao).
-        append("\n ======================================== \n");
+        append("\n ==================================== \n");
 
         return sb.toString();
     }

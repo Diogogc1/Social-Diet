@@ -33,6 +33,14 @@ import mvc.model.TipoDieta;
 public class GUI {
     Scanner scanner = new Scanner(System.in);
     private long id;
+    
+    //CORES
+    /*
+        ANSI_RED = "\u001B[31m";
+        ANSI_GREEN = "\u001B[32m";
+        ANSI_YELLOW = "\u001B[33m";
+        ANSI_BLUE = "\u001B[34m";
+    */
   
     //LOGIN
     private String email;
@@ -71,7 +79,7 @@ public class GUI {
     //METÓDOS
     public int menuInicial(){
         System.out.print("""
-                        ========== POSTFIT  ==========
+                       \u001B[34m ========== POSTFIT  ==========
 
                         1. Login
                         2. Cadastro
@@ -93,7 +101,7 @@ public class GUI {
     }
     
     public Pessoa cadastro(){
-        System.out.print("Nome: 2");
+        System.out.print("\nNome: ");
         nome = scanner.nextLine();
         
         System.out.print("E-mail: ");
@@ -102,19 +110,20 @@ public class GUI {
         System.out.print("Senha: ");
         senha = scanner.nextLine();
         
-        System.out.print("""
+        System.out.println("""
+                           
                         Qual o seu sexo?
                          
                         1. Masculino
                         2. Femino
                         """);
         
-        System.out.print("\n Escolha uma opcao: ");
+        System.out.print("Escolha uma opcao: ");
         
         //O VALOR DE SEXO É TRATADO NO CONTROLLER, NA CLASSE PROGRAMA
         sexo = scanner.nextLine();
         
-        System.out.print("Data de nascimento: ");
+        System.out.print("\nData de nascimento: ");
         dataNascimento = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
         return new Pessoa(nome, sexo, dataNascimento, email, senha);
@@ -123,7 +132,7 @@ public class GUI {
     public int menuPrincipal(){
         System.out.println("\n");
         System.out.print("""
-                        ======== MENU ========
+                        \u001B[34m ======== MENU ========
 
                         1. FitPerson
                         2. PostFit
@@ -138,7 +147,7 @@ public class GUI {
     public int menuFitPerson(){
         System.out.println("""
                            
-                           ====== FitPeson ======
+                           \u001B[34m ====== FitPeson ======
                            
                            1. Avaliacao Fisica
                            2. Alimentos
@@ -156,7 +165,7 @@ public class GUI {
     public int menuAvaliacao(){
         System.out.println("\n\n");
         System.out.println("""
-                           ======== AVALIACAO ========
+                           \u001B[34m ======== AVALIACAO ========
                            
                            1. Fazer Avaliacao Fisica
                            2. Buscar avaliacao
@@ -175,7 +184,7 @@ public class GUI {
         CINTURA, QUADRIL, IMC, TMB, BF, MASSA GORDA KG, MASSA MAGRA KG,
         DATACRIACAO, DATAMODIFICACAO.*/
         
-        System.out.println("\n ==== FAZER AVALIACAO ====");
+        System.out.println("\n \u001B[34m ==== FAZER AVALIACAO ====");
         
         System.out.print("Peso: ");
         peso = Double.parseDouble(scanner.nextLine());
@@ -214,7 +223,7 @@ public class GUI {
     }
     
     public long buscarAvaliacao(){
-        System.out.println("\n ====== BUSCAR AVALIACAO ======");
+        System.out.println("\n \u001B[34m ====== BUSCAR AVALIACAO ======");
         
         System.out.print("\n Informe o id para busca: ");
         id = Long.parseLong(scanner.nextLine());
@@ -223,7 +232,7 @@ public class GUI {
     }
     
     public long alterarAvaliacao(){
-        System.out.println("\n ===== ALTERAR AVALIACAO =====");
+        System.out.println("\n \u001B[34m ===== ALTERAR AVALIACAO =====");
         
         System.out.print("\n Informe o id que deseja: ");
         id = Long.parseLong(scanner.nextLine());
@@ -232,7 +241,7 @@ public class GUI {
     }
     
     public long removerAvaliacao(){
-        System.out.println("\n ===== REMOVER AVALIACAO =====");
+        System.out.println("\n \u001B[34m ===== REMOVER AVALIACAO =====");
         
         System.out.print("Informe o id que deseja: ");
         id = Long.parseLong(scanner.nextLine());
@@ -241,9 +250,8 @@ public class GUI {
     }
     
     public int menuAlimentos(){
-        System.out.println("""
-                           
-                           ====== ALIMENTOS ======
+        System.out.println("""                          
+                           \u001B[34m ====== ALIMENTOS ======
  
                            1. Ver Alimentos
                            2. Cadastar Alimento
@@ -261,7 +269,7 @@ public class GUI {
         calorias, porcao, pessoa, dataCriacao, dataModificacao*/
         System.out.println("\n");
         
-        System.out.println("==== CADASTRE UM ALIMENTO ====");
+        System.out.println("\u001B[34m ==== CADASTRE UM ALIMENTO ====");
         
         System.out.print("\n Nome: ");
         nome = scanner.nextLine();
@@ -300,7 +308,7 @@ public class GUI {
     
     public int cadastrarTipoDieta(){
         System.out.println("""
-                           ========= TIPO DIETA =========
+                           \u001B[34m ========= TIPO DIETA =========
                            1. Equilibrada 
                            2. Low Carb
                            3. Cetogenica                         
@@ -311,7 +319,7 @@ public class GUI {
     
     public int menuDieta(){
         System.out.println("""
-                           ======== DIETA ========
+                           \u001B[34m ======== DIETA ========
                            1. Ver Dietas
                            2. Montar Dieta
                            3. Buscar Dieta
@@ -331,7 +339,7 @@ public class GUI {
         
         Avaliacao avaliacaoDieta = avaliacaoDAO.buscar(id);
         
-        System.out.println("\n ====== Monte uma Dieta ======");
+        System.out.println("\n \u001B[34m ====== Monte uma Dieta ======");
         System.out.println("Qual o seu objetivo? \n");
         System.out.println("1. Diminuir o peso");
         System.out.println("2. Manter o peso");
@@ -360,7 +368,7 @@ public class GUI {
     public int menuRefeicao(){
         System.out.println("\n");
         System.out.println("""
-                           ======= REFEICAO =======
+                           \u001B[34m ======= REFEICAO =======
 
                            1. Ver Refeicoes
                            2. Cadastar Refeicao
@@ -387,7 +395,7 @@ public class GUI {
     public Refeicao cadastrarRefeicao(Dieta dieta){
         /*id, dieta, carboidrato, proteína, gordura, 
         calorias, nome da refeição, dataCriacao, dataModificacao.*/
-        System.out.println("\n ======= Monte uma Refeição =======");
+        System.out.println("\n \u001B[34m ======= Monte uma Refeição =======");
         
         System.out.print("\n Nome: ");
         nome = scanner.nextLine();
@@ -434,16 +442,16 @@ public class GUI {
         porcao = Integer.parseInt(scanner.nextLine());
         
         //GUARDANDO A PORCENTAGEM QUE O ALIMENTO REPRESENTA EM RELAÇÃO AO TOTAL DA REFEIÇÃO
-        carboidratos = (alimento.getCarboidratos() * 100 * porcao) / refeicao.getCarboidrato();
-        proteinas = (alimento.getProteinas() * 100 * porcao) / refeicao.getProteina();
-        gorduras = (alimento.getGorduras() * 100 * porcao) / refeicao.getGordura();
-        calorias = (alimento.getCalorias() * 100 * porcao) / refeicao.getCalorias();
+        carboidratos = (alimento.getCarboidrato() * 100 * porcao) / refeicao.getCarboidrato();
+        proteinas = (alimento.getProteina() * 100 * porcao) / refeicao.getProteina();
+        gorduras = (alimento.getGordura() * 100 * porcao) / refeicao.getGordura();
+        calorias = (alimento.getCaloria() * 100 * porcao) / refeicao.getCaloria();
         
         return new AlimentoRefeicoes(refeicao, alimento, porcao, carboidratos, proteinas, gorduras, calorias);
     }
     
     public int menuPreferencias(){
-        System.out.println("\n======= PREFERENCIAS =======");
+        System.out.println("\n \u001B[34m ======= PREFERENCIAS =======");
         System.out.println("1. Ver preferencias");
         System.out.println("2. Cadastrar");
         System.out.println("3. Buscar");
@@ -456,7 +464,7 @@ public class GUI {
     }
     
     public Preferencias cadastrarPreferencias(Pessoa pessoaLogada, AlimentoDAO alimentoDAO){   
-        System.out.println("\n ======= Cadastrar Preferencias =======");
+        System.out.println("\n \u001B[34m ======= Cadastrar Preferencias =======");
         System.out.println(alimentoDAO);
         System.out.print("\n Escolha algum alimento pelo ID: ");
         id = Integer.parseInt(scanner.nextLine());
@@ -465,7 +473,7 @@ public class GUI {
     }
     
     public long buscarPreferencia(){
-        System.out.println("\n ==== BUSCAR PREFERENCIA ==== \n");
+        System.out.println("\n \u001B[34m ==== BUSCAR PREFERENCIA ==== \n");
         
         System.out.print("\n Informe o id para busca: ");
         id = Long.parseLong(scanner.nextLine());
@@ -474,7 +482,7 @@ public class GUI {
     }
     
     public long alterarPreferencia(){
-        System.out.println("\n ==== ALTERAR PREFERENCIA ==== \n");
+        System.out.println("\n \u001B[34m ==== ALTERAR PREFERENCIA ==== \n");
         
         System.out.print("\n Informe o id que deseja: ");
         id = Long.parseLong(scanner.nextLine());
@@ -483,7 +491,7 @@ public class GUI {
     }
     
     public long removerPreferencia(){
-        System.out.println("\n ===== REMOVER PREFERENCIA ===== \n");
+        System.out.println("\n \u001B[34m ===== REMOVER PREFERENCIA ===== \n");
         
         System.out.print("\n Informe o id que deseja: ");
         id = Long.parseLong(scanner.nextLine());
@@ -495,7 +503,7 @@ public class GUI {
         
         System.out.println("""
                             
-                            ====== PostFit ======
+                            \u001B[34m ====== PostFit ======
 
                             1. Timeline
                             2. Mensagens
@@ -512,7 +520,7 @@ public class GUI {
     
     public int menuPost(){
          System.out.println("""
-                            ====== Posts ======
+                            \u001B[34m ====== Posts ======
 
                             1. Ver posts
                             2. Criar post
@@ -528,7 +536,7 @@ public class GUI {
     }
     
     public Post criarPost(Pessoa pessoaLogada){
-        System.out.println("\n ===== CRIAR POST ===== \n");
+        System.out.println("\n \u001B[34m ===== CRIAR POST ===== \n");
         
         System.out.println("\n Conteudo do Post: ");
         conteudoMensagem = scanner.nextLine();
@@ -537,7 +545,7 @@ public class GUI {
     }
     
     public long buscarPost(){
-        System.out.println("\n ===== BUSCAR POST ===== \n");
+        System.out.println("\n \u001B[34m ===== BUSCAR POST ===== \n");
         
         System.out.print("Informe o id para busca: ");
         id = Long.parseLong(scanner.nextLine());
@@ -546,7 +554,7 @@ public class GUI {
     }
     
     public long alterarPost(){
-        System.out.println("\n ===== ALTERAR POST ===== \n");
+        System.out.println("\n \u001B[34m ===== ALTERAR POST ===== \n");
         
         System.out.print("\n Informe o id que deseja: ");
         id = Long.parseLong(scanner.nextLine());
@@ -555,7 +563,7 @@ public class GUI {
     }
     
     public long removerPost(){
-        System.out.println("\n ===== REMOVER POST =====");
+        System.out.println("\n \u001B[34m ===== REMOVER POST =====");
         
         System.out.print("\n Informe o id que deseja: ");
         id = Long.parseLong(scanner.nextLine());
@@ -566,7 +574,7 @@ public class GUI {
     public int menuMensagem(){
         System.out.print("\n");
         System.out.println("""
-                            ====== MENSAGENS ======
+                            \u001B[34m ====== MENSAGENS ======
 
                             1. Ver mensagens
                             2. Mandar mensagem
@@ -595,7 +603,7 @@ public class GUI {
     }
     
     public long buscarMensagem(MensagemDAO mensagemDAO){
-        System.out.println("\n ==== BUSCAR MENSAGEM ==== \n");
+        System.out.println("\n \u001B[34m ==== BUSCAR MENSAGEM ==== \n");
         
         System.out.println(mensagemDAO);
         
@@ -606,7 +614,7 @@ public class GUI {
     }
     
     public long alterarMensagem(MensagemDAO mensagemDAO){
-        System.out.println("\n ==== ALTERAR MENSAGEM ====");
+        System.out.println("\n \u001B[34m ==== ALTERAR MENSAGEM ====");
         
         System.out.println(mensagemDAO);
         
@@ -617,7 +625,7 @@ public class GUI {
     }
     
     public long removerMensagem(){
-        System.out.println("\n ==== REMOVER MENSAGEM ==== \n");
+        System.out.println("\n \u001B[34m ==== REMOVER MENSAGEM ==== \n");
         
         System.out.print("\n Informe o id que deseja: ");
         id = Long.parseLong(scanner.nextLine());
@@ -628,7 +636,7 @@ public class GUI {
     
     public int menuSeguir(){
         System.out.println("""
-                            ====== SEGUIR ======
+                            \u001B[34m ====== SEGUIR ======
 
                             1. Ver seguidores
                             2. Seguir
@@ -653,7 +661,7 @@ public class GUI {
     }
     
     public long buscarSeguidor(){
-        System.out.println("\n ==== BUSCAR SEGUIDOR ====");
+        System.out.println("\n \u001B[34m ==== BUSCAR SEGUIDOR ====");
         
         System.out.print("\n Informe o id para busca: ");
         id = Long.parseLong(scanner.nextLine());
@@ -662,7 +670,7 @@ public class GUI {
     }
     
     public long alterarSeguidor(SeguirDAO seguirDAO){
-        System.out.println("\n ==== ALTERAR SEGUIDOR ==== \n");
+        System.out.println("\n \u001B[34m ==== ALTERAR SEGUIDOR ==== \n");
         
         System.out.println(seguirDAO);
         
@@ -673,7 +681,7 @@ public class GUI {
     }
     
     public long removerSeguidor(SeguirDAO seguirDAO){
-        System.out.println("\n ==== REMOVER SEGUIDOR ==== \n");
+        System.out.println("\n \u001B[34m ==== REMOVER SEGUIDOR ==== \n");
         
         System.out.println(seguirDAO);
         
@@ -684,7 +692,7 @@ public class GUI {
     }  
     public int menuConfiguracoes(){
         System.out.println("""
-                           ====== CONFIGURACOES ======
+                           \u001B[34m ====== CONFIGURACOES ======
                            
                            1. Ver meus dados
                            2. Alterar nome

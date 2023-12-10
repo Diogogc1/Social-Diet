@@ -4,98 +4,180 @@
  */
 package mvc.model;
 
+import com.mysql.cj.jdbc.result.ResultSetImpl;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 import java.time.LocalDate;
-
+import java.util.Date;
 /**
  *
  * @author diogo
  */
 public class PessoaDAO {
     Pessoa pessoas[] = new Pessoa[10];
+    String sql;
+    Pessoa p = new Pessoa();
 
     public PessoaDAO() {
-        adicionar(new Pessoa("diogo", "1", LocalDate.of(2003, 10, 10), "diogo", "diogo"));
-        adicionar(new Pessoa("matheus", "1", LocalDate.of(2002, 03, 04), "matheus", "matheus"));
-        adicionar(new Pessoa("Benedita", "2", LocalDate.of(1947, 07, 23), "benedita", "benedita"));
+
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public boolean adicionar(Pessoa pessoa){
-        for (int i = 0; i < pessoas.length; i++) {
-            if(pessoas[i] == null){
-                pessoas[i] = pessoa;
-                return true;
-            } 
+    public void adicionar(Pessoa pessoa){
+        sql = "insert into pessoa"
+                + " (nome, sexo, dataNascimento, email, senha, dataCriacao, dataModificacao)"
+                + " values (?,?,?,?,?,?,?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)) {
+            // seta os valores
+            ps.setString(1, pessoa.getNome());
+            ps.setString(2, pessoa.getSexo());
+            
+            ps.setDate(3, java.sql.Date.valueOf(pessoa.getDataDeNascimento()));
+            ps.setString(4, pessoa.getEmail());
+            ps.setString(5, pessoa.getSenha());
+            ps.setDate(6, java.sql.Date.valueOf(pessoa.getDataCriacao()));
+            ps.setDate(7, java.sql.Date.valueOf(pessoa.getDataModificacao()));
+            
+            ps.execute();
+            
+            System.out.println("\n Usuario inserido com sucesso! \n");
+        } catch (SQLException e) {
+            throw new RuntimeException("Nao foi possivel adicionar usuario no banco!", e);
         }
-        return false;
     }
     
-    //REMOVER - PERCORRE O VETOR E PROCURA A PESSOA PARA SER REMOVIDA
-    public boolean remover(Pessoa pessoa){
-        for (int i = 0; i < pessoas.length; i++) {
-            if(pessoas[i].equals(pessoa)){
-                pessoas[i] = null;
-                return true;
-            }
+    //REMOVER
+    public void remover(Pessoa pessoa){
+        sql = "delete from contatos where id = ?" ;
+        
+        try(Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)){
+            
+            ps.setLong(1, pessoa.getId());
+            
+            ps.execute();
+            
+            System.out.println("\n Usuario removido com sucesso! \n");
+            
+        }catch(SQLException e){
+            throw new RuntimeException("Não foi possivel remover o usuario!", e);
         }
-        return false;
     }
     
-    public boolean alterarNome(Pessoa pessoaLogada, String nomeNovo){
-        for (Pessoa pessoa : pessoas) {
-            if (pessoaLogada.equals(pessoa)) {
-                pessoa.setNome(nomeNovo);
-                return true;
-            }
+    public void alterarNome(Pessoa pessoaLogada, String nomeNovo){
+        sql = "update pessoa set nome = ? where id = ?";
+        
+        try(Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)){
+            
+            ps.setString(1, nomeNovo);
+            ps.setLong(2, pessoaLogada.getId());
+            
+            ps.execute();
+            
+            System.out.println("\n Nome alterado com sucesso! \n");
+            
+        }catch(SQLException e){
+            throw new RuntimeException("Não foi possivel alterar o nome!", e);
         }
-        return false;
     }
     
-    public boolean alterarEmail(Pessoa pessoaLogada, String emailNovo){
-        for (Pessoa pessoa : pessoas) {
-            if (pessoaLogada.equals(pessoa)) {
-                pessoa.setEmail(emailNovo);
-                return true;
-            }
+    public void alterarEmail(Pessoa pessoaLogada, String emailNovo){
+        sql = "update pessoa set email = ? where id = ?";
+        
+        try(Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)){
+            
+            ps.setString(1, emailNovo);
+            ps.setLong(2, pessoaLogada.getId());
+            
+            ps.execute();
+            
+            System.out.println("\n Email alterado com sucesso! \n");
+            
+        }catch(SQLException e){
+            throw new RuntimeException("Não foi possivel alterar o email!", e);
         }
-        return false;
     }
     
-    public boolean alterarSenha(Pessoa pessoaLogada, String senhaNova){
-        for (Pessoa pessoa : pessoas) {
-            if (pessoaLogada.equals(pessoa)) {
-                pessoa.setSenha(senhaNova);
-                return true;
-            }
+    public void alterarSenha(Pessoa pessoaLogada, String senhaNova){
+        sql = "update pessoa set senha = ? where id = ?";
+        
+        try(Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)){
+            
+            ps.setString(1, senhaNova);
+            ps.setLong(2, pessoaLogada.getId());
+            
+            ps.execute();
+            
+            System.out.println("\n Senha alterada com sucesso! \n");
+            
+        }catch(SQLException e){
+            throw new RuntimeException("Não foi possivel alterar o senha!", e);
         }
-        return false;
     }
     
     public Pessoa buscar(long id){
-        for(Pessoa pessoa : pessoas) {
-            if(pessoa != null && pessoa.getId() == id){
-                return pessoa;
-            } 
-        }
-        return null;
-    }
-    
-    public boolean validarLogin(String email, String senha){
-        for (Pessoa pessoa : pessoas) {
-            if(pessoa != null && pessoa.getEmail().equals(email) && pessoa.getSenha().equals(senha)){
-                return true;
+        sql = "select * from pessoa where ID = ?";
+        
+        try(Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql);){
+            
+            ps.setLong(1, id);
+            try(ResultSet rs = ps.executeQuery()){
+                p = new Pessoa();
+                
+                if(rs.next()){
+                    p.setId(rs.getLong("id"));
+                    p.setNome(rs.getString("nome"));
+                    p.setSexo(rs.getString("sexo"));
+                    p.setEmail(rs.getString("email"));
+                    p.setSenha(rs.getString("senha"));
+                    p.setDataDeNascimento((rs.getDate("dataNascimento").toLocalDate()));
+                }else{
+                    throw new SQLException();
+                }
+
+                return p;
             }
+            
+        }catch(SQLException e){
+            throw new RuntimeException("Não foi possivel buscar o usuario!", e);
         }
-        return false;
     }
     
     public Pessoa buscarLogin(String email, String senha){
-        for (Pessoa pessoa : pessoas) {
-            if(pessoa != null && pessoa.getEmail().equals(email) && pessoa.getSenha().equals(senha)){
-                return pessoa;
+        sql = "select * from pessoa where email = ? and senha = ?";
+        
+        try(Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)){
+            
+            ps.setString(1, email);
+            ps.setString(2, senha);
+
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    p = new Pessoa();
+                    p.setId(rs.getLong("id"));
+                    p.setNome(rs.getString("nome"));
+                    p.setSexo(rs.getString("sexo"));
+                    p.setDataDeNascimento((rs.getDate("dataNascimento").toLocalDate()));
+                    p.setEmail(rs.getString("email"));
+                    p.setSenha(rs.getString("senha"));
+                }else{
+                    throw new SQLException();
+                }
+                return p;
             }
+            
+        }catch(SQLException e){
+            throw new RuntimeException("Email ou senha incorretos!", e);
         }
-        return null;
     }
     
     @Override

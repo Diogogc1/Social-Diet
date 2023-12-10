@@ -13,8 +13,8 @@ public class SeguirDAO {
     Seguir seguidores[] = new Seguir[10];
     private final Login login = new Login();
 
-    public SeguirDAO(Pessoa pessoaLogada, Pessoa pessoaSeguindo) {
-        this.adicionar(new Seguir(pessoaLogada, pessoaSeguindo));
+    public SeguirDAO() {
+        //this.adicionar(new Seguir(pessoaLogada, pessoaSeguindo));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR

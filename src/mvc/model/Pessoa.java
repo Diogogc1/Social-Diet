@@ -12,21 +12,23 @@ import java.util.Objects;
  * @author diogo
  */
 public class Pessoa {
-    private final long id;
-    private static long serial;
+    private long id;
     private String nome;
     private String sexo;
     private LocalDate dataDeNascimento;
     private String email;
     private String senha;
     //tipoUsuario -> FALSE = USUÁRIO COMUN || TRUE = ADMINISTRADOR
-    private boolean tipoUsuario;
-    private final LocalDate dataCriacao;
+    //private boolean tipoUsuario;
+    private LocalDate dataCriacao;
     private LocalDate dataModificacao;
+
+    public Pessoa() {
+ 
+    }
 
     //CONSTRUTOR
     public Pessoa(String nome, String sexo, LocalDate dataDeNascimento, String email, String senha) {
-        id = ++serial;
         this.nome = nome;
         this.sexo = sexo;
         this.dataDeNascimento = dataDeNascimento;
@@ -40,10 +42,10 @@ public class Pessoa {
     public long getId() {
         return id;
     }
-
-    public String getSerial() {
-        return "Atualmente há " + serial + "pessoas no sistema";
-    }
+    
+     public void setId(Long id) {
+        this.id = id;
+    } 
 
     public String getNome() {
         return nome;
@@ -85,13 +87,13 @@ public class Pessoa {
         this.senha = senha;
     }
 
-    public boolean getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(boolean tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-    }
+//    public boolean getTipoUsuario() {
+//        return tipoUsuario;
+//    }
+//
+//    public void setTipoUsuario(boolean tipoUsuario) {
+//        this.tipoUsuario = tipoUsuario;
+//    }
 
     public LocalDate getDataCriacao() {
         return dataCriacao;
@@ -133,7 +135,6 @@ public class Pessoa {
         hash = 29 * hash + Objects.hashCode(this.dataDeNascimento);
         hash = 29 * hash + Objects.hashCode(this.email);
         hash = 29 * hash + Objects.hashCode(this.senha);
-        hash = 29 * hash + (this.tipoUsuario ? 1 : 0);
         hash = 29 * hash + Objects.hashCode(this.dataCriacao);
         hash = 29 * hash + Objects.hashCode(this.dataModificacao);
         return hash;
@@ -152,9 +153,6 @@ public class Pessoa {
         }
         final Pessoa other = (Pessoa) obj;
         if (this.id != other.id) {
-            return false;
-        }
-        if (this.tipoUsuario != other.tipoUsuario) {
             return false;
         }
         if (!Objects.equals(this.nome, other.nome)) {

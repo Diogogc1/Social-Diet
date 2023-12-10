@@ -19,9 +19,9 @@ public class RefeicaoDAO {
     private double calorias;
     
     public RefeicaoDAO(DietaDAO dietaDAO, Pessoa pessoaLogada) {
-        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Café da Manhã"));
-        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Almoco"));
-        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Janta"));
+//        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Café da Manhã"));
+//        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Almoco"));
+//        adicionar(new Refeicao(dietaDAO.buscarPessoa(pessoaLogada), 100, 100, 100, 100, "Janta"));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
@@ -106,10 +106,10 @@ public class RefeicaoDAO {
         calorias = 0;
         for (Refeicao refeicao : refeicoes) {
             if(refeicao != null && dietaSelecionada.equals(refeicao.getDieta())){
-                carboidrato += refeicao.getCarboidrato() / (dietaSelecionada.getTipoDieta().getCarboidrato() * dietaSelecionada.getCalorias());
-                proteina    += refeicao.getProteina()    / (dietaSelecionada.getTipoDieta().getProteina() * dietaSelecionada.getCalorias());
-                gordura     += refeicao.getGordura()     / (dietaSelecionada.getTipoDieta().getGordura() * dietaSelecionada.getCalorias());
-                calorias    += refeicao.getCalorias()    / (dietaSelecionada.getCalorias());
+                carboidrato += refeicao.getCarboidrato() / (dietaSelecionada.getTipoDieta().getCarboidrato() * dietaSelecionada.getCaloria());
+                proteina    += refeicao.getProteina()    / (dietaSelecionada.getTipoDieta().getProteina() * dietaSelecionada.getCaloria());
+                gordura     += refeicao.getGordura()     / (dietaSelecionada.getTipoDieta().getGordura() * dietaSelecionada.getCaloria());
+                calorias    += refeicao.getCaloria()    / (dietaSelecionada.getCaloria());
             }
             
             if(carboidrato >= 1 && proteina >= 1 && gordura >= 1 && calorias >= 1){
@@ -130,7 +130,7 @@ public class RefeicaoDAO {
                 append("\n Carboidratos: ").append(refeicao.getCarboidrato()).
                 append("\n Proteinas: ").append(refeicao.getProteina()).
                 append("\n Gorduras: ").append(refeicao.getGordura()).
-                append("\n Calorias: ").append(refeicao.getCalorias()).
+                append("\n Calorias: ").append(refeicao.getCaloria()).
                 append("\n Data de Criacao: ").append(refeicao.getDataCriacao()).
                 append("\n Data de Modificacao: ").append(refeicao.getDataModificacao()).
                 append("\n ================================");

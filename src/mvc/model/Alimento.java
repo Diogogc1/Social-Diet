@@ -15,10 +15,10 @@ public class Alimento {
     private final long id;
     private static long serial;
     private String nome;
-    private double carboidratos;
-    private double proteinas;
-    private double gorduras;
-    private double calorias;
+    private double carboidrato;
+    private double proteina;
+    private double gordura;
+    private double caloria;
     private int porcao;
     private final Pessoa pessoa;
     private final LocalDate dataDeCriacao;
@@ -28,10 +28,10 @@ public class Alimento {
     public Alimento(String nome, double carboidratos, double proteinas, double gorduras, int porcao, Pessoa pessoa) {
         id = ++serial;
         this.nome = nome;
-        this.carboidratos = carboidratos;
-        this.proteinas = proteinas;
-        this.gorduras = gorduras;
-        this.calorias = (4 * carboidratos) + (4 * proteinas) + (4 * gorduras);
+        this.carboidrato = carboidratos;
+        this.proteina = proteinas;
+        this.gordura = gorduras;
+        this.caloria = (4 * carboidratos) + (4 * proteinas) + (4 * gorduras);
         this.porcao = porcao;
         this.pessoa = pessoa;
         this.dataDeCriacao = LocalDate.now();
@@ -55,36 +55,36 @@ public class Alimento {
         this.nome = nome;
     }
 
-    public double getCarboidratos() {
-        return carboidratos;
+    public double getCarboidrato() {
+        return carboidrato;
     }
 
-    public void setCarboidratos(double carboidratos) {
-        this.carboidratos = carboidratos;
+    public void setCarboidrato(double carboidrato) {
+        this.carboidrato = carboidrato;
     }
 
-    public double getProteinas() {
-        return proteinas;
+    public double getProteina() {
+        return proteina;
     }
 
-    public void setProteinas(double proteinas) {
-        this.proteinas = proteinas;
+    public void setProteina(double proteina) {
+        this.proteina = proteina;
     }
 
-    public double getGorduras() {
-        return gorduras;
+    public double getGordura() {
+        return gordura;
     }
 
-    public void setGorduras(double gorduras) {
-        this.gorduras = gorduras;
+    public void setGordura(double gordura) {
+        this.gordura = gordura;
     }
 
-    public double getCalorias() {
-        return calorias;
+    public double getCaloria() {
+        return caloria;
     }
 
-    public void setCalorias(double calorias) {
-        this.calorias = calorias;
+    public void setCaloria(double caloria) {
+        this.caloria = caloria;
     }
 
     public int getPorcao() {
@@ -120,10 +120,10 @@ public class Alimento {
         sb.append("\n ID: ").append(id).
         append("\n Nome: ").append(nome).
         append("Porcao: ").append(porcao).
-        append("\n Carboidratos: ").append(carboidratos).
-        append("\n Proteinas: ").append(proteinas).
-        append("\n Gorduras: ").append(gorduras).
-        append("\n Calorias: ").append(calorias).
+        append("\n Carboidratos: ").append(carboidrato).
+        append("\n Proteinas: ").append(proteina).
+        append("\n Gorduras: ").append(gordura).
+        append("\n Calorias: ").append(caloria).
         append("\n Data de Criacao: ").append(dataDeCriacao).
         append("\n Data de Modificacao: ").append(dataDeModificacao).
         append("\n =================================");
@@ -138,10 +138,10 @@ public class Alimento {
         int hash = 5;
         hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
         hash = 53 * hash + Objects.hashCode(this.nome);
-        hash = 53 * hash + (int) (Double.doubleToLongBits(this.carboidratos) ^ (Double.doubleToLongBits(this.carboidratos) >>> 32));
-        hash = 53 * hash + (int) (Double.doubleToLongBits(this.proteinas) ^ (Double.doubleToLongBits(this.proteinas) >>> 32));
-        hash = 53 * hash + (int) (Double.doubleToLongBits(this.gorduras) ^ (Double.doubleToLongBits(this.gorduras) >>> 32));
-        hash = 53 * hash + (int) (Double.doubleToLongBits(this.calorias) ^ (Double.doubleToLongBits(this.calorias) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.carboidrato) ^ (Double.doubleToLongBits(this.carboidrato) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.proteina) ^ (Double.doubleToLongBits(this.proteina) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.gordura) ^ (Double.doubleToLongBits(this.gordura) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.caloria) ^ (Double.doubleToLongBits(this.caloria) >>> 32));
         hash = 53 * hash + this.porcao;
         hash = 53 * hash + Objects.hashCode(this.pessoa);
         hash = 53 * hash + Objects.hashCode(this.dataDeCriacao);
@@ -164,16 +164,16 @@ public class Alimento {
         if (this.id != other.id) {
             return false;
         }
-        if (Double.doubleToLongBits(this.carboidratos) != Double.doubleToLongBits(other.carboidratos)) {
+        if (Double.doubleToLongBits(this.carboidrato) != Double.doubleToLongBits(other.carboidrato)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.proteinas) != Double.doubleToLongBits(other.proteinas)) {
+        if (Double.doubleToLongBits(this.proteina) != Double.doubleToLongBits(other.proteina)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.gorduras) != Double.doubleToLongBits(other.gorduras)) {
+        if (Double.doubleToLongBits(this.gordura) != Double.doubleToLongBits(other.gordura)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.calorias) != Double.doubleToLongBits(other.calorias)) {
+        if (Double.doubleToLongBits(this.caloria) != Double.doubleToLongBits(other.caloria)) {
             return false;
         }
         if (this.porcao != other.porcao) {

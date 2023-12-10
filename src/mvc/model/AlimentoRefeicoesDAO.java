@@ -17,6 +17,7 @@ public class AlimentoRefeicoesDAO {
     private double gordura;
     private double calorias;
     Preferencias preferenciaNova;
+    private int aux;
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public boolean adicionar(AlimentoRefeicoes alimentoRefeicao){
@@ -63,12 +64,17 @@ public class AlimentoRefeicoesDAO {
     }
     
     //BUSCAR REFEICAO
-    public void mostrarAlimentosDeUmaRefeicao(Refeicao refeicaoEscolhida){
+    public AlimentoRefeicoes buscarAlimentosDeUmaRefeicao(Refeicao refeicaoEscolhida, int flag){
+        aux = 0;
         for (AlimentoRefeicoes alimentoRefeicao : alimentoRefeicoes) {
             if(alimentoRefeicao != null && alimentoRefeicao.getRefeicao().equals(refeicaoEscolhida)){
-                System.out.println(alimentoRefeicao);
+                if(aux == flag){
+                    return alimentoRefeicao;
+                }
+                aux++;
             }
         }
+        return null;
     }
     
     
@@ -80,10 +86,10 @@ public class AlimentoRefeicoesDAO {
         
         for (AlimentoRefeicoes alimentoRefeicao : alimentoRefeicoes) {
             if(alimentoRefeicao != null && alimentoRefeicao.getRefeicao().equals(refeicaoNova)){
-                carboidrato += (alimentoRefeicao.getAlimento().getCarboidratos() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getCarboidrato();
-                proteina += (alimentoRefeicao.getAlimento().getProteinas() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getProteina();
-                gordura += (alimentoRefeicao.getAlimento().getGorduras() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getGordura();
-                calorias += (alimentoRefeicao.getAlimento().getCalorias() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getCalorias();
+                carboidrato += (alimentoRefeicao.getAlimento().getCarboidrato() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getCarboidrato();
+                proteina += (alimentoRefeicao.getAlimento().getProteina() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getProteina();
+                gordura += (alimentoRefeicao.getAlimento().getGordura() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getGordura();
+                calorias += (alimentoRefeicao.getAlimento().getCaloria() * alimentoRefeicao.getAlimento().getPorcao()) / refeicaoNova.getCaloria();
             }
         }
   
@@ -94,10 +100,10 @@ public class AlimentoRefeicoesDAO {
         preferenciaNova = preferenciasDAO.buscarNaoNulo(j);
         
         //GUARDANDO A PORCENTAGEM QUE O ALIMENTO REPRESENTA EM RELAÇÃO AO TOTAL DA REFEIÇÃO
-        carboidrato = (preferenciaNova.getAlimento().getCarboidratos() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getCarboidrato();
-        proteina = (preferenciaNova.getAlimento().getProteinas() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getProteina();
-        gordura = (preferenciaNova.getAlimento().getGorduras() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getGordura();
-        calorias = (preferenciaNova.getAlimento().getCalorias() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getCalorias();
+        carboidrato = (preferenciaNova.getAlimento().getCarboidrato() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getCarboidrato();
+        proteina = (preferenciaNova.getAlimento().getProteina() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getProteina();
+        gordura = (preferenciaNova.getAlimento().getGordura() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getGordura();
+        calorias = (preferenciaNova.getAlimento().getCaloria() * 100 * preferenciaNova.getAlimento().getPorcao()) / refeicao.getCaloria();
         
         return new AlimentoRefeicoes(refeicao, preferenciaNova.getAlimento(), preferenciaNova.getAlimento().getPorcao(), carboidrato, proteina, gordura, calorias);
     }
@@ -106,15 +112,20 @@ public class AlimentoRefeicoesDAO {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("====== PREFERENCIAS ======");
+        sb.append("====== ALIMENTOS DAS REFEICOES ======");
         for(AlimentoRefeicoes alimentoRefeicao : alimentoRefeicoes) {
             if(alimentoRefeicao != null && alimentoRefeicao.getAlimento().getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append( alimentoRefeicao.getId()).
                 append("\n Alimento: ").append( alimentoRefeicao.getAlimento().getNome()).
                 append("\n Refeicao: ").append( alimentoRefeicao.getAlimento().getNome()).
+                append("\n Porcao: ").append(alimentoRefeicao.getPorcao()).
+                append("\n Carboidratos: ").append(alimentoRefeicao.getAlimento().getCarboidrato()).
+                append("\n Proteinas: ").append(alimentoRefeicao.getAlimento().getProteina()).
+                append("\n Gorduras: ").append(alimentoRefeicao.getAlimento().getGordura()).
+                append("\n Calorias: ").append(alimentoRefeicao.getAlimento().getCaloria()).
                 append("\n\n Data de Criacao: ").append( alimentoRefeicao.getDataCriacao()).
                 append("\n Data de Modificacao: ").append( alimentoRefeicao.getDataModificacao()).
-                append("\n ======================================== \n\n");
+                append("\n ======================================== \n");
             }
         }
         return sb.toString();

@@ -12,9 +12,9 @@ public class TipoDietaDAO {
     TipoDieta tiposDieta[] = new TipoDieta[3];
 
     public TipoDietaDAO() {
-        adicionar(new TipoDieta("Equilibrada", 0.4, 0.3, 0.3));
-        adicionar(new TipoDieta("Low Carb", 0.3, 0.5, 0.2));
-        adicionar(new TipoDieta("Cetogenica", 0.15, 0.15, 0.7));
+//        adicionar(new TipoDieta("Equilibrada", 0.4, 0.3, 0.3));
+//        adicionar(new TipoDieta("Low Carb", 0.3, 0.5, 0.2));
+//        adicionar(new TipoDieta("Cetogenica", 0.15, 0.15, 0.7));
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
