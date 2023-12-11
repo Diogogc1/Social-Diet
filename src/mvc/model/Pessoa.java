@@ -111,7 +111,7 @@ public class Pessoa {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n\u001B[34m=========== PESSOA ===========");
+        sb.append("\n =========== PESSOA ===========");
 
         sb.append("\n ID: ").append(id).
         append("\n Nome: ").append(nome).
@@ -120,7 +120,7 @@ public class Pessoa {
         append("\n Senha: ").append(senha).
         append("\n Data de Criacao: ").append(dataModificacao).
         append("\n Data de modificacao: ").append(dataModificacao).
-        append("\n\u001B[34m================================= \n");
+        append("\n =================================");
 
         return sb.toString();
     }

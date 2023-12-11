@@ -504,7 +504,7 @@ public class GUI {
         
         System.out.println("""
                             
-                            \u001B[34m====== PostFit ======
+                            \u001B[34m ====== PostFit ======
 
                             1. Timeline
                             2. Mensagens
@@ -521,7 +521,7 @@ public class GUI {
     
     public int menuPost(){
          System.out.println("""
-                            \u001B[34m====== Posts ======
+                            \u001B[34m ====== Posts ======
 
                             1. Ver posts
                             2. Criar post
@@ -575,7 +575,7 @@ public class GUI {
     public int menuMensagem(){
         System.out.print("\n");
         System.out.println("""
-                            \u001B[34m====== MENSAGENS ======
+                            \u001B[34m ====== MENSAGENS ======
 
                             1. Ver mensagens
                             2. Mandar mensagem
@@ -604,7 +604,7 @@ public class GUI {
     }
     
     public long buscarMensagem(MensagemDAO mensagemDAO){
-        System.out.println("\n\u001B[34m==== BUSCAR MENSAGEM ==== \n");
+        System.out.println("\n \u001B[34m ==== BUSCAR MENSAGEM ==== \n");
         
         System.out.println(mensagemDAO);
         
@@ -615,7 +615,7 @@ public class GUI {
     }
     
     public long alterarMensagem(MensagemDAO mensagemDAO){
-        System.out.println("\n\u001B[34m==== ALTERAR MENSAGEM ====");
+        System.out.println("\n \u001B[34m ==== ALTERAR MENSAGEM ====");
         
         System.out.println(mensagemDAO);
         
@@ -637,7 +637,7 @@ public class GUI {
     
     public int menuSeguir(){
         System.out.println("""
-                            \u001B[34m====== SEGUIR ======
+                            \u001B[34m ====== SEGUIR ======
 
                             1. Ver seguidores
                             2. Seguir
@@ -662,7 +662,7 @@ public class GUI {
     }
     
     public long buscarSeguidor(){
-        System.out.println("\n\u001B[34m==== BUSCAR SEGUIDOR ====");
+        System.out.println("\n \u001B[34m ==== BUSCAR SEGUIDOR ====");
         
         System.out.print("\n Informe o id para busca: ");
         id = Long.parseLong(scanner.nextLine());
@@ -671,7 +671,7 @@ public class GUI {
     }
     
     public long alterarSeguidor(SeguirDAO seguirDAO){
-        System.out.println("\n\u001B[34m==== ALTERAR SEGUIDOR ==== \n");
+        System.out.println("\n \u001B[34m ==== ALTERAR SEGUIDOR ==== \n");
         
         System.out.println(seguirDAO);
         
@@ -682,7 +682,7 @@ public class GUI {
     }
     
     public long removerSeguidor(SeguirDAO seguirDAO){
-        System.out.println("\n\u001B[34m==== REMOVER SEGUIDOR ==== \n");
+        System.out.println("\n \u001B[34m ==== REMOVER SEGUIDOR ==== \n");
         
         System.out.println(seguirDAO);
         
@@ -693,8 +693,7 @@ public class GUI {
     }  
     public int menuConfiguracoes(){
         System.out.println("""
-                           
-                           \u001B[34m====== CONFIGURACOES ======
+                           \u001B[34m ====== CONFIGURACOES ======
                            
                            1. Ver meus dados
                            2. Alterar nome
@@ -705,7 +704,7 @@ public class GUI {
                            7. SAIR (voltar)
                            """);
         
-        System.out.print("Escolha uma opcao: ");
+        System.out.print("\n Escolha uma opcao: ");
         
         return Integer.parseInt(scanner.nextLine());
     }
