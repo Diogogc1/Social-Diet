@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author diogo
  */
 public class Alimento {
-    private final long id;
+    private long id;
     private static long serial;
     private String nome;
     private double carboidrato;
@@ -20,9 +20,13 @@ public class Alimento {
     private double gordura;
     private double caloria;
     private int porcao;
-    private final Pessoa pessoa;
-    private final LocalDate dataDeCriacao;
-    private LocalDate dataDeModificacao;
+    private Pessoa pessoa;
+    private LocalDate dataCriacao;
+    private LocalDate dataModificacao;
+    
+    public Alimento(){
+        
+    }
     
     //CONSTRUTOR
     public Alimento(String nome, double carboidratos, double proteinas, double gorduras, int porcao, Pessoa pessoa) {
@@ -34,13 +38,17 @@ public class Alimento {
         this.caloria = (4 * carboidratos) + (4 * proteinas) + (4 * gorduras);
         this.porcao = porcao;
         this.pessoa = pessoa;
-        this.dataDeCriacao = LocalDate.now();
-        this.dataDeModificacao = LocalDate.now();
+        this.dataCriacao = LocalDate.now();
+        this.dataModificacao = LocalDate.now();
     }
     
     //GETTERS E SETTERS
     public long getId() {
         return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
     }
     
     public String getSerial() {
@@ -98,17 +106,25 @@ public class Alimento {
     public Pessoa getPessoa() {
         return pessoa;
     }
+    
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
 
     public LocalDate getDataCriacao() {
-        return dataDeCriacao;
+        return dataCriacao;
+    }
+    
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public LocalDate getDataModificacao() {
-        return dataDeModificacao;
+        return dataModificacao;
     }
 
-    public void setDataDeModificacao(LocalDate dataDeModificacao) {
-        this.dataDeModificacao = dataDeModificacao;
+    public void setDataModificacao(LocalDate dataModificacao) {
+        this.dataModificacao = dataModificacao;
     }
 
     //TO STRING
@@ -119,13 +135,13 @@ public class Alimento {
 
         sb.append("\n ID: ").append(id).
         append("\n Nome: ").append(nome).
-        append("Porcao: ").append(porcao).
+        append("\n Porcao: ").append(porcao).
         append("\n Carboidratos: ").append(carboidrato).
         append("\n Proteinas: ").append(proteina).
         append("\n Gorduras: ").append(gordura).
         append("\n Calorias: ").append(caloria).
-        append("\n Data de Criacao: ").append(dataDeCriacao).
-        append("\n Data de Modificacao: ").append(dataDeModificacao).
+        append("\n Data de Criacao: ").append(dataCriacao).
+        append("\n Data de Modificacao: ").append(dataModificacao).
         append("\n =================================");
    
         return sb.toString();
@@ -144,8 +160,8 @@ public class Alimento {
         hash = 53 * hash + (int) (Double.doubleToLongBits(this.caloria) ^ (Double.doubleToLongBits(this.caloria) >>> 32));
         hash = 53 * hash + this.porcao;
         hash = 53 * hash + Objects.hashCode(this.pessoa);
-        hash = 53 * hash + Objects.hashCode(this.dataDeCriacao);
-        hash = 53 * hash + Objects.hashCode(this.dataDeModificacao);
+        hash = 53 * hash + Objects.hashCode(this.dataCriacao);
+        hash = 53 * hash + Objects.hashCode(this.dataModificacao);
         return hash;
     }
 
@@ -185,10 +201,9 @@ public class Alimento {
         if (!Objects.equals(this.pessoa, other.pessoa)) {
             return false;
         }
-        if (!Objects.equals(this.dataDeCriacao, other.dataDeCriacao)) {
+        if (!Objects.equals(this.dataCriacao, other.dataCriacao)) {
             return false;
         }
-        return Objects.equals(this.dataDeModificacao, other.dataDeModificacao);
+        return Objects.equals(this.dataModificacao, other.dataModificacao);
     }
-    
 }

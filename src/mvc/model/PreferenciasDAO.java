@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package mvc.model;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
 /**
  *
@@ -12,8 +16,14 @@ public class PreferenciasDAO {
     Preferencias preferencias[] = new Preferencias[10];
     private final Login login = new Login();
     private int aux;
+    private String sql;
+    private Preferencias p;
+    private final PessoaDAO pessaoDAO;
+    private final AlimentoDAO alimentoDAO;
 
-    public PreferenciasDAO(Pessoa pessoaLogada, AlimentoDAO alimentoDAO) {
+    public PreferenciasDAO(AlimentoDAO alimentoDAO, PessoaDAO pessaoDAO) {
+        this.alimentoDAO = alimentoDAO;
+        this.pessaoDAO = pessaoDAO;
 //        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(1)));
 //        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(2)));
 //        adicionar(new Preferencias(pessoaLogada, alimentoDAO.buscar(3)));
@@ -26,47 +36,98 @@ public class PreferenciasDAO {
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public boolean adicionar(Preferencias preferencia){
-        for (int i = 0; i < preferencias.length; i++) {
-            if(preferencias[i] == null){
-                preferencias[i] = preferencia;
-                return true;
-            } 
+    public void adicionar(Preferencias preferencias) {
+        sql = "INSERT INTO preferencias"
+                + " (idPessoa, dataCriacao, dataModificacao, idAlimento)"
+                + " VALUES (?,?,?,?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            // seta os valores
+            ps.setLong(1, login.getPessoaLogada().getId()); 
+            ps.setDate(2, java.sql.Date.valueOf(preferencias.getDataCriacao()));
+            ps.setDate(3, java.sql.Date.valueOf(preferencias.getDataModificacao()));
+            ps.setLong(4, preferencias.getAlimento().getId()); 
+
+            ps.execute();
+
+            System.out.println("\n Preferência inseridas com sucesso!");
+        } catch (SQLException e) {
+            throw new RuntimeException("Não foi possível adicionar essa preferência no banco!", e);
         }
-        return false;
     }
+
     
-    //REMOVER - PERCORRE O VETOR E PROCURA A PESSOA PARA SER REMOVIDA
-    public boolean remover(long idPreferencia){
-        for (int i = 0; i < preferencias.length; i++) {
-            if(preferencias[i].getId() == idPreferencia){
-                preferencias[i] = null;
-                return true;
-            }
+    //REMOVER
+    public void remover(long id){
+        sql = "delete from preferencias where id = ?" ;
+        
+        try(Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)){
+            
+            ps.setLong(1, id);
+            
+            ps.execute();
+            
+            System.out.println("\n Preferencia removida com sucesso! \n");
+            
+        }catch(SQLException e){
+            throw new RuntimeException("Não foi possivel remover a Preferencia!", e);
         }
-        return false;
     }
     
     //ALTERAR
-    public boolean alterar(long idPreferencia, Preferencias preferenciaNovo){
-        for (int i = 0; i < preferencias.length; i++) {
-            if(preferencias[i].getId() == idPreferencia){
-                preferencias[i] = preferenciaNovo;
-                return true;
-            }
+    public void alterar(long id, Preferencias preferenciaNova) {
+        sql = "UPDATE preferencias SET idPessoa = ?, dataCriacao = ?, dataModificacao = ?, idAlimento = ?"
+                    + " WHERE id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setLong(1, login.getPessoaLogada().getId()); // Certifique-se de ter um método getId() em Pessoa
+            ps.setDate(2, java.sql.Date.valueOf(preferenciaNova.getDataCriacao()));
+            ps.setDate(3, java.sql.Date.valueOf(preferenciaNova.getDataModificacao()));
+            ps.setLong(4, preferenciaNova.getAlimento().getId()); // Certifique-se de ter um método getId() em Alimento
+            ps.setLong(5, id);
+
+            ps.execute();
+
+            System.out.println("\n Preferência alterada com sucesso!");
+        } catch (SQLException e) {
+            throw new RuntimeException("Não foi possível alterar a preferência!", e);
         }
-        return false;
     }
     
     //BUSCAR
-    public Preferencias buscar(long id){
-        for(Preferencias preferencia : preferencias) {
-            if (preferencia != null && preferencia.getId() == id){
-                return preferencia;
+    public Preferencias buscar(Long id) {
+        sql = "SELECT * FROM preferencias WHERE id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setLong(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                p = new Preferencias();
+
+                if (rs.next()) {
+                    p.setId(rs.getLong("id"));
+                    p.setPessoa(pessaoDAO.buscar(rs.getLong("idPessoa")));
+                    p.setDataCriacao(rs.getDate("dataCriacao").toLocalDate());
+                    p.setDataModificacao(rs.getDate("dataModificacao").toLocalDate());
+                    p.setAlimento(alimentoDAO.buscar(rs.getLong("idAlimento")));
+                } else {
+                    throw new SQLException();
+                }
+
+                return p;
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Não foi possível buscar a preferência!", e);
         }
-        return null;
     }
+
     
     public Preferencias buscarNaoNulo(int j){
         aux = 0;

@@ -10,21 +10,23 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 /**
  *
  * @author diogo
  */
 public class PessoaDAO {
-    Pessoa pessoas[] = new Pessoa[10];
-    String sql;
-    Pessoa p = new Pessoa();
+    private List<Pessoa> pessoas;
+    private String sql;
+    private Pessoa p = new Pessoa();
 
     public PessoaDAO() {
 
     }
     
-    //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
+    //ADICIONAR
     public void adicionar(Pessoa pessoa){
         sql = "insert into pessoa"
                 + " (nome, sexo, dataNascimento, email, senha, dataCriacao, dataModificacao)"
@@ -52,7 +54,7 @@ public class PessoaDAO {
     
     //REMOVER
     public void remover(Pessoa pessoa){
-        sql = "delete from contatos where id = ?" ;
+        sql = "delete from pessoa where id = ?" ;
         
         try(Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)){
@@ -180,8 +182,34 @@ public class PessoaDAO {
         }
     }
     
+    public List<Pessoa> listar(){
+        sql = "select * from pessoa";
+
+        pessoas = new ArrayList();
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery(sql)) {
+
+            while (rs.next()) {
+                p = new Pessoa();
+                p.setId(rs.getLong("id"));
+                p.setNome(rs.getString("nome"));
+                p.setSexo(rs.getString("sexo"));
+                p.setDataDeNascimento((rs.getDate("dataNascimento").toLocalDate()));
+                p.setEmail(rs.getString("email"));
+                p.setSenha(rs.getString("senha"));
+            }
+        } catch (SQLException e) {
+             throw new RuntimeException(e);
+        }
+
+        return pessoas;
+    }
+    
     @Override
     public String toString() {
+        listar();
         StringBuilder sb = new StringBuilder();
         sb.append("====== PESSOAS ======");
         for(Pessoa pessoa : pessoas) {

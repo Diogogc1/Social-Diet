@@ -30,16 +30,24 @@ public class Avaliacao {
     private double bf;
     private double massaGorda;
     private double massaMagra;
-    private final LocalDate dataCriacao;
+    private LocalDate dataCriacao;
     private LocalDate dataModificacao;
     
     //GETTERS E SETTERS
     public long getId() {
         return id;
     }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Pessoa getPessoa() {
         return pessoa;
+    }
+    
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
     
     public double getPeso() {
@@ -133,6 +141,10 @@ public class Avaliacao {
     public LocalDate getDataCriacao() {
         return dataCriacao;
     }
+    
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 
     public LocalDate getDataModificacao() {
         return dataModificacao;
@@ -142,6 +154,9 @@ public class Avaliacao {
         this.dataModificacao = dataModificacao;
     }
     
+    public Avaliacao(){
+        
+    }    
     //CONSTRUTOR
     public Avaliacao(Pessoa pessoa, double peso, double altura, int idade, double pescoco, double cintura, double quadril) {
         this.pessoa = pessoa;
@@ -376,6 +391,7 @@ public class Avaliacao {
         //RELATÓRIO FINAL
         StringBuilder sb = new StringBuilder();
                 sb.append("\n ====== RELATORIO DA AVALIACAO ======").
+                append("\n ID: ").append(this.id).
                 append("\n Peso: ").append(this.peso).
                 append("\n Altura: ").append(this.altura).
                 append("\n Idade: ").append(this.idade).

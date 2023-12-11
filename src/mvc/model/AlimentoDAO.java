@@ -15,17 +15,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
  * @author diogo
  */
 public class AlimentoDAO {
-    Alimento alimentos[] = new Alimento[20];
+    List<Alimento> alimentos;
     private final Login login = new Login();
-    public static final String caminhoPasta = System.getProperty("user.home") +  File.separator + "Downloads" + File.separator + "Relatorio.pdf";
+    private String sql;
+    private Alimento a;
+    private final PessoaDAO pessoaDAO;
+    public static final String CAMINHOPASTA = System.getProperty("user.home") +  File.separator + "Downloads" + File.separator + "Relatorio.pdf";
 
-    public AlimentoDAO(Pessoa pessoa) {
+    public AlimentoDAO(PessoaDAO pessoaDAO) {
+        this.pessoaDAO = pessoaDAO;
 //        //GORDURA
 //        adicionar(new Alimento("Ovo", 1.2, 15.6, 18.6, 1, pessoa));
 //        adicionar(new Alimento("Castanha-de-caju torrada", 29.1, 18.5, 46.3, 1, pessoa));
@@ -42,88 +51,209 @@ public class AlimentoDAO {
 //        adicionar(new Alimento("Picanha assada (sem gordura)", 0, 21.3, 4.7, 1, pessoa));
     }
     
-    //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
+    //ADICIONAR
     public void adicionar(Alimento alimento){
-        
+                sql = "insert into alimento"
+                + " (nome, carboidrato, proteina, gordura, caloria, porcao, idPessoa, dataCriacao, dataModificacao)"
+                + " values (?,?,?,?,?,?,?,?,?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)) {
+            // seta os valores
+            ps.setString(1, alimento.getNome());
+            ps.setDouble(2, alimento.getCarboidrato());
+            ps.setDouble(3, alimento.getProteina());
+            ps.setDouble(4, alimento.getGordura());
+            ps.setDouble(5, alimento.getCaloria());
+            ps.setInt(6, alimento.getPorcao());
+            ps.setLong(7, login.getPessoaLogada().getId());
+            ps.setDate(8, java.sql.Date.valueOf(alimento.getDataCriacao()));
+            ps.setDate(9, java.sql.Date.valueOf(alimento.getDataModificacao()));
+            
+            ps.execute();
+            
+            System.out.println("\n Alimento inserido com sucesso!");
+        } catch (SQLException e) {
+            throw new RuntimeException("Nao foi possivel adicionar esse alimento no banco!", e);
+        }
     }
     
-    //REMOVER - PERCORRE O VETOR E PROCURA O ALIMENTO PARA SER REMOVIDO
-    public boolean remover(Alimento alimento){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimentos[i].equals(alimento)){
-                alimentos[i] = null;
-                return true;
-            }
+    //REMOVER
+    public void remover(Alimento alimento){
+        sql = "delete from alimento where id = ?" ;
+        
+        try(Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)){
+            
+            ps.setLong(1, alimento.getId());
+            
+            ps.execute();
+            
+            System.out.println("\n Alimento removido com sucesso!");
+            
+        }catch(SQLException e){
+            throw new RuntimeException("Não foi possivel remover o alimento!", e);
         }
-        return false;
     }
     
     //ALTERAR
-    public boolean alterar(Alimento alimento, Alimento novoAlimento){
-        for (Alimento alimento1 : alimentos) {
-            if (alimento.equals(alimento1)) {
-                alimento1.setNome(novoAlimento.getNome());
-                alimento1.setPorcao(novoAlimento.getPorcao());
-                alimento1.setCarboidrato(novoAlimento.getCarboidrato());
-                alimento1.setProteina(novoAlimento.getProteina());
-                alimento1.setGordura(novoAlimento.getGordura());
-                alimento1.setCaloria(novoAlimento.getCaloria());
-                alimento1.setDataDeModificacao(LocalDate.now());
-                return true;
-            }
+    public void alterar(Alimento alimento, Alimento novoAlimento){
+        sql = "update alimento set nome = ?, carboidrato = ?, proteina = ?, gordura = ?, caloria = ?, porcao = ?, idPessoa = ?, dataModificacao = ? where id = ?";
+        
+        try(Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)){
+            
+            ps.setString(1, alimento.getNome());
+            ps.setDouble(2, alimento.getCarboidrato());
+            ps.setDouble(3, alimento.getProteina());
+            ps.setDouble(4, alimento.getGordura());
+            ps.setDouble(5, alimento.getCaloria());
+            ps.setInt(6, alimento.getPorcao());
+            ps.setLong(7, login.getPessoaLogada().getId());
+            ps.setDate(8, java.sql.Date.valueOf(alimento.getDataModificacao()));
+            ps.setLong(9, alimento.getId());
+            
+            ps.execute();
+            
+            System.out.println("\n Alimento alterado com sucesso! \n");
+            
+        }catch(SQLException e){
+            throw new RuntimeException("Não foi possivel alterar o alimento!", e);
         }
-        return false;
     }
     
     //BUSCAR
-    public Alimento buscar(long idAlimento){
-        for (Alimento a : alimentos) {
-            if (a != null && a.getId() == idAlimento) {
+    public Alimento buscar(long id){
+        sql = "select * from alimento where ID = ?";
+        
+        try(Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql);){
+            
+            ps.setLong(1, id);
+            try(ResultSet rs = ps.executeQuery()){
+                a = new Alimento();
+                
+                if(rs.next()){
+                    a.setId(rs.getLong("id"));
+                    a.setNome(rs.getString("nome"));
+                    a.setCarboidrato(rs.getDouble("carboidrato"));
+                    a.setProteina(rs.getDouble("proteina"));
+                    a.setGordura(rs.getDouble("gordura"));
+                    a.setCaloria(rs.getDouble("caloria"));
+                    a.setPorcao(rs.getInt("porcao"));
+                    a.setPessoa(pessoaDAO.buscar(rs.getInt("idPessoa")));
+                    a.setDataCriacao(rs.getDate("dataCriacao").toLocalDate());
+                    a.setDataModificacao((rs.getDate("dataModificacao").toLocalDate()));
+                }else{
+                    throw new SQLException();
+                }
+
                 return a;
-            } 
+            }  
+        }catch(SQLException e){
+            throw new RuntimeException("Não foi possivel buscar o usuario!", e);
         }
-        return null;
     }
     
     //BUSCAR NOME
     public Alimento buscarNome(String nome){
-        for (Alimento alimento : alimentos) {
-            if (alimento != null && alimento.getNome().equals(nome)) {
-                return alimento;
-            } 
+                sql = "select * from alimento where nome = ?";
+        
+        try(Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql);){
+            
+            ps.setString(1, nome);
+            try(ResultSet rs = ps.executeQuery()){
+                a = new Alimento();
+                
+                if(rs.next()){
+                    a.setId(rs.getLong("id"));
+                    a.setNome(rs.getString("nome"));
+                    a.setCarboidrato(rs.getDouble("carboidrato"));
+                    a.setProteina(rs.getDouble("proteina"));
+                    a.setGordura(rs.getDouble("gordura"));
+                    a.setCaloria(rs.getDouble("caloria"));
+                    a.setPorcao(rs.getInt("porcao"));
+                    a.setPessoa(pessoaDAO.buscar(rs.getInt("idPessoa")));
+                    a.setDataCriacao(rs.getDate("dataCriacao").toLocalDate());
+                    a.setDataModificacao((rs.getDate("dataModificacao").toLocalDate()));
+                }else{
+                    throw new SQLException();
+                }
+
+                return a;
+            }  
+        }catch(SQLException e){
+            throw new RuntimeException("Não foi possivel buscar o usuario!", e);
         }
-        return null;
     }
-     
-    public boolean isVazio(){
-        for (Alimento alimento : alimentos) {
-            if(alimento != null){
-                return false;
+    
+    public List<Alimento> listar(){
+        sql = "select * from alimento";
+
+        alimentos = new ArrayList();
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery(sql)) {
+
+            while (rs.next()) {
+                a = new Alimento();
+                a.setId(rs.getLong("id"));
+                a.setNome(rs.getString("nome"));
+                a.setCarboidrato(rs.getDouble("carboidrato"));
+                a.setProteina(rs.getDouble("proteina"));
+                a.setGordura(rs.getDouble("gordura"));
+                a.setCaloria(rs.getDouble("caloria"));
+                a.setPorcao(rs.getInt("porcao"));
+                a.setPessoa(pessoaDAO.buscar(rs.getInt("idPessoa")));
+                a.setDataCriacao(rs.getDate("dataCriacao").toLocalDate());
+                a.setDataModificacao(rs.getDate("dataModificacao").toLocalDate());
+                alimentos.add(a);
             }
+        } catch (SQLException e) {
+             throw new RuntimeException("Erro na Listagem!",e);
         }
-        return true;
+
+        return alimentos;
     }
     
     public void gerarRelatorio(){
         Document document = new Document();
         
         try{
-            PdfWriter.getInstance(document, new FileOutputStream(caminhoPasta));
+            PdfWriter.getInstance(document, new FileOutputStream(CAMINHOPASTA));
             document.open();
             document.add(new Paragraph(toString()));
             document.close();
             
             System.out.println("\n Relatorio gerado com sucesso! \n");
+            
+            abrirPDF();
         }catch(FileNotFoundException | DocumentException e){
             System.out.println("\n Erro ao gerar Relatório!" + e + "\n");
+        } 
+    }
+    
+    
+    private void abrirPDF() {
+        try {
+            // Obtém o sistema Desktop
+            Desktop desktop = Desktop.getDesktop();
+            // Obtém o arquivo PDF
+            File arquivoPDF = new File(CAMINHOPASTA);
+            // Abre o arquivo com o aplicativo padrão associado a arquivos PDF
+            desktop.open(arquivoPDF);
+        } catch (IOException e) {
+            System.out.println("\nErro ao abrir o PDF!" + e + "\n");
         }
-        
     }
 
     @Override
     public String toString() {
+        listar();
         StringBuilder sb = new StringBuilder();
-        sb.append("========== ALIMENTOS ==========");
+        sb.append("\n========== ALIMENTOS ==========");
         for (Alimento alimento : alimentos) {
             if(alimento != null && alimento.getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append(alimento.getId()).

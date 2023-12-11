@@ -14,7 +14,7 @@ import java.util.Objects;
 ALIMENTO, DATACRIACAO, DATAMODIFICACAO.*/
 public class Preferencias {
     private static long serial;
-    private final long id;
+    private long id;
     private Pessoa pessoa;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao; 
@@ -24,6 +24,10 @@ public class Preferencias {
     
     public Pessoa getPessoa() {
         return pessoa;
+    }
+    
+    public void setPessoa(Pessoa pessoa){
+        this.pessoa = pessoa;
     }
 
     public Alimento getAlimento() {
@@ -54,10 +58,17 @@ public class Preferencias {
         return id;
     }
     
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public String getSerial() {
         return "Atualmente ha " + serial + "preferencias no sistema";
     }
     
+    public Preferencias(){
+        
+    }
     
     //CONSTRUTOR
     public Preferencias(Pessoa pessoa, Alimento alimento) {

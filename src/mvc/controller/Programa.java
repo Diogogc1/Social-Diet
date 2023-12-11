@@ -62,13 +62,13 @@ public class Programa {
     private final Login login = new Login(pessoaDAO);
     
     //DAOs
-    private final AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO(login.getPessoaLogada());
-    private final AlimentoDAO alimentoDAO = new AlimentoDAO(login.getPessoaLogada());
+    private final AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO(pessoaDAO);
+    private final AlimentoDAO alimentoDAO = new AlimentoDAO(pessoaDAO);
     private final TipoDietaDAO tipoDietaDAO = new TipoDietaDAO();
     private final DietaDAO dietaDAO = new DietaDAO(login.getPessoaLogada(), avaliacaoDAO, tipoDietaDAO);
     private final RefeicaoDAO refeicaoDAO = new RefeicaoDAO(dietaDAO, login.getPessoaLogada());
     private final AlimentoRefeicoesDAO alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
-    private final PreferenciasDAO preferenciasDAO = new PreferenciasDAO(login.getPessoaLogada(), alimentoDAO);
+    private final PreferenciasDAO preferenciasDAO = new PreferenciasDAO(alimentoDAO, pessoaDAO);
     private final PostDAO postDAO = new PostDAO(login.getPessoaLogada());
     private final MensagemDAO mensagemDAO = new MensagemDAO();
     private final SeguirDAO seguirDAO = new SeguirDAO();
@@ -180,12 +180,7 @@ public class Programa {
             switch(gui.menuAlimentos()){
                 //VER ALIMENTOS
                 case 1 -> {
-                    if(alimentoDAO.isVazio()){
-                        System.out.println("\n Nao ha alimentos cadastrados! Cadastre alimentos \n");
-                    }else{
-                        System.out.println("\n");
-                        System.out.println(alimentoDAO);
-                    }
+                    System.out.println(alimentoDAO);
                 }
                 //CADASTAR ALIMENTOS
                 case 2 -> {
@@ -439,12 +434,7 @@ public class Programa {
                 //CADASTRAR
                 case 2 ->{
                     System.out.println(alimentoDAO);
-                    if(preferenciasDAO.adicionar(gui.cadastrarPreferencias(login.getPessoaLogada(), alimentoDAO))){
-                        System.out.println("\n Preferencia cadastrada");
-                    }else{
-                        System.out.println("\n Preferencia nao cadastrada");
-                    }
-
+                    preferenciasDAO.adicionar(gui.cadastrarPreferencias(login.getPessoaLogada(), alimentoDAO));
                 }
                 case 3 ->{
                    System.out.print(preferenciasDAO.buscar(gui.buscarPreferencia())); 
