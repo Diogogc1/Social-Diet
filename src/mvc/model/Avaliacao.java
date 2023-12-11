@@ -16,9 +16,8 @@ INFORMAÇÕES IMPORTANTES: ID, PESSOA, PESO, ALTURA, IDADE, PESCOCO,
 CINTURA, QUADRIL, IMC, TMB, BF, MASSA GORDA KG, MASSA MAGRA KG,
 DATACRIACAO, DATAMODIFICACAO.*/
 public class Avaliacao {
-    private static long serial;
 
-    private final long id;
+    private long id;
     private Pessoa pessoa;
     private double peso;
     private double altura;
@@ -37,10 +36,6 @@ public class Avaliacao {
     //GETTERS E SETTERS
     public long getId() {
         return id;
-    }
-    
-    public String getSerial() {
-        return "Atualmente há " + serial + "avaliacoes no sistema";
     }
 
     public Pessoa getPessoa() {
@@ -149,7 +144,6 @@ public class Avaliacao {
     
     //CONSTRUTOR
     public Avaliacao(Pessoa pessoa, double peso, double altura, int idade, double pescoco, double cintura, double quadril) {
-        this.id = ++serial;
         this.pessoa = pessoa;
         this.peso = peso;
         this.altura = altura;
@@ -159,7 +153,6 @@ public class Avaliacao {
         this.quadril = quadril;
         this.dataCriacao = LocalDate.now();
         this.dataModificacao = LocalDate.now();
-        
         
         /*this.imc = calcularImc();
         this.tmb = calcularTmb();
@@ -224,7 +217,7 @@ public class Avaliacao {
     (CINTURA + QUADRIL – PESCOÇO) – 97.684 X LOG10 (ALTURA) – 78.387
     FÓRMULA PARA HOMENS: % BODY FAT = 86.010 X LOG10 (ABDOME – PESCOÇO) –
     70.041 X LOG10 (ALTURA) + 36.76*/
-    public double calcularBf(){
+    public final double calcularBf(){
         
         if("1".equals(this.pessoa.getSexo())){
             
@@ -393,7 +386,7 @@ public class Avaliacao {
                 append("\n IMC: ").append(this.imc).
                 append("\n TMB: ").append(this.tmb).
                 append("\n BF: ").append(this.bf).
-                append("\n TMB: ").append(estadoBf).
+                append("\n Estado BF: ").append(estadoBf).
                 append("\n ========================================");
         return sb.toString();
     }

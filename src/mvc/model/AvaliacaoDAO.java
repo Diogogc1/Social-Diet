@@ -4,6 +4,9 @@
  */
 package mvc.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 
@@ -14,6 +17,7 @@ import java.time.LocalDate;
 public class AvaliacaoDAO {
     Avaliacao avaliacoes[] = new Avaliacao[10];
     private final Login login = new Login();
+    String sql;
 
     public AvaliacaoDAO(Pessoa pessoaLogada){
 //        this.adicionar(new Avaliacao(pessoaLogada, 70, 160, 25, 35, 70, 90));
@@ -22,14 +26,36 @@ public class AvaliacaoDAO {
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public final boolean adicionar(Avaliacao avaliacao){
-        for (int i = 0; i < avaliacoes.length; i++) {
-            if(avaliacoes[i] == null){
-                avaliacoes[i] = avaliacao;
-                return true;
-            } 
+    public final void adicionar(Avaliacao avaliacao){
+        sql = "insert into avaliacao"
+                + " (idPessoa, peso, altura, idade, pescoco, cintura, imc, tmb, bf, massaGorda, massaMagra, dataCriacao, dataModificao)"
+                + " values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)) {
+            // seta os valores
+            ps.setLong(1, login.getPessoaLogada().getId());
+            ps.setDouble(2, avaliacao.getPeso());
+            
+            ps.setDouble(3, avaliacao.getAltura());
+            ps.setInt(4, avaliacao.getIdade());
+            ps.setDouble(5, avaliacao.getPescoco());
+            ps.setDouble(6, avaliacao.getCintura());
+            ps.setDouble(7, avaliacao.getImc());
+            ps.setDouble(8, avaliacao.getTmb());
+            ps.setDouble(9, avaliacao.getBf());
+            ps.setDouble(10, avaliacao.getMassaGorda());
+            ps.setDouble(11, avaliacao.getMassaMagra());   
+            
+            ps.setDate(12, java.sql.Date.valueOf(avaliacao.getDataCriacao()));
+            ps.setDate(13, java.sql.Date.valueOf(avaliacao.getDataModificacao()));
+            
+            ps.execute();
+            
+            System.out.println("\n Usuario inserido com sucesso! \n");
+        } catch (SQLException e) {
+            throw new RuntimeException("Nao foi possivel adicionar usuario no banco!", e);
         }
-        return false;
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA A PESSOA PARA SER REMOVIDA
