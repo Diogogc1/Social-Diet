@@ -8,7 +8,6 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -115,27 +114,10 @@ public class AlimentoDAO {
             document.close();
             
             System.out.println("\n Relatorio gerado com sucesso! \n");
-            
-            abrirPDF();
         }catch(FileNotFoundException | DocumentException e){
             System.out.println("\n Erro ao gerar Relatório!" + e + "\n");
-        }   
-    }
-    
-        private void abrirPDF() {
-        try {
-            // Obtém o sistema Desktop
-            Desktop desktop = Desktop.getDesktop();
-
-            // Obtém o arquivo PDF
-            File arquivoPDF = new File(caminhoPasta);
-
-            // Abre o arquivo com o aplicativo padrão associado a arquivos PDF
-            desktop.open(arquivoPDF);
-
-        } catch (Exception e) {
-            System.out.println("\nErro ao abrir o PDF!" + e + "\n");
         }
+        
     }
 
     @Override

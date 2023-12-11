@@ -36,9 +36,8 @@ public class AvaliacaoDAO {
             // seta os valores
             ps.setLong(1, login.getPessoaLogada().getId());
             ps.setDouble(2, avaliacao.getPeso());
-            
             ps.setDouble(3, avaliacao.getAltura());
-            ps.setInt(4, avaliacao.getIdade());
+            ps.setDouble(4, avaliacao.getIdade());
             ps.setDouble(5, avaliacao.getPescoco());
             ps.setDouble(6, avaliacao.getCintura());
             ps.setDouble(7, avaliacao.getQuadril());
