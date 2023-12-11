@@ -8,6 +8,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Connection;
@@ -22,7 +23,7 @@ import java.time.LocalDate;
 public class AlimentoDAO {
     Alimento alimentos[] = new Alimento[20];
     private final Login login = new Login();
-    public static final String caminhoPasta = System.getProperty("user.home") + "\\Downloads\\Relatorio.pdf";
+    public static final String caminhoPasta = System.getProperty("user.home") +  File.separator + "Downloads" + File.separator + "Relatorio.pdf";
 
     public AlimentoDAO(Pessoa pessoa) {
 //        //GORDURA
