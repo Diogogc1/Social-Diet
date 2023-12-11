@@ -376,7 +376,6 @@ public class Avaliacao {
         //RELATÓRIO FINAL
         StringBuilder sb = new StringBuilder();
                 sb.append("\n ====== RELATORIO DA AVALIACAO ======").
-                append("\n ID: ").append(this.id).
                 append("\n Peso: ").append(this.peso).
                 append("\n Altura: ").append(this.altura).
                 append("\n Idade: ").append(this.idade).
