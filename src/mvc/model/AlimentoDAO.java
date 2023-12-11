@@ -10,6 +10,9 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 /**
@@ -19,7 +22,7 @@ import java.time.LocalDate;
 public class AlimentoDAO {
     Alimento alimentos[] = new Alimento[20];
     private final Login login = new Login();
-    public static final String caminhoPasta = "C:\\Users\\diogo\\Documents\\GitHub\\Trabalho_POO\\Relatorio.pdf";
+    public static final String caminhoPasta = System.getProperty("user.home") + "\\Downloads\\Relatorio.pdf";
 
     public AlimentoDAO(Pessoa pessoa) {
 //        //GORDURA
@@ -39,14 +42,8 @@ public class AlimentoDAO {
     }
     
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
-    public boolean adicionar(Alimento alimento){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimentos[i] == null){
-                alimentos[i] = alimento;
-                return true;
-            } 
-        }
-        return false;
+    public void adicionar(Alimento alimento){
+        
     }
     
     //REMOVER - PERCORRE O VETOR E PROCURA O ALIMENTO PARA SER REMOVIDO
@@ -115,9 +112,9 @@ public class AlimentoDAO {
             document.add(new Paragraph(toString()));
             document.close();
             
-            System.out.println("\n Relatorio gerado com sucesso!");
+            System.out.println("\n Relatorio gerado com sucesso! \n");
         }catch(FileNotFoundException | DocumentException e){
-            System.out.println("Erro ao gerar Relatório!" + e);
+            System.out.println("\n Erro ao gerar Relatório!" + e + "\n");
         }
         
     }

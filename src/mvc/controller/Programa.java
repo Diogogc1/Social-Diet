@@ -189,11 +189,7 @@ public class Programa {
                 }
                 //CADASTAR ALIMENTOS
                 case 2 -> {
-                    if(alimentoDAO.adicionar(gui.cadastrarAlimentos(login.getPessoaLogada()))){
-                        System.out.println("\n Alimento cadastrado com sucesso!");
-                    }else{
-                        System.out.println("ERRO - Alimento nao cadastrado!");
-                    }
+                    alimentoDAO.adicionar(gui.cadastrarAlimentos(login.getPessoaLogada()));
                 }
                 
                 //GERAR RELATÓRIO
