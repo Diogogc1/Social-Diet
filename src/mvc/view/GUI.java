@@ -255,10 +255,11 @@ public class GUI {
  
                            1. Ver Alimentos
                            2. Cadastar Alimento
-                           3. Buscar
-                           4. Alterar 
-                           5. Excluir
-                           6. SAIR
+                           3. Gerar Relatorio
+                           4. Buscar
+                           5. Alterar 
+                           6. Excluir
+                           7. SAIR
                            """);
         System.out.print("Escolha uma opcao: ");
         return Integer.parseInt(scanner.nextLine());

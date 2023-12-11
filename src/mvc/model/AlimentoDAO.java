@@ -4,6 +4,12 @@
  */
 package mvc.model;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.time.LocalDate;
 
 /**
@@ -13,6 +19,7 @@ import java.time.LocalDate;
 public class AlimentoDAO {
     Alimento alimentos[] = new Alimento[20];
     private final Login login = new Login();
+    public static final String caminhoPasta = "C:\\Users\\diogo\\Documents\\GitHub\\Trabalho_POO\\Relatorio.pdf";
 
     public AlimentoDAO(Pessoa pessoa) {
 //        //GORDURA
@@ -97,6 +104,22 @@ public class AlimentoDAO {
             }
         }
         return true;
+    }
+    
+    public void gerarRelatorio(){
+        Document document = new Document();
+        
+        try{
+            PdfWriter.getInstance(document, new FileOutputStream(caminhoPasta));
+            document.open();
+            document.add(new Paragraph(toString()));
+            document.close();
+            
+            System.out.println("\n Relatorio gerado com sucesso!");
+        }catch(FileNotFoundException | DocumentException e){
+            System.out.println("Erro ao gerar Relatório!" + e);
+        }
+        
     }
 
     @Override
