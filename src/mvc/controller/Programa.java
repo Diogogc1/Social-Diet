@@ -195,24 +195,30 @@ public class Programa {
                         System.out.println("ERRO - Alimento nao cadastrado!");
                     }
                 }
-                //BUSCAR ALIMENTO
+                
+                //GERAR RELATÓRIO
                 case 3 -> {
+                    alimentoDAO.gerarRelatorio();
+                }
+                
+                //BUSCAR ALIMENTO
+                case 4 -> {
                     System.out.println(gui.buscarAlimento(alimentoDAO));
                 }
                 //ALTERAR ALIMENTO
-                case 4 -> {
+                case 5 -> {
                     alimentoDAO.alterar(gui.escolherAlimento(alimentoDAO, login.getPessoaLogada()), gui.cadastrarAlimentos(login.getPessoaLogada())); 
                 }
                 
                 //EXCLUIR ALIMENTO
-                case 5 -> {
+                case 6 -> {
                     alimentoEscolhido = gui.escolherAlimento(alimentoDAO, login.getPessoaLogada());
                     alimentoDAO.remover(alimentoEscolhido);
                     alimentoRefeicoesDAO.removerAlimento(alimentoEscolhido);
                 }
                 
                 //SAIR
-                case 6 -> {
+                case 7 -> {
                     menu = -1;
                 }
                 
