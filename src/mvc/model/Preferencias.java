@@ -13,7 +13,6 @@ import java.util.Objects;
 /*CRUD DE PREFERÊNCIAS. INFORMAÇÕES IMPORTANTES: ID, PESSOA,
 ALIMENTO, DATACRIACAO, DATAMODIFICACAO.*/
 public class Preferencias {
-    private static long serial;
     private long id;
     private Pessoa pessoa;
     private LocalDate dataCriacao;
@@ -24,6 +23,10 @@ public class Preferencias {
     
     public Pessoa getPessoa() {
         return pessoa;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
     }
     
     public void setPessoa(Pessoa pessoa){
@@ -58,22 +61,12 @@ public class Preferencias {
         return id;
     }
     
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
-    public String getSerial() {
-        return "Atualmente ha " + serial + "preferencias no sistema";
-    }
-    
     public Preferencias(){
         
     }
     
     //CONSTRUTOR
     public Preferencias(Pessoa pessoa, Alimento alimento) {
-        
-        this.id = ++serial;
         this.pessoa = pessoa;
         this.alimento = alimento;
         this.dataCriacao = LocalDate.now();
@@ -120,7 +113,21 @@ public class Preferencias {
 
     @Override
     public String toString() {
-        return "Preferencias{" + "id=" + id + ", pessoa=" + pessoa + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + ", alimento=" + alimento + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n =========== PREFERENCIA ===========");
+
+        sb.append("\n ID: ").append(id).
+        append("\n Nome: ").append(alimento.getNome()).
+        append("\n Porcao: ").append(alimento.getPorcao()).
+        append("\n Carboidratos: ").append(alimento.getCarboidrato()).
+        append("\n Proteinas: ").append(alimento.getProteina()).
+        append("\n Gorduras: ").append(alimento.getGordura()).
+        append("\n Calorias: ").append(alimento.getCaloria()).
+        append("\n Data de Criacao: ").append(dataCriacao).
+        append("\n Data de Modificacao: ").append(dataModificacao).
+        append("\n =================================\n");
+   
+        return sb.toString();
     }
     
     

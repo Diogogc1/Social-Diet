@@ -13,7 +13,6 @@ import java.util.Objects;
  */
 public class Alimento {
     private long id;
-    private static long serial;
     private String nome;
     private double carboidrato;
     private double proteina;
@@ -30,7 +29,6 @@ public class Alimento {
     
     //CONSTRUTOR
     public Alimento(String nome, double carboidratos, double proteinas, double gorduras, int porcao, Pessoa pessoa) {
-        id = ++serial;
         this.nome = nome;
         this.carboidrato = carboidratos;
         this.proteina = proteinas;
@@ -51,10 +49,6 @@ public class Alimento {
         this.id = id;
     }
     
-    public String getSerial() {
-        return "Atualmente há " + serial + "alimentos no sistema";
-    }
-
     public String getNome() {
         return nome;
     }

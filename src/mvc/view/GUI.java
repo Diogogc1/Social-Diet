@@ -174,7 +174,7 @@ public class GUI {
                            5. Ver avaliacoes
                            6. SAIR
                            """);
-        System.out.print("Escolha uma opção: ");
+        System.out.print("Escolha uma opca: ");
         
         return Integer.parseInt(scanner.nextLine());
     }
@@ -307,18 +307,20 @@ public class GUI {
     
     public int cadastrarTipoDieta(){
         System.out.println("""
-                           \u001B[34m========= TIPO DIETA =========
+                           \n\u001B[34m========= TIPO DIETA =========
+                           
                            1. Equilibrada 
                            2. Low Carb
                            3. Cetogenica                         
                            """);
-        System.out.print("\n Escolha uma opcao: ");
+        System.out.print("Escolha uma opcao: ");
         return Integer.parseInt(scanner.nextLine());
     }
     
     public int menuDieta(){
         System.out.println("""
-                           \u001B[34m======== DIETA ========
+                           \n\u001B[34m======== DIETA ========
+                           
                            1. Ver Dietas
                            2. Montar Dieta
                            3. Buscar Dieta
@@ -334,20 +336,22 @@ public class GUI {
         /*id, pessoa, avaliacao fisica, tipo dieta, objetivo, 
         calorias, nro refeicoes, dataCriacao, dataModificacao*/
         System.out.println(avaliacaoDAO);
+        System.out.print("\n Escolha o id desejado: ");
         id = Long.parseLong(scanner.nextLine());
         
         Avaliacao avaliacaoDieta = avaliacaoDAO.buscar(id);
         
-        System.out.println("\n\u001B[34m====== Monte uma Dieta ======");
+        System.out.println("\n\u001B[34m====== Monte uma Dieta ====== \n");
         System.out.println("Qual o seu objetivo? \n");
         System.out.println("1. Diminuir o peso");
         System.out.println("2. Manter o peso");
         System.out.println("3. Aumentar o peso");
+        System.out.print("\n Escolha uma opcao: ");
         
         //O VALOR DO OBJETIVO É TRATADO NO CONTROLLER, NA CLASSE PROGRAMA
         objetivo = scanner.nextLine();
         
-        System.out.println("Numero de Refeicoes: ");
+        System.out.print("\n Numero de Refeicoes: ");
         nrRefeicoes = Integer.parseInt(scanner.nextLine());
         
         //CALORIAS DA DIETA SÃO DEFINIDAS NO CONTROLLER, NA CLASSE PROGRAMA
@@ -450,7 +454,7 @@ public class GUI {
     }
     
     public int menuPreferencias(){
-        System.out.println("\n\u001B[34m======= PREFERENCIAS =======");
+        System.out.println("\n\u001B[34m======= PREFERENCIAS ======= \n");
         System.out.println("1. Ver preferencias");
         System.out.println("2. Cadastrar");
         System.out.println("3. Buscar");
@@ -472,7 +476,7 @@ public class GUI {
     }
     
     public long buscarPreferencia(){
-        System.out.println("\n\u001B[34m==== BUSCAR PREFERENCIA ==== \n");
+        System.out.println("\n\u001B[34m==== BUSCAR PREFERENCIA ====");
         
         System.out.print("\n Informe o id para busca: ");
         id = Long.parseLong(scanner.nextLine());
@@ -481,7 +485,7 @@ public class GUI {
     }
     
     public long alterarPreferencia(){
-        System.out.println("\n\u001B[34m==== ALTERAR PREFERENCIA ==== \n");
+        System.out.println("\n\u001B[34m==== ALTERAR PREFERENCIA ==== ");
         
         System.out.print("\n Informe o id que deseja: ");
         id = Long.parseLong(scanner.nextLine());
@@ -490,7 +494,7 @@ public class GUI {
     }
     
     public long removerPreferencia(){
-        System.out.println("\n\u001B[34m===== REMOVER PREFERENCIA ===== \n");
+        System.out.println("\n\u001B[34m===== REMOVER PREFERENCIA =====");
         
         System.out.print("\n Informe o id que deseja: ");
         id = Long.parseLong(scanner.nextLine());

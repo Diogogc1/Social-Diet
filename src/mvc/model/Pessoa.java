@@ -30,7 +30,14 @@ public class Pessoa {
     //CONSTRUTOR
     public Pessoa(String nome, String sexo, LocalDate dataDeNascimento, String email, String senha) {
         this.nome = nome;
-        this.sexo = sexo;
+        
+        if(sexo.equals("1")){
+            this.sexo = "Masculino";
+        }else{
+            if(sexo.equals("2")){
+                this.sexo = "Feminino";
+            }
+        }
         this.dataDeNascimento = dataDeNascimento;
         this.email = email;
         this.senha = senha;
@@ -98,6 +105,10 @@ public class Pessoa {
     public LocalDate getDataCriacao() {
         return dataCriacao;
     }
+    
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 
     public LocalDate getDataModificacao() {
         return dataModificacao;
@@ -118,7 +129,8 @@ public class Pessoa {
         append("\n Sexo: ").append(sexo).
         append("\n Email: ").append(email). 
         append("\n Senha: ").append(senha).
-        append("\n Data de Criacao: ").append(dataModificacao).
+        append("\n Data de Nascimento: ").append(dataDeNascimento).
+        append("\n Data de Criacao: ").append(dataCriacao).
         append("\n Data de modificacao: ").append(dataModificacao).
         append("\n =================================");
 
@@ -152,27 +164,6 @@ public class Pessoa {
             return false;
         }
         final Pessoa other = (Pessoa) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        if (!Objects.equals(this.sexo, other.sexo)) {
-            return false;
-        }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.senha, other.senha)) {
-            return false;
-        }
-        if (!Objects.equals(this.dataDeNascimento, other.dataDeNascimento)) {
-            return false;
-        }
-        if (!Objects.equals(this.dataCriacao, other.dataCriacao)) {
-            return false;
-        }
-        return Objects.equals(this.dataModificacao, other.dataModificacao);
+        return this.id == other.id;
     }
 }

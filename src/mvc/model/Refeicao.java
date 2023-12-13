@@ -12,21 +12,21 @@ import java.util.Objects;
  * @author diogo
  */
 public class Refeicao {
-    private final long id;
-    private static long serial;
+    private long id;
     private Dieta Dieta;
     private String nome;
     private double carboidrato;
     private double proteina;
     private double gordura;
     private double caloria;
-    private final LocalDate dataCriacao;
-    private final LocalDate dataModificacao;
+    private LocalDate dataCriacao;
+    private LocalDate dataModificacao;
 
-    //CRUD
-    //CRIAR
+    public Refeicao(){
+        
+    }
+    
     public Refeicao(Dieta Dieta, double carboidrato, double proteina, double gordura, double calorias, String nomeDaRefeicao) {
-        id = ++serial;
         this.Dieta = Dieta;
         this.carboidrato = carboidrato;
         this.proteina = proteina;
@@ -41,8 +41,8 @@ public class Refeicao {
         return id;
     }
     
-    public String getSerial() {
-        return "Atualmente há " + serial + "refeições no sistema";
+    public void setId(Long id) {
+        this.id = id;
     }
     
     public Dieta getDieta() {
@@ -96,18 +96,26 @@ public class Refeicao {
     public LocalDate getDataCriacao() {
         return dataCriacao;
     }
+    
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 
     public LocalDate getDataModificacao() {
         return dataModificacao;
     }
+    
+    public void setDataModificacao(LocalDate dataModificacao) {
+        this.dataModificacao = dataModificacao;
+    }
 
-    //TO STRING - PRECISO DA DIETA (MATHEUS)
+    //TO STRING
     @Override
     public String toString() {
         return "Refeicao{" + "id=" + id + ", Dieta=" + Dieta + ", carboidrato=" + carboidrato + ", proteina=" + proteina + ", gordura=" + gordura + ", calorias=" + caloria + ", nomeRefeicao=" + nome + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
     }
     
-    //EQUALS E HASH CODE - PRECISO DA DIETA (MATHEUS)
+    //EQUALS E HASH CODE
     @Override
     public int hashCode() {
         int hash = 7;

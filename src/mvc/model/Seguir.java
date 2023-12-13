@@ -13,15 +13,17 @@ import java.util.Objects;
  */
 public class Seguir {
     //id, pessoa origem, pessoa seguindo, dataCriacao, dataModificacao
-    private final long id;
-    private static long serial;
+    private long id;
     private Pessoa pessoaOrigem;  //DIOGO
     private Pessoa pessoaSeguindo; //MATHEUS, ALE
-    private final LocalDate dataCriacao;
+    private LocalDate dataCriacao;
     private LocalDate dataModificacao;
+    
+    public Seguir(){
+        
+    }
 
     public Seguir(Pessoa pessoaOrigem, Pessoa pessoaSeguindo) {
-        this.id = ++serial;
         this.pessoaOrigem = pessoaOrigem;
         this.pessoaSeguindo = pessoaSeguindo;
         this.dataCriacao = LocalDate.now();
@@ -32,8 +34,8 @@ public class Seguir {
         return id;
     }
 
-    public String getSerial() {
-        return "Atualmente há " + serial + "seguidores no sistema";
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Pessoa getPessoaOrigem() {
@@ -54,6 +56,10 @@ public class Seguir {
 
     public LocalDate getDataCriacao() {
         return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public LocalDate getDataModificacao() {

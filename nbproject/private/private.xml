@@ -3,13 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/view/GUI.java</file>
-            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/AlimentoDAO.java</file>
-            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/PessoaDAO.java</file>
-            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/controller/Programa.java</file>
-            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/Preferencias.java</file>
-            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/AvaliacaoDAO.java</file>
-            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/PreferenciasDAO.java</file>
+            <file>file:/E:/Trabalho_POO-develop/src/mvc/model/DietaDAO.java</file>
         </group>
     </open-files>
 </project-private>

@@ -20,6 +20,7 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  *
@@ -53,9 +54,9 @@ public class AlimentoDAO {
     
     //ADICIONAR
     public void adicionar(Alimento alimento){
-                sql = "insert into alimento"
-                + " (nome, carboidrato, proteina, gordura, caloria, porcao, idPessoa, dataCriacao, dataModificacao)"
-                + " values (?,?,?,?,?,?,?,?,?)";
+        sql = "insert into alimento"
+        + " (nome, carboidrato, proteina, gordura, caloria, porcao, idPessoa, dataCriacao, dataModificacao)"
+        + " values (?,?,?,?,?,?,?,?,?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -157,12 +158,13 @@ public class AlimentoDAO {
     
     //BUSCAR NOME
     public Alimento buscarNome(String nome){
-                sql = "select * from alimento where nome = ?";
+                sql = "select * from alimento where nome = ? where idPessoa = ?";
         
         try(Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql);){
             
             ps.setString(1, nome);
+            ps.setLong(2, login.getPessoaLogada().getId());
             try(ResultSet rs = ps.executeQuery()){
                 a = new Alimento();
                 
@@ -262,10 +264,10 @@ public class AlimentoDAO {
                 append("\n Carboidratos: ").append(alimento.getCarboidrato()).
                 append("\n Proteinas: ").append(alimento.getProteina()).
                 append("\n Gorduras: ").append(alimento.getGordura()).
-                append("\n Calorias: ").append(alimento.getCaloria()).
+                append("\n Calorias: ").append(String.format(Locale.US, "%.2f", alimento.getCaloria())).
                 append("\n Data de Criacao: ").append(alimento.getDataCriacao()).
                 append("\n Data de Modificacao: ").append(alimento.getDataModificacao()).
-                append("\n ========================================");
+                append("\n========================================");
             }
         }
         return sb.toString();

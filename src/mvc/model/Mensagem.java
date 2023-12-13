@@ -13,8 +13,7 @@ import java.util.Objects;
 PESSOA ORIGEM, PESSOA DESTINO, MENSAGEM,
 DATACRIACAO, DATAMODIFICACAO.*/
 public class Mensagem {
-    private static long serial;
-    private final long id;
+    private long id;
     private Pessoa pessoaOrigem;
     private Pessoa pessoaDestino;
     private String mensagem;
@@ -25,8 +24,8 @@ public class Mensagem {
         return id;
     }
 
-    public String getSerial() {
-        return "Atualmente há " + serial + "mensagens no sistema";
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Pessoa getPessoaOrigem() {
@@ -68,9 +67,12 @@ public class Mensagem {
     public void setDataModificacao(LocalDate dataModificacao) {
         this.dataModificacao = dataModificacao;
     }
-
+    
+    public Mensagem(){
+        
+    }
+    
     public Mensagem(Pessoa pessoaOrigem, Pessoa pessoaDestino, String mensagem) {
-        this.id = ++serial;
         this.pessoaOrigem = pessoaOrigem;
         this.pessoaDestino = pessoaDestino;
         this.mensagem = mensagem;
@@ -123,7 +125,7 @@ public class Mensagem {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n =========== MENSAGENS ===========");
+        sb.append("\n =========== MENSAGEM ===========");
 
         sb.append("\n ID: ").append(id).
         append("\n Remetente: ").append(pessoaOrigem.getNome()).

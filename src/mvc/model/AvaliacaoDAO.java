@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
 public class AvaliacaoDAO {
     List<Avaliacao> avaliacoes;
     private final Login login = new Login();
-    private PessoaDAO pessoaDAO;
+    private final PessoaDAO pessoaDAO;
     private String sql;
     private Avaliacao a;
 
@@ -34,8 +35,8 @@ public class AvaliacaoDAO {
     //ADICIONAR
     public final void adicionar(Avaliacao avaliacao){
         sql = "insert into avaliacao"
-                + " (idPessoa, peso, altura, idade, pescoco, cintura, quadril, imc, tmb, bf, massaGorda, massaMagra, dataCriacao, dataModificacao)"
-                + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + " (idPessoa, peso, altura, idade, pescoco, cintura, quadril, imc, tmb, bf, estadoBf, massaGorda, massaMagra, dataCriacao, dataModificacao)"
+                + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -50,11 +51,12 @@ public class AvaliacaoDAO {
             ps.setDouble(8, avaliacao.getImc());
             ps.setDouble(9, avaliacao.getTmb());
             ps.setDouble(10, avaliacao.getBf());
-            ps.setDouble(11, avaliacao.getMassaGorda());
-            ps.setDouble(12, avaliacao.getMassaMagra());   
+            ps.setString(11, avaliacao.getEstadoBf());
+            ps.setDouble(12, avaliacao.getMassaGorda());
+            ps.setDouble(13, avaliacao.getMassaMagra());   
             
-            ps.setDate(13, java.sql.Date.valueOf(avaliacao.getDataCriacao()));
-            ps.setDate(14, java.sql.Date.valueOf(avaliacao.getDataModificacao()));
+            ps.setDate(14, java.sql.Date.valueOf(avaliacao.getDataCriacao()));
+            ps.setDate(15, java.sql.Date.valueOf(avaliacao.getDataModificacao()));
             
             ps.execute();
             
@@ -84,7 +86,7 @@ public class AvaliacaoDAO {
     
     //ALTERAR
     public void alterar(long idAvaliacao, Avaliacao avaliacaoNova){
-        sql = "update avaliacao set idPessoa = ?, peso = ?, altura = ?, idade = ?, pescoco = ?, cintura = ?, quadril = ?, imc = ?, tmb = ?, bf = ?, massaGorda = ?, massaMagra = ?, dataModificacao = ?"
+        sql = "update avaliacao set idPessoa = ?, peso = ?, altura = ?, idade = ?, pescoco = ?, cintura = ?, quadril = ?, imc = ?, tmb = ?, bf = ?, estadoBf = ?, massaGorda = ?, massaMagra = ?, dataModificacao = ?"
                 + " where id = ?";
         
         try(Connection connection = new ConnectionFactory().getConnection();
@@ -100,10 +102,11 @@ public class AvaliacaoDAO {
             ps.setDouble(8, avaliacaoNova.getImc());
             ps.setDouble(9, avaliacaoNova.getTmb());
             ps.setDouble(10, avaliacaoNova.getBf());
-            ps.setDouble(11, avaliacaoNova.getMassaGorda());
-            ps.setDouble(12, avaliacaoNova.getMassaMagra());   
-            ps.setDate(13, java.sql.Date.valueOf(avaliacaoNova.getDataModificacao()));
-            ps.setLong(14, idAvaliacao);
+            ps.setString(11, avaliacaoNova.getEstadoBf());
+            ps.setDouble(12, avaliacaoNova.getMassaGorda());
+            ps.setDouble(13, avaliacaoNova.getMassaMagra());   
+            ps.setDate(14, java.sql.Date.valueOf(avaliacaoNova.getDataModificacao()));
+            ps.setLong(15, idAvaliacao);
             
             ps.execute();
             
@@ -136,6 +139,7 @@ public class AvaliacaoDAO {
                     a.setImc(rs.getDouble("imc"));
                     a.setTmb(rs.getDouble("tmb"));
                     a.setBf(rs.getDouble("bf"));
+                    a.setEstadoBf(rs.getString("estadoBF"));
                     a.setMassaGorda(rs.getDouble("massaGorda"));
                     a.setMassaMagra(rs.getDouble("massaMagra"));
                     a.setDataCriacao((rs.getDate("dataCriacao").toLocalDate()));
@@ -177,12 +181,14 @@ public class AvaliacaoDAO {
                 a.setPessoa(pessoaDAO.buscar(rs.getLong("idPessoa")));
                 a.setPeso(rs.getDouble("peso"));
                 a.setAltura(rs.getDouble("altura"));
+                a.setIdade(rs.getInt("idade"));
                 a.setPescoco(rs.getDouble("pescoco"));
                 a.setCintura(rs.getDouble("cintura"));
                 a.setQuadril(rs.getDouble("quadril"));
                 a.setImc(rs.getDouble("imc"));
                 a.setTmb(rs.getDouble("tmb"));
                 a.setBf(rs.getDouble("bf"));
+                a.setEstadoBf(rs.getString("estadoBF"));
                 a.setMassaGorda(rs.getDouble("massaGorda"));
                 a.setMassaMagra(rs.getDouble("massaMagra"));
                 a.setDataCriacao((rs.getDate("dataCriacao").toLocalDate()));
@@ -200,7 +206,7 @@ public class AvaliacaoDAO {
     public String toString() {
         listar();
         StringBuilder sb = new StringBuilder();
-        sb.append("====== AVALIACOES ======");
+        sb.append("\n ======== AVALIACOES ========");
         for (Avaliacao avaliacao : avaliacoes) {
            if(avaliacao != null && avaliacao.getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append(avaliacao.getId()).
@@ -210,9 +216,12 @@ public class AvaliacaoDAO {
                 append("\n Pescoco: ").append(avaliacao.getPescoco()).
                 append("\n Cintura ").append(avaliacao.getCintura()).
                 append("\n Quadril: ").append(avaliacao.getQuadril()).
-                append("\n IMC: ").append(avaliacao.getImc()).
-                append("\n TMB: ").append(avaliacao.getTmb()).
-                append("\n BF: ").append(avaliacao.getBf()).
+                append("\n IMC: ").append(String.format(Locale.US, "%.6f", avaliacao.getImc())).
+                append("\n TMB: ").append(String.format(Locale.US, "%.2f", avaliacao.getTmb())).
+                append("\n BF: ").append(String.format(Locale.US, "%.2f", avaliacao.getBf())).
+                append("\n Estado BF: ").append(avaliacao.getEstadoBf()).
+                append("\n Massa Magra: ").append(String.format(Locale.US, "%.2f", avaliacao.getMassaMagra())).
+                append("\n Massa Gorda: ").append(String.format(Locale.US, "%.2f", avaliacao.getMassaGorda())).
                 append("\n Data de Criacao: ").append(avaliacao.getDataCriacao()).
                 append("\n Data de Modificacao: ").append(avaliacao.getDataModificacao()).
                 append("\n ========================================");

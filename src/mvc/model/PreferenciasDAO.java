@@ -7,13 +7,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author User
  */
 public class PreferenciasDAO {
-    Preferencias preferencias[] = new Preferencias[10];
+    List<Preferencias> preferencias;
     private final Login login = new Login();
     private int aux;
     private String sql;
@@ -124,45 +126,99 @@ public class PreferenciasDAO {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Não foi possível buscar a preferência!", e);
+            throw new RuntimeException("Nao foi possível buscar a preferencia!", e);
         }
     }
 
     
-    public Preferencias buscarNaoNulo(int j){
-        aux = 0;
-        for (Preferencias preferencia : preferencias) {
-            if(preferencia != null){
-               aux++;
-               if(j == aux){
-                   return preferencia;
-               }
+        public Preferencias buscarNaoNulo(int indice) {
+        sql = "SELECT * FROM preferencias";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            try (ResultSet rs = ps.executeQuery()) {
+                int contador = 0;
+
+                while (rs.next()) {
+                    contador++;
+
+                    if (contador == indice) {
+                        p = new Preferencias();
+                        p.setId(rs.getLong("id"));
+                        p.setPessoa(pessaoDAO.buscar(rs.getInt("idPessoa")));
+                        p.setDataCriacao(rs.getDate("dataCriacao").toLocalDate());
+                        p.setDataModificacao(rs.getDate("dataModificacao").toLocalDate());
+                        p.setAlimento(alimentoDAO.buscar(rs.getLong("idAlimento")));
+                        return p;
+                    }
+                }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro na busca de Preferências!", e);
         }
-        return preferencias[aux];
+
+        return null; // Retorna null se não encontrar a preferência
     }
 
-    //É vazio
-    public boolean isVazio(){
-        for(Preferencias preferencia : preferencias) {
-            if (preferencia != null){
-                return false;
+    public boolean isVazio() {
+        sql = "SELECT COUNT(*) FROM preferencias";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                int totalRegistros = rs.getInt(1);
+                return totalRegistros == 0;
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao verificar se a tabela de preferências está vazia!", e);
         }
+
         return true;
+    }
+   
+     public List<Preferencias> listar(){
+        sql = "select * from preferencias";
+
+        preferencias = new ArrayList();
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery(sql)) {
+
+            while(rs.next()) {
+                p = new Preferencias();
+                
+                p.setId(rs.getLong("id"));
+                p.setPessoa(pessaoDAO.buscar(rs.getInt("idPessoa")));
+                p.setDataCriacao(rs.getDate("dataCriacao").toLocalDate());
+                p.setDataModificacao(rs.getDate("dataModificacao").toLocalDate());
+                p.setAlimento(alimentoDAO.buscar(rs.getLong("idAlimento")));
+                
+                preferencias.add(p);
+            }
+        } catch (SQLException e) {
+             throw new RuntimeException("Erro na Listagem!",e);
+        }
+
+        return preferencias;
     }
     
     @Override
     public String toString(){
+        listar();
         StringBuilder sb = new StringBuilder();
-        sb.append("====== PREFERENCIAS ======");
+        sb.append("\n ====== PREFERENCIAS ======");
         for(Preferencias preferencia : preferencias) {
             if(preferencia != null && preferencia.getPessoa().equals(login.getPessoaLogada())){
                 sb.append("\n ID: ").append(preferencia.getId()).
-                append("\n Alimento: ").append(preferencia.getAlimento()).
+                append("\n Alimento: ").append(preferencia.getAlimento().getNome()).
                 append("\n\n Data de Criacao: ").append(preferencia.getDataCriacao()).
                 append("\n Data de Modificacao: ").append(preferencia.getDataModificacao()).
-                append("\n ======================================== \n\n");
+                append("\n ================================== \n\n");
             }
         }
         return sb.toString();

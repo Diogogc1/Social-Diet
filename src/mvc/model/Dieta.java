@@ -15,19 +15,21 @@ public class Dieta {
     /*id, pessoa, avaliacao fisica,  tipo dieta, objetivo, 
     caloria, nro refeicoes, dataCriacao, dataModificacao.*/
     
-    private final long id;
-    private static long serial;
-    private final Pessoa pessoa;
+    private long id;
+    private Pessoa pessoa;
     private Avaliacao avaliacao;
     private TipoDieta tipoDieta;
     private String objetivo;
     private double caloria;
     private int numeroRefeicoes;
-    private final LocalDate dataCriacao;
-    private final LocalDate dataModificacao;
+    private LocalDate dataCriacao;
+    private LocalDate dataModificacao;
+    
+    public Dieta(){
+        
+    }
 
     public Dieta(Pessoa pessoa, Avaliacao avaliacao, TipoDieta tipoDieta, String objetivo, double calorias, int numeroRefeicoes) {
-        id = ++serial;
         this.pessoa = pessoa;
         this.avaliacao = avaliacao;
         this.tipoDieta = tipoDieta;
@@ -61,12 +63,16 @@ public class Dieta {
         return id;
     }
     
-    public String getSerial() {
-        return "Atualmente há " + serial + "dietas no sistema";
+    public void setId(Long id) {
+        this.id = id;
     }
-
+    
     public Pessoa getPessoa() {
         return pessoa;
+    }
+    
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
     public Avaliacao getAvaliacao() {
@@ -112,13 +118,20 @@ public class Dieta {
     public LocalDate getDataCriacao() {
         return dataCriacao;
     }
+    
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 
     public LocalDate getDataModificacao() {
         return dataModificacao;
     }   
     
+    public void setDataModificacao(LocalDate dataModificacao) {
+        this.dataModificacao = dataModificacao;
+    }
+    
     //TO STRING
-
     @Override
     public String toString() {
         return "Dieta{" + "id=" + id + ", pessoa=" + pessoa + ", avaliacao=" + avaliacao + ", tipoDieta=" + tipoDieta + ", objetivo=" + objetivo + ", calorias=" + caloria + ", numeroRefeicoes=" + numeroRefeicoes + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';

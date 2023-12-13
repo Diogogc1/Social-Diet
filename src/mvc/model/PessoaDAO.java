@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -171,6 +170,8 @@ public class PessoaDAO {
                     p.setDataDeNascimento((rs.getDate("dataNascimento").toLocalDate()));
                     p.setEmail(rs.getString("email"));
                     p.setSenha(rs.getString("senha"));
+                    p.setDataCriacao(rs.getDate("dataCriacao").toLocalDate());
+                    p.setDataModificacao(rs.getDate("dataModificacao").toLocalDate());
                 }else{
                     throw new SQLException();
                 }

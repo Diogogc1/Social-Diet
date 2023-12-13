@@ -18,6 +18,7 @@ import mvc.model.Mensagem;
 import mvc.model.MensagemDAO;
 import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
+import mvc.model.Post;
 import mvc.model.PostDAO;
 import mvc.model.Preferencias;
 import mvc.model.PreferenciasDAO;
@@ -65,13 +66,13 @@ public class Programa {
     private final AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO(pessoaDAO);
     private final AlimentoDAO alimentoDAO = new AlimentoDAO(pessoaDAO);
     private final TipoDietaDAO tipoDietaDAO = new TipoDietaDAO();
-    private final DietaDAO dietaDAO = new DietaDAO(login.getPessoaLogada(), avaliacaoDAO, tipoDietaDAO);
-    private final RefeicaoDAO refeicaoDAO = new RefeicaoDAO(dietaDAO, login.getPessoaLogada());
-    private final AlimentoRefeicoesDAO alimentoRefeicoesDAO = new AlimentoRefeicoesDAO();
+    private final DietaDAO dietaDAO = new DietaDAO(pessoaDAO, avaliacaoDAO, tipoDietaDAO);
+    private final RefeicaoDAO refeicaoDAO = new RefeicaoDAO(dietaDAO);
+    private final AlimentoRefeicoesDAO alimentoRefeicoesDAO = new AlimentoRefeicoesDAO(alimentoDAO, refeicaoDAO);
     private final PreferenciasDAO preferenciasDAO = new PreferenciasDAO(alimentoDAO, pessoaDAO);
-    private final PostDAO postDAO = new PostDAO(login.getPessoaLogada());
-    private final MensagemDAO mensagemDAO = new MensagemDAO();
-    private final SeguirDAO seguirDAO = new SeguirDAO();
+    private final PostDAO postDAO = new PostDAO(pessoaDAO);
+    private final MensagemDAO mensagemDAO = new MensagemDAO(pessoaDAO);
+    private final SeguirDAO seguirDAO = new SeguirDAO(pessoaDAO, postDAO);
     
     public Programa() {
         menuInicial();
@@ -251,11 +252,7 @@ public class Programa {
                     if(tipoDieta == null){
                         System.out.println("Opcao Invalida!");
                     }else{
-                        if(dietaDAO.adicionar(gui.cadastrarDieta(login.getPessoaLogada(), avaliacaoDAO, tipoDieta))){
-                            System.out.println("\n Dieta adicionada com sucesso!");
-                        }else{
-                            System.out.println("\n ERRO - Dieta nao adicionada!");
-                        }
+                        dietaDAO.adicionar(gui.cadastrarDieta(login.getPessoaLogada(), avaliacaoDAO, tipoDieta));
                     }
                 }
                 
@@ -298,6 +295,9 @@ public class Programa {
                 }
                 //CADASTAR REFEICOES
                 case 2 -> {
+                    preferenciasDAO.listar();
+                    alimentoDAO.listar();
+                    refeicaoDAO.listar();
                     dietaEscolhida = gui.escolheDieta(dietaDAO);
                     contRefeicao = refeicaoDAO.numeroDeRefeicaoDaDieta(dietaEscolhida);
 
@@ -322,6 +322,10 @@ public class Programa {
                 }
                 //GERAR REFEIÇÕES AUTOMÁTICAS
                 case 3 -> {
+                    preferenciasDAO.listar();
+                    alimentoDAO.listar();
+                    refeicaoDAO.listar();
+                    alimentoRefeicoesDAO.listar();
                     dietaEscolhida = gui.escolheDieta(dietaDAO);
                     contRefeicao = refeicaoDAO.numeroDeRefeicaoDaDieta(dietaEscolhida);
                     
@@ -329,16 +333,23 @@ public class Programa {
                         while(!refeicaoDAO.bateuMetaDieta(dietaEscolhida) && contRefeicao < dietaEscolhida.getNumeroRefeicoes()) {
                             refeicaoNova = gui.cadastrarRefeicao(dietaEscolhida);
                             refeicaoDAO.adicionar(refeicaoNova);
-
+                            refeicaoNova = refeicaoDAO.buscarNome(refeicaoNova.getNomeDaRefeicao());
                             for(int j = 1; !alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova); j++){
                                 alimentoRefeicoesNovo = alimentoRefeicoesDAO.cadastrarAutomaticoAlimentoRefeicoes(refeicaoNova, j, preferenciasDAO);
+                                if(preferenciasDAO.buscarNaoNulo(j) == null){
+                                    j = 1;
+                                }
                                 alimentoCadastrado = preferenciasDAO.buscarNaoNulo(j).getAlimento();
                                 if(alimentoCadastrado == null){
                                     j = 1;
                                     alimentoCadastrado = preferenciasDAO.buscarNaoNulo(j).getAlimento();
                                 }
                                 
-                                alimentoRefeicoesDAO.adicionar(alimentoRefeicoesNovo);
+                                if(alimentoRefeicoesNovo != null){
+                                    alimentoRefeicoesDAO.adicionar(alimentoRefeicoesNovo);
+                                }else{
+                                    j = 1;
+                                }
                             }
                             contRefeicao++;
                         }
@@ -350,8 +361,8 @@ public class Programa {
                 //VER ALIMENTOS QUE ESTÃO NA REFEIÇÃO
                 case 4 -> {
                     refeicaoEscolhida = gui.escolherRefeicao(refeicaoDAO, login.getPessoaLogada());
-                    alimentoRefeicoesBuscado = alimentoRefeicoesDAO.buscarAlimentosDeUmaRefeicao(refeicaoEscolhida, 0);
-                    for (int i = 1; alimentoRefeicoesBuscado != null; i++) {
+                    alimentoRefeicoesBuscado = alimentoRefeicoesDAO.buscarAlimentosDeUmaRefeicao(refeicaoEscolhida, 1);
+                    for (int i = 2; alimentoRefeicoesBuscado != null; i++) {
                         System.out.println(alimentoRefeicoesBuscado);
                         alimentoRefeicoesBuscado = alimentoRefeicoesDAO.buscarAlimentosDeUmaRefeicao(refeicaoEscolhida, i);
                     }
@@ -389,14 +400,16 @@ public class Programa {
         do{
             switch(gui.menuAvaliacao()){
                 case 1 ->{
-                   avaliacaoNova = gui.fazerAvaliacao(login.getPessoaLogada());
-                   avaliacaoNova.setImc(avaliacaoNova.calcularImc());
-                   avaliacaoNova.setTmb(avaliacaoNova.calcularTmb(avaliacaoNova.obterTaxaAtvd(gui.praticaExercicios())));
-                   avaliacaoNova.setBf(avaliacaoNova.calcularBf());
+                    avaliacaoNova = gui.fazerAvaliacao(login.getPessoaLogada());
+                    avaliacaoNova.setImc(avaliacaoNova.calcularImc());
+                    avaliacaoNova.setTmb(avaliacaoNova.calcularTmb(avaliacaoNova.obterTaxaAtvd(gui.praticaExercicios())));
+                    avaliacaoNova.setBf(avaliacaoNova.calcularBf());
+                    avaliacaoNova.setMassaMagra(avaliacaoNova.calcularMagra());
+                    avaliacaoNova.setMassaGorda(avaliacaoNova.calcularGorda());
 
-                   //MOSTRAR RELATÓRIO
-                   System.out.println(avaliacaoNova);
-                   avaliacaoDAO.adicionar(avaliacaoNova);                  
+                    //MOSTRAR RELATÓRIO
+                    System.out.println(avaliacaoNova);
+                    avaliacaoDAO.adicionar(avaliacaoNova);                  
                 }
                 case 2 ->{
                     System.out.print(avaliacaoDAO.buscar(gui.buscarAvaliacao()));
@@ -457,7 +470,9 @@ public class Programa {
             switch(gui.menuPostFit()){
                 //TIMELINE
                 case 1 ->{
-                    System.out.println(seguirDAO.timeline(login.getPessoaLogada(), postDAO));
+                    for (Post post : postDAO.listar()) {
+                        System.out.println(post);
+                    }
                 }
                 //MENSAGEM
                 case 2 ->{
@@ -519,11 +534,7 @@ public class Programa {
                     System.out.println(mensagemDAO);
                 }
                 case 2 ->{
-                    if(mensagemDAO.adicionar(gui.mandarMensagem(login.getPessoaLogada(), seguirDAO, pessoaDAO))){
-                        System.out.println("\n Mensagem enviada com sucesso!");
-                    }else{
-                        System.out.println("\n ERRO! Mensagem não enviada!");
-                    }
+                    mensagemDAO.adicionar(gui.mandarMensagem(login.getPessoaLogada(), seguirDAO, pessoaDAO));
                 }
                 case 3 ->{
                     System.out.print(mensagemDAO.buscar(gui.buscarMensagem(mensagemDAO)));

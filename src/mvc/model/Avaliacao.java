@@ -6,6 +6,7 @@ package mvc.model;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.lang.Math;
+import java.util.Locale;
 import java.util.Objects;
 /**
  *
@@ -28,6 +29,7 @@ public class Avaliacao {
     private double imc;
     private double tmb;
     private double bf;
+    private String estadoBf;
     private double massaGorda;
     private double massaMagra;
     private LocalDate dataCriacao;
@@ -122,6 +124,14 @@ public class Avaliacao {
         this.bf = bf;
     }
 
+    public String getEstadoBf() {
+        return estadoBf;
+    }
+
+    public void setEstadoBf(String estadoBf) {
+        this.estadoBf = estadoBf;
+    }
+
     public double getMassaGorda() {
         return massaGorda;
     }
@@ -214,11 +224,10 @@ public class Avaliacao {
     FÓRMULA PARA MULHERES: TMB = FATOR DA TAXA DE ATIVIDADE X {655 +
     [(9,6 X PESO(KG)) + (1,8 X ALTURA(CM)) – (4,7 X IDADE(ANOS))]}*/
     public double calcularTmb(double taxaAtvd){
-        
-        if("1".equals(this.pessoa.getSexo())){
+        if("Masculino".equals(this.pessoa.getSexo())){
             this.tmb = taxaAtvd * (66.0 + (13.7 * this.peso) + (5.0 * this.altura) - (6.8 * this.idade));
             
-        }else if("2".equals(this.pessoa.getSexo())) {
+        }else if("Feminino".equals(this.pessoa.getSexo())) {
             this.tmb = taxaAtvd * (655 + (9.6 * this.peso) + (1.8 * this.altura) - (4.7 * this.idade));
             
         }
@@ -234,12 +243,12 @@ public class Avaliacao {
     70.041 X LOG10 (ALTURA) + 36.76*/
     public final double calcularBf(){
         
-        if("1".equals(this.pessoa.getSexo())){
+        if("Masculino".equals(this.pessoa.getSexo())){
             
             this.bf = 86.010 * Math.log10(this.cintura - this.pescoco)
-            - 70.41 * Math.log10(this.altura) + 36.76;
+            - 70.041 * Math.log10(this.altura) + 36.76;
             
-        }else if("2".equals(this.pessoa.getSexo())) {
+        }else if("Feminino".equals(this.pessoa.getSexo())) {
             
             this.bf = 163.205 * Math.log10(this.cintura +
             this.quadril - this.pescoco) - 97.684 *
@@ -261,7 +270,8 @@ public class Avaliacao {
     
     public double calcularMagra(){
         
-        this.massaMagra = this.peso - (this.bf / 100 * this.peso);
+        //this.massaMagra = this.peso - (this.bf / 100 * this.peso);
+        this.massaMagra = this.peso * (1 - this.bf / 100);
         
         return this.massaMagra;
     }
@@ -271,9 +281,9 @@ public class Avaliacao {
     
     //ESTUDAR FOR PARA IMPLEMENTAR
     public String interpretarBf(){
-        String estadoBf = "";
+        estadoBf = "";
         
-        if ("1".equals(pessoa.getSexo())){
+        if ("Masculino".equals(pessoa.getSexo())){
             if (this.idade >= 20 && this.idade <=29){
                 if(this.bf < 11){
                     estadoBf = "Atleta";
@@ -324,7 +334,7 @@ public class Avaliacao {
                 }
             }
             
-        }else if ("2".equals(pessoa.getSexo())){
+        }else if ("Feminino".equals(pessoa.getSexo())){
             if (this.idade >= 20 && this.idade <=29){
                 if(this.bf < 16){
                     estadoBf = "Atleta";
@@ -386,22 +396,23 @@ public class Avaliacao {
     @Override
     public String toString() {
         
-        String estadoBf = interpretarBf();
+        estadoBf = interpretarBf();
         
         //RELATÓRIO FINAL
         StringBuilder sb = new StringBuilder();
                 sb.append("\n ====== RELATORIO DA AVALIACAO ======").
-                append("\n ID: ").append(this.id).
                 append("\n Peso: ").append(this.peso).
                 append("\n Altura: ").append(this.altura).
                 append("\n Idade: ").append(this.idade).
                 append("\n Pescoco: ").append(this.pescoco).
                 append("\n Cintura: ").append(this.cintura).
                 append("\n Quadril: ").append(this.quadril).
-                append("\n IMC: ").append(this.imc).
-                append("\n TMB: ").append(this.tmb).
-                append("\n BF: ").append(this.bf).
+                append("\n IMC: ").append(String.format(Locale.US, "%.2f", this.imc)).
+                append("\n TMB: ").append(String.format(Locale.US, "%.2f", this.tmb)).
+                append("\n BF: ").append(String.format(Locale.US, "%.2f", this.bf)).
                 append("\n Estado BF: ").append(estadoBf).
+                append("\n Massa Magra: ").append(String.format(Locale.US, "%.2f", this.massaMagra)).
+                append("\n Massa Gorda: ").append(String.format(Locale.US, "%.2f", this.massaGorda)).
                 append("\n ========================================");
         return sb.toString();
     }

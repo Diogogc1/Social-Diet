@@ -15,8 +15,7 @@ INFORMAÇÕES (DIETA, FOTO DAS REFEIÇÕES, RESULTADOS OU QUAISQUER
 COISAS QUE A PESSOA QUISER). INFORMAÇÕES IMPORTANTES: ID, PESSOA,
 CONTEUDO DA MENSAGEM, DATACRIACAO, DATAMODIFICACAO.*/
 public class Post {
-    private static long serial;
-    private final long id;
+    private long id;
     private Pessoa pessoa;
     private String conteudoMensagem;
     private LocalDate dataCriacao;
@@ -27,8 +26,8 @@ public class Post {
         return id;
     }
 
-    public String getSerial() {
-        return "Atualmente há " + serial + "posts no sistema";
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Pessoa getPessoa() {
@@ -63,9 +62,12 @@ public class Post {
         this.dataModificacao = dataModificacao;
     }
     
+    public Post(){
+        
+    }
+    
     //CONSTRUTOR
     public Post(Pessoa pessoa, String conteudoMensagem) {
-        this.id = ++serial;
         this.pessoa = pessoa;
         this.conteudoMensagem = conteudoMensagem;
         this.dataCriacao = LocalDate.now();
@@ -112,7 +114,17 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" + "id=" + id + ", pessoa=" + pessoa + ", conteudoMensagem=" + conteudoMensagem + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n =========== POST ===========");
+
+        sb.append("\n ID: ").append(id).
+        append("\n Pessoa que publicou: ").append(pessoa.getNome()).
+        append("\n Mensagem: ").append(conteudoMensagem). 
+        append("\n Data de Criacao: ").append(dataCriacao).
+        append("\n Data de Modificacao: ").append(dataModificacao).
+        append("\n =================================");
+
+        return sb.toString();
     }
     
 }
