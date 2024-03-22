@@ -104,6 +104,7 @@ public class SeguirDAO {
                 s = new Seguir();
                 
                 if(rs.next()){
+                    s.setId(rs.getLong("id"));
                     s.setPessoaOrigem(pessoaDAO.buscar(rs.getLong("idPessoaOrigem")));
                     s.setPessoaSeguindo(pessoaDAO.buscar(rs.getLong("idPessoaSeguindo")));
                     s.setDataCriacao(rs.getDate("dataCriacao").toLocalDate());

@@ -639,6 +639,7 @@ public class GUI {
     
     public int menuSeguir(){
         System.out.println("""
+                           
                             \u001B[34m====== SEGUIR ======
 
                             1. Ver seguidores

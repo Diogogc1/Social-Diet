@@ -306,11 +306,13 @@ public class Programa {
                         
                         refeicaoNova = gui.cadastrarRefeicao(dietaEscolhida);
                         refeicaoDAO.adicionar(refeicaoNova);
+                        refeicaoNova = refeicaoDAO.buscarNome(refeicaoNova.getNomeDaRefeicao());
 
                         while(!alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova)){
                             alimentoEscolhido = gui.escolherAlimentosRefeicoes(alimentoDAO);
                             alimentoRefeicoesNovo = gui.cadastrarAlimentosRefeicoes(alimentoEscolhido, refeicaoNova);
                             alimentoRefeicoesDAO.adicionar(alimentoRefeicoesNovo);
+                            alimentoRefeicoesDAO.listar();
                         }
                         System.out.println("\n\n O numero maximo de alimentos da refeicao foi atingido!");
                         contRefeicao++;
@@ -559,7 +561,7 @@ public class Programa {
                     seguirDAO.adicionar(gui.seguir(login.getPessoaLogada(), pessoaDAO));
                 }
                 case 3 ->{
-                    System.out.print(seguirDAO.buscar(gui.buscarSeguidor()));
+                    System.out.print(seguirDAO.buscar(gui.buscarSeguidor()).getPessoaSeguindo());
                 }
                 case 4 ->{
                     seguirDAO.alterar(gui.alterarSeguidor(seguirDAO), gui.seguir(login.getPessoaLogada(), pessoaDAO));

@@ -39,8 +39,8 @@ public class AlimentoRefeicoesDAO {
     //ADICIONAR - PERCORRE O VETOR E PROCURA UMA POSIÇÃO VAZIA PARA ADICIONAR
     public void adicionar(AlimentoRefeicoes alimentoRefeicao){
         sql = "insert into alimentorefeicoes"
-        + " (idRefeicao, idAlimento, porcao, carboidrato, proteina, gordura, caloria, dataCriacao, dataModificacao)"
-        + " values (?,?,?,?,?,?,?,?,?)";
+        + "(idRefeicao, idAlimento, porcao, carboidrato, proteina, gordura, caloria, dataCriacao, dataModificacao)"
+        + " values(?,?,?,?,?,?,?,?,?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {

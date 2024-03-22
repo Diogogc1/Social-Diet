@@ -179,7 +179,7 @@ public class RefeicaoDAO {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    cont++;
+                    cont = rs.getInt("numRefeicoes");
                 }
             }
 

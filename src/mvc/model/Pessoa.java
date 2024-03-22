@@ -132,7 +132,7 @@ public class Pessoa {
         append("\n Data de Nascimento: ").append(dataDeNascimento).
         append("\n Data de Criacao: ").append(dataCriacao).
         append("\n Data de modificacao: ").append(dataModificacao).
-        append("\n =================================");
+        append("\n ================================= \n");
 
         return sb.toString();
     }

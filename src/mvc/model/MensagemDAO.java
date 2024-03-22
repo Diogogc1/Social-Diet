@@ -106,6 +106,7 @@ public class MensagemDAO {
                 m = new Mensagem();
                 
                 if(rs.next()){
+                    m.setId(rs.getLong("id"));
                     m.setPessoaOrigem(pessoaDAO.buscar(rs.getLong("pessoaOrigem")));
                     m.setPessoaDestino(pessoaDAO.buscar(rs.getLong("pessoaDestino")));
                     m.setMensagem(rs.getString("mensagem"));
@@ -118,7 +119,7 @@ public class MensagemDAO {
                 return m;
             }  
         }catch(SQLException e){
-            throw new RuntimeException("Não foi possivel buscar o usuario!", e);
+            throw new RuntimeException("Não foi possivel buscar a mensagem!", e);
         }
     }
     
