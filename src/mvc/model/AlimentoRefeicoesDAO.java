@@ -141,6 +141,7 @@ public class AlimentoRefeicoesDAO {
                 while (rs.next()) {
                     ar = new AlimentoRefeicoes();
 
+                    ar.setId(rs.getLong("id"));
                     ar.setRefeicao(refeicaoDAO.buscar(rs.getLong("idRefeicao")));
                     ar.setAlimento(alimentoDAO.buscar(rs.getLong("idAlimento")));
                     ar.setPorcao(rs.getInt("porcao"));

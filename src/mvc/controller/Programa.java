@@ -325,6 +325,7 @@ public class Programa {
                     preferenciasDAO.listar();
                     alimentoDAO.listar();
                     refeicaoDAO.listar();
+                    //DEMORANDO BUSCAR
                     alimentoRefeicoesDAO.listar();
                     dietaEscolhida = gui.escolheDieta(dietaDAO);
                     contRefeicao = refeicaoDAO.numeroDeRefeicaoDaDieta(dietaEscolhida);
@@ -336,20 +337,14 @@ public class Programa {
                             refeicaoNova = refeicaoDAO.buscarNome(refeicaoNova.getNomeDaRefeicao());
                             for(int j = 1; !alimentoRefeicoesDAO.bateuMetaRefeicao(refeicaoNova); j++){
                                 alimentoRefeicoesNovo = alimentoRefeicoesDAO.cadastrarAutomaticoAlimentoRefeicoes(refeicaoNova, j, preferenciasDAO);
-                                if(preferenciasDAO.buscarNaoNulo(j) == null){
-                                    j = 1;
-                                }
-                                alimentoCadastrado = preferenciasDAO.buscarNaoNulo(j).getAlimento();
-                                if(alimentoCadastrado == null){
-                                    j = 1;
-                                    alimentoCadastrado = preferenciasDAO.buscarNaoNulo(j).getAlimento();
-                                }
                                 
                                 if(alimentoRefeicoesNovo != null){
                                     alimentoRefeicoesDAO.adicionar(alimentoRefeicoesNovo);
                                 }else{
                                     j = 1;
                                 }
+                                
+                                alimentoRefeicoesDAO.listar();
                             }
                             contRefeicao++;
                         }

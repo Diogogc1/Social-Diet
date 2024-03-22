@@ -44,6 +44,10 @@ public class AlimentoRefeicoes {
     public long getId() {
         return id;
     }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Refeicao getRefeicao() {
         return refeicao;

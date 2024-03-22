@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Trabalho_POO-develop/src/mvc/model/DietaDAO.java</file>
+            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/Seguir.java</file>
+            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/view/GUI.java</file>
+            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/AlimentoDAO.java</file>
+            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/PessoaDAO.java</file>
+            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/controller/Programa.java</file>
+            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/Post.java</file>
+            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/MensagemDAO.java</file>
+            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/SeguirDAO.java</file>
+            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/PostDAO.java</file>
+            <file>file:/C:/Users/diogo/Documents/GitHub/Trabalho_POO/src/mvc/model/Mensagem.java</file>
         </group>
     </open-files>
 </project-private>
